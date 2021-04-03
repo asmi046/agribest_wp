@@ -66,6 +66,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 		wp_enqueue_script( 'html5', get_template_directory_uri().'/js/html5.js', array(), ALL_VERSION , true); //Модальные окна
 		wp_enqueue_script( 'slick', get_template_directory_uri().'/js/slick.min.js', array(), ALL_VERSION , true); //Слайдер
+		wp_enqueue_script( 'fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js', array(), ALL_VERSION , true); //fancybox
 
 		//wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), ALL_VERSION , true); //Модальные окна
 		//wp_enqueue_script( 'mask', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALL_VERSION , true); //маска для инпутов
@@ -100,6 +101,119 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		}
 	}
 	
+
+	//Добавление "Цитаты" для страниц
+	function page_excerpt() {
+		add_post_type_support('page', array('excerpt'));
+	}
+	add_action('init', 'page_excerpt');
+	
+	
+	// Регистрация кастомного поста
+	
+	add_action( 'init', 'create_taxonomies' );
+	
+	function create_taxonomies(){
+	
+		register_taxonomy('agricat', array('light'), array(
+			'hierarchical'  => true,
+			'labels'        => array(
+				'name'              => "Категория товара",
+				'singular_name'     => "Категория товара",
+				'search_items'      => "Найти категорию товара",
+				'all_items'         => __( 'Все категории' ),
+				'parent_item'       => __( 'Дочерние категории' ),
+				'parent_item_colon' => __( 'Дочерние категории:' ),
+				'edit_item'         => __( 'Редактировать категорию' ),
+				'update_item'       => __( 'Обновить категорию' ),
+				'add_new_item'      => __( 'Добавить новую категорию товара' ),
+				'new_item_name'     => __( 'Имя новой категории товара' ),
+				'menu_name'         => __( 'Категории товара' ),
+			),
+			'description' => "Категория товаров для магазина",
+			'public' => true,
+			'show_ui'       => true,
+			'query_var'     => true,
+			'show_in_rest'  => true,
+			'show_admin_column'     => true,
+		));
+
+	}
+	
+	
+	add_action('init', 'light_custom_init');
+	
+	function light_custom_init(){
+		register_post_type('agriproduct', array(
+			'labels'             => array(
+				'name'               => 'Продукты', // Основное название типа записи
+				'singular_name'      => 'Продукты', // отдельное название записи типа Book
+				'add_new'            => 'Добавить новый',
+				'add_new_item'       => 'Добавить новый товар',
+				'edit_item'          => 'Редактировать товар',
+				'new_item'           => 'Новый товар',
+				'view_item'          => 'Посмотреть товар',
+				'search_items'       => 'Найти товар',
+				'not_found'          =>  'Товаров не найдено',
+				'not_found_in_trash' => 'В корзине товаров не найдено',
+				'parent_item_colon'  => '',
+				'menu_name'          => 'Товары'
+	
+			  ),
+			'taxonomies' => array('agricat'), 
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => true,
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'show_admin_column'        => true,
+			'show_in_quick_edit'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => 5,
+			'supports'           => array('title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats')
+		) );
+	}
+	
+	// _____________________Колонки в таблицу админки
+	
+	add_filter('manage_posts_columns', 'posts_columns', 5);
+	add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
+	 
+	function posts_columns($defaults){
+		$defaults['riv_post_sku'] = __('Артикул');
+		$defaults['riv_post_thumbs'] = __('Миниатюра');
+		$defaults['riv_post_price'] = __('Цена');
+		return $defaults;
+	}
+	 
+	function posts_custom_columns($column_name, $id){
+		
+		
+		if($column_name === 'riv_post_sku'){
+			$SKU_t = get_post_meta(get_the_ID(), "_offer_sku", true);
+			echo empty($SKU_t)?"-":$SKU_t;
+		}
+		
+		if($column_name === 'riv_post_thumbs'){	
+			$img1 = get_the_post_thumbnail_url( get_the_ID(), "thumbnail");
+			
+			if (empty($img1))
+				$img1 = get_bloginfo("template_url")."/img/no-photo.jpg";
+			
+			echo '<img width = "60" src = "'.$img1.'" />';
+		}
+		
+		if($column_name === 'riv_post_price'){
+			$PRICE = get_post_meta(get_the_ID(), "_offer_price", true);
+			echo empty($PRICE)?"0 руб.":$PRICE." руб.";
+		}
+		
+		
+	}
+
 	
 	/* Отправка почты
 		

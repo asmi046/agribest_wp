@@ -4,32 +4,189 @@ function isEmail(email) {
 	return regex.test(email);
 }
 
+
 (function () {
-    jQuery('.reviews__sl').slick({
-        infinite: true,
-        slidesToShow: 2,
+
+    // begin - catalog menu
+    let $catalogBtn = jQuery('.catalog-btn');
+    let $catalogMenu =jQuery('.catalog-menu');
+    let $closeMenuBtn = jQuery('.close-menu__btn');
+    let $body = jQuery('body');
+    let $catalogMenuCaption = jQuery('.menu-caption');
+
+    //    клик по кнопке Каталог в десктопной версии
+    $catalogBtn.on('click', function () {
+        jQuery(this).toggleClass('js__catalog-open');
+        $catalogMenu.toggleClass('catalog-menu-open');
+
+        if (jQuery(window).outerWidth() < 850) {
+            $body.addClass('fixed');
+        } 
+    });
+    
+//    клик по заголовку каталога в версии для смартфонов
+    $catalogMenuCaption.on('click', function(){
+        if(jQuery(window).outerWidth() < 500){
+            jQuery(this).next('ul').slideToggle(300);
+        }
+    })
+
+    //    клик по крестику в меню каталога в мобильной версии
+    $closeMenuBtn.on('click', function () {
+        $catalogMenu.removeClass('catalog-menu-open');
+        $body.removeClass('fixed');
+    });
+
+    //  end - catalog menu
+//    подключаю слайдер
+	jQuery('.brand-sl').slick({
+        slidesToShow: 6,
         slidesToScroll: 1,
         arrows: true,
+        autoplay: true,
         dots: false,
+        autoplaySpeed: 3000,
         responsive: [
             {
-                
-                breakpoint: 750,
-                settings: {  
-                     slidesToShow: 1,
-                    arrows: true,
+                breakpoint: 1100,
+                settings: {
+                    slidesToShow: 5,
                 }
             },
             {
-                breakpoint: 380,
-                settings: { 
-                    slidesToShow: 1,
-                    arrows: false,
+                breakpoint: 999,
+                settings: {
+                    slidesToShow: 4,
                 }
-            }
+            },
+            {
+                breakpoint: 700,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 550,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 450,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
         ]
     });
+//подключаю фансибокс
+	jQuery('.fancybox').fancybox();
+
+    //    input type number
+    (function quantityProducts() {
+        var $quantityArrowMinus = $(".minus");
+        var $quantityArrowPlus = $(".plus");
+        var $quantityNum = $(".quantity");
+
+        $quantityArrowMinus.click(function (e) {
+            e.preventDefault();
+            quantityMinus();
+        });
+        $quantityArrowPlus.click(function (e) {
+            e.preventDefault();
+            quantityPlus();
+        });
+
+        function quantityMinus() {
+            if ($quantityNum.val() > 1) {
+                $quantityNum.val(+$quantityNum.val() - 1);
+            }
+        }
+
+        function quantityPlus() {
+            $quantityNum.val(+$quantityNum.val() + 1);
+        }
+    })();
+
+    //    управление видом каталога
+    let $btnGrid = jQuery('.js__grid');
+    let $btnRow = jQuery('.js__row');
+    let $productBox = jQuery('.product__box');
+    let $viewBox = jQuery('.js__view');
+    
+//    ф-ция делает каталог строками
+    function makeARow() {
+        $productBox.removeClass('product__grid');
+        $productBox.addClass('product__row');
+    }
+//    ф-ция делает каталог сеткой
+    function makeAGrid() {
+        $productBox.removeClass('product__row');
+        $productBox.addClass('product__grid');
+    }
+    
+//    фукнция слежения за отображением переключателя вида каталога товаров в зависимости от расширения
+    function watchView(){
+        if (jQuery(window).outerWidth() < 740) {
+            makeAGrid();
+            $viewBox.hide();
+        } else {
+
+            if (jQuery('.product__row').length) {} else {
+                if (jQuery('.js__view').attr('style') == 'display: none;') {
+                    jQuery('.js__view').attr('style', 'display: flex;')
+                }
+                $viewBox.show();
+                makeAGrid()
+            }
+
+        }
+    }
+    
+    watchView();
+  
+    $btnRow.on('click', function () {
+        makeARow();
+    });
+    $btnGrid.on('click', function () {
+        makeAGrid();
+    });
+    // конец   управление видом каталога 
+
+//    функция адаптации шапки сайта
+    function headerTransformMobile() {
+        if ($(window).outerWidth() < 850) {
+            let mailLogo = $('.logo').delay();
+            let headerTop = $('.header__top .inner');
+            headerTop.prepend(mailLogo);
+
+            let storeMenu = $('.store-menu__wr');
+            let catalogMenu = $('.catalog-menu');
+            catalogMenu.append(storeMenu);
+            
+        } else {
+            if ($('.header__top .logo').length) {
+                let mailLogo = $('.logo').delay();
+                $('.header__middle .inner').prepend(mailLogo);
+                
+                let storeMenu = $('.store-menu__wr');
+                $('.header__top .inner').prepend(storeMenu);
+            }
+        }
+    }
+    
+    headerTransformMobile()
+    $(window).resize(function () {
+        watchView();
+        headerTransformMobile(); 
+        if($(window).outerWidth() >= 500){
+            console.log('Вали инлафные стили!')
+            $('.catalog-menu ul').removeAttr('style'); //чищу инлайновые стили которые могли остаться у внутренних меню каталога
+        }
+    });
+
 })();
+
 
 jQuery(document).ready(function() {
 	
