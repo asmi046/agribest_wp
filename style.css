@@ -778,6 +778,11 @@ body.compensate-for-scrollbar {
 .fancybox-fx-tube.fancybox-slide--current {
   transform: translate3d(0, 0, 0) scale(1); }
 
+.cerecterVal{
+  color: #000;
+  text-decoration: underline;
+}
+
 /* Styling for Small-Screen Devices */
 @media all and (max-height: 576px) {
   .fancybox-slide {
@@ -2103,6 +2108,8 @@ input[type=number] {
         margin-right: 0; }
         .bread-crumbs ul li:last-child::after {
           display: none; }
+
+      .bread-crumbs span,
       .bread-crumbs ul li span {
         color: #a1a1a1; }
 
@@ -2213,6 +2220,11 @@ input[type=number] {
     .view .view__btn span {
       background-color: #000;
       min-height: 4px; }
+    
+    .view .view__btn_select span {
+      background-color: #1dc17b;
+    }
+
   .view .view__btn-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2269,52 +2281,67 @@ input[type=number] {
 
 .page-nav {
   padding: 14px 0 65px 0; }
+  .page-nav-wrapper .nav-links,
   .page-nav ul {
     display: flex; }
     .page-nav ul li {
       font-size: 1.28rem;
       line-height: 1.5; }
+      .page-numbers,  
       .page-nav ul li a {
         font-size: inherit;
         line-height: inherit;
         margin: 0 10px; }
+      .page-numbers.current,  
       .page-nav ul li span {
         margin: 0 10px;
         color: #1dc17b; }
-      .page-nav ul li .page-nav__prev {
+        .page-numbers.prev,
+        .page-nav ul li .page-nav__prev {
         position: relative;
         display: block;
         width: 10px;
         height: 24px;
         margin-left: 0;
         margin-right: 24px; }
+        .page-numbers.prev::before,
         .page-nav ul li .page-nav__prev::before {
           content: '';
           position: absolute;
-          top: 50%;
-          right: 0px;
+          top: 40%;
+          right: -7px;
           width: 7px;
           height: 7px;
           border-top: 2px solid #1dc17b;
           border-left: 2px solid #1dc17b;
           transform: rotate(-45deg) translateY(-59%); }
-      .page-nav ul li .page-nav__next {
+        .page-numbers.next,
+        .page-nav ul li .page-nav__next {
         position: relative;
         display: block;
         width: 10px;
         height: 24px;
         margin-right: 0;
         margin-left: 24px; }
+        .page-numbers.next::before,
         .page-nav ul li .page-nav__next::before {
           content: '';
           position: absolute;
-          top: 50%;
-          right: 0px;
+          top: 40%;
+          right: 7px;
           width: 7px;
           height: 7px;
           border-top: 2px solid #1dc17b;
           border-right: 2px solid #1dc17b;
           transform: rotate(45deg) translateY(-59%); }
+
+          .page-numbers {
+            font-size: 1.28rem;
+
+          }
+          .page-nav h2{ 
+            display: none;
+          }
 
 .common-page-text {
   color: #a1a1a1;
@@ -2484,6 +2511,7 @@ input[type=number] {
   .section-title {
     padding-bottom: 23px; }
 
+  .page-nav-wrapper .nav-links,
   .page-nav ul {
     justify-content: center; }
 

@@ -115,7 +115,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 	
 	function create_taxonomies(){
 	
-		register_taxonomy('agricat', array('light'), array(
+		register_taxonomy('agricat', array('agriproduct'), array(
 			'hierarchical'  => true,
 			'labels'        => array(
 				'name'              => "Категория товара",

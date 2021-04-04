@@ -84,9 +84,9 @@ function isEmail(email) {
 
     //    input type number
     (function quantityProducts() {
-        var $quantityArrowMinus = $(".minus");
-        var $quantityArrowPlus = $(".plus");
-        var $quantityNum = $(".quantity");
+        var $quantityArrowMinus = jQuery(".minus");
+        var $quantityArrowPlus = jQuery(".plus");
+        var $quantityNum = jQuery(".quantity");
 
         $quantityArrowMinus.click(function (e) {
             e.preventDefault();
@@ -146,16 +146,21 @@ function isEmail(email) {
     watchView();
   
     $btnRow.on('click', function () {
-        makeARow();
+		
+        jQuery(".view__btn").removeClass("view__btn_select");
+        jQuery(this).addClass("view__btn_select");
+		makeARow();
     });
     $btnGrid.on('click', function () {
-        makeAGrid();
+        jQuery(".view__btn").removeClass("view__btn_select");
+        jQuery(this).addClass("view__btn_select");
+		makeAGrid();
     });
     // конец   управление видом каталога 
 
 //    функция адаптации шапки сайта
     function headerTransformMobile() {
-        if ($(window).outerWidth() < 850) {
+        if (jQuery(window).outerWidth() < 850) {
             let mailLogo = $('.logo').delay();
             let headerTop = $('.header__top .inner');
             headerTop.prepend(mailLogo);
@@ -165,18 +170,18 @@ function isEmail(email) {
             catalogMenu.append(storeMenu);
             
         } else {
-            if ($('.header__top .logo').length) {
-                let mailLogo = $('.logo').delay();
-                $('.header__middle .inner').prepend(mailLogo);
+            if (jQuery('.header__top .logo').length) {
+                let mailLogo = jQuery('.logo').delay();
+                jQuery('.header__middle .inner').prepend(mailLogo);
                 
                 let storeMenu = $('.store-menu__wr');
-                $('.header__top .inner').prepend(storeMenu);
+                jQuery('.header__top .inner').prepend(storeMenu);
             }
         }
     }
     
     headerTransformMobile()
-    $(window).resize(function () {
+    jQuery(window).resize(function () {
         watchView();
         headerTransformMobile(); 
         if($(window).outerWidth() >= 500){

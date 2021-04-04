@@ -54,7 +54,7 @@ Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) )
 Container::make('post_meta', 'agri_product_cr', 'Характеристики товара') 
     ->show_on_post_type(array( 'agriproduct'))
       ->add_fields(array(   
-      Field::make('textarea', 'offer_smile_descr', 'Краткое описание')->set_width(100),
+      Field::make('rich_text', 'offer_smile_descr', 'Краткое описание')->set_width(100),
       Field::make('text', 'offer_name', 'Название товара')->set_width(50),
       Field::make('text', 'offer_manufact', 'Производитель')->set_width(50),
       Field::make('text', 'offer_allsearch', 'Все артикулы для поиска')->set_width(50),
