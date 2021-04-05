@@ -20,13 +20,12 @@
 	
 </head> 
 <body>
+<script>  
+    let bascet_page = "<?echo get_the_permalink(53); ?>";
+    let thencs_page = "<?echo get_the_permalink(56); ?>";
+    let nophoto_page = "<?echo get_bloginfo("template_url");?>/img/no-photo.jpg";
+</script> 
 
-<!-- Скрипт для вывода яндекс карт Подключать непосредственно перед вызовом скрипта инициализации карты-->
-
-
-
-
-<!-- Подключение  модальных окон-->
 <? include "modal-win.php";?>
 
 <!-- <div id="wrapper"> -->

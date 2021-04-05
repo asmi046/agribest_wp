@@ -2,13 +2,7 @@
     <div class="header__top">
         <div class="inner">
             <nav class="store-menu__wr">
-                <ul class="store-menu">
-                    <li><a href="#">Каталог</a></li>
-                    <li><a href="#">О компании</a></li>
-                    <li><a href="#">Оплата и доставка</a></li>
-                    <li><a href="#">Сотрудничество</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
+                <?php wp_nav_menu( array('theme_location' => 'menu_corp', 'container' => false, 'menu_class' => "store-menu" )); ?>
             </nav>
             <div class="store-btn-box">
                 <a href="#" class="call_request db">
@@ -16,8 +10,8 @@
                         <img src = "<?php echo get_template_directory_uri();?>/img/call_mob.svg" />
                     </span>
                 </a>
-                <a href="#" class="db cart"></a>
-                <div class="purchase-couter">76</div>
+                <a href="<?echo get_the_permalink(53);?>" class="db cart"></a>
+                <div class="purchase-couter bascet_counter">0</div>
                 <a href="#" class="user-account">
                     <span class="icon"></span>
                     Кабинет
@@ -66,14 +60,7 @@
                 </span>
             </button>
             <nav class="product-menu">
-                <ul>
-                    <li><a href="#">Бытовая техника</a></li>
-                    <li><a href="#">Дом и уют</a></li>
-                    <li><a href="#">Детские товары</a></li>
-                    <li><a href="#">Сад и огород</a></li>
-                    <li><a href="#">Посуда и товары для кухни</a></li>
-                    <li><a href="#">Хозтовары</a></li>
-                </ul>
+            <?php wp_nav_menu( array('theme_location' => 'menu_hot', 'container' => false, 'menu_class' => "hot-menu" )); ?>
             </nav>
             <div class="catalog-menu">
                 <button class="close-menu__btn"><span></span></button>

@@ -1,7 +1,8 @@
 <?php
 
-define("COMPANY_NAME", "<Вписываем имя компании>");
-define("MAIL_RESEND", "<Вписываем почтовый ящик который подставляется в шапку письма>");
+define("COMPANY_NAME", "Магазин АгриБест");
+define("MAIL_RESEND", "noreply@agribest.ru");
+
 
 //----Подключене carbon fields
 //----Инструкции по подключению полей см. в комментариях themes-fields.php
@@ -27,9 +28,13 @@ function crb_load() {
 // если в шапке то пишем - Меню в шапке 
 // если 2 меню в шапке пишем  - Меню в шапке (верхняя часть)
 
-register_nav_menus( array(
-	'header_menu' => 'Главное меню'
-) );
+add_action( 'after_setup_theme', function(){
+	register_nav_menus( [
+		'menu_hot' => 'Меню актуальных предложений (рядом с каталогом)',
+		'menu_cat' => 'Меню каталога',
+		'menu_corp' => 'Общекорпоративное меню (верхняя шапка)'
+	] );
+} ); 
 
 add_theme_support( 'post-thumbnails' );
 set_post_thumbnail_size( 185, 185 ); 
@@ -53,7 +58,15 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 		// Подключение стилей 
 
+		wp_enqueue_script( 'imasc', get_template_directory_uri().'/js/imask.js', array(), ALL_VERSION , true);
 		
+		if ( is_page(53))
+		{
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'bascet', get_template_directory_uri().'/js/bascet.js', array(), ALL_VERSION , true);
+		}
+
 		//wp_enqueue_style("style-modal", get_template_directory_uri()."/css/jquery.arcticmodal-0.3.css", array(), ALL_VERSION, 'all'); //Модальные окна (стили)
 		//wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), ALL_VERSION, 'all'); //Лайтбокс (стили)
 		//wp_enqueue_style("style-slik", get_template_directory_uri()."/css/slick.css", array(), ALL_VERSION, 'all'); //Слайдер (стили)
@@ -68,9 +81,9 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		wp_enqueue_script( 'slick', get_template_directory_uri().'/js/slick.min.js', array(), ALL_VERSION , true); //Слайдер
 		wp_enqueue_script( 'fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js', array(), ALL_VERSION , true); //fancybox
 
-		//wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), ALL_VERSION , true); //Модальные окна
-		//wp_enqueue_script( 'mask', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALL_VERSION , true); //маска для инпутов
-		//wp_enqueue_script( 'lightbox', get_template_directory_uri().'/js/lightbox.min.js', array(), ALL_VERSIONn , true); //Лайтбокс
+		// wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), ALL_VERSION , true); //Модальные окна
+		// wp_enqueue_script( 'mask', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALL_VERSION , true); //маска для инпутов
+		// wp_enqueue_script( 'lightbox', get_template_directory_uri().'/js/lightbox.min.js', array(), ALL_VERSIONn , true); //Лайтбокс
 		
 
 		wp_enqueue_script( 'main', get_template_directory_uri().'/js/main.js', array(), ALL_VERSION , true); // Подключение основного скрипта в самом конце
@@ -214,7 +227,76 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		
 	}
 
+	// Отправка корзины
 	
+	add_action( 'wp_ajax_send_cart', 'send_cart' );
+	add_action( 'wp_ajax_nopriv_send_cart', 'send_cart' );
+
+	function send_cart() {
+		if ( empty( $_REQUEST['nonce'] ) ) {
+			wp_die( '0' );
+		}
+		
+		if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+
+			$headers = array(
+				'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>',
+				'content-type: text/html',
+			);
+		
+			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+			
+			$adr_to_send = carbon_get_theme_option("mail_to_send");
+			$adr_to_send = (empty($adr_to_send))?"asmi046@gmail.com,s9606741999@yandex.ru":$adr_to_send;
+			
+			$zak_number = "AGRI-".date("H").date("s").date("s")."-".rand(100,999);
+
+			$mail_content = "<h1>Заказ на сайте №".$zak_number."</h1>";
+			
+			$bscet_dec = json_decode(stripcslashes ($_REQUEST["bascet"]));
+			
+			$mail_content .= "<table style = 'text-align: left;' width = '100%'>";
+				$mail_content .= "<tr>";
+					$mail_content .= "<th></th>";
+					$mail_content .= "<th>ТОВАР</th>";
+					$mail_content .= "<th>КОЛЛИЧЕСТВО</th>";
+					$mail_content .= "<th>СУММА</th>";
+				$mail_content .= "</tr>";
+
+				for ($i = 0; $i<count($bscet_dec); $i++) {
+					$mail_content .= "<tr>";
+						$mail_content .= "<td><img src = '".$bscet_dec[$i]->picture."' width = '70' height = '70'></td>";
+						$mail_content .= "<td><a href = '".$bscet_dec[$i]->lnk."'>".$bscet_dec[$i]->name." / ".$bscet_dec[$i]->sku."</a></td>";
+						$mail_content .= "<td>".$bscet_dec[$i]->count."</td>";
+						$mail_content .= "<td>".$bscet_dec[$i]->subtotal." р.</td>";
+					$mail_content .= "</tr>";
+				}
+
+			$mail_content .= "</table>";
+			$mail_content .= "<h2>Сумма: ".$_REQUEST["bascetsumm"]." р.</h2>";
+
+			
+			$mail_content .= "<strong>Имя:</strong> ".$_REQUEST["name"]."<br/>";
+			$mail_content .= "<strong>Телефон:</strong> ".$_REQUEST["phone"]."<br/>";
+			$mail_content .= "<strong>e-mail:</strong> ".$_REQUEST["mail"]."<br/>";
+			$mail_content .= "<strong>Адрес:</strong> ".$_REQUEST["adres"]."<br/>";
+			$mail_content .= "<strong>Комментарий:</strong> ".$_REQUEST["comment"]."<br/>";
+
+			$mail_them = "Заказ на сайте AgriBest";
+
+			
+			if (wp_mail($adr_to_send, $mail_them, $mail_content, $headers)) {
+				wp_die(json_encode(array("send" => true )));
+			}
+			else {
+				wp_die( 'Ошибка отправки!', '', 403 );
+			}
+			
+		} else {
+			wp_die( 'НО-НО-НО!', '', 403 );
+		}
+	}
+
 	/* Отправка почты
 		
 			$headers = array(
