@@ -784,7 +784,7 @@ body.compensate-for-scrollbar {
 }
 
 .content {
-  margin-bottom: 20px;
+  margin-bottom: 45px;
 }
 
 /* Оформление корзины */
@@ -2533,6 +2533,7 @@ textarea
     font-size: 18px;
     font-weight: 600;
 }
+.authoriz__form .reviews__form-input,
 #agriwind .reviews__form-input {
     border: 1px solid #1dc17b;
 }
@@ -2561,7 +2562,10 @@ textarea
     margin: 10px 0;
 }
 
-
+.authoriz__form {
+  max-width: 350px;
+  width: 100%;
+}
 
 
 
