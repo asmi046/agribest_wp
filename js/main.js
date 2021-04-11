@@ -1,3 +1,6 @@
+
+$ = jQuery;
+
 function number_format () {
 	let elements = document.querySelectorAll('.price_formator');
 	for (let elem of elements) {
@@ -321,3 +324,9 @@ jQuery(document).ready(function() {
 		});
 	});
 });
+
+
+$(".call-request").on('click', function(e) {
+    e.preventDefault();
+    jQuery("#agriwind").arcticmodal(); 
+}); 
