@@ -2566,7 +2566,9 @@ textarea
   max-width: 350px;
   width: 100%;
 }
-
+.authoriz__form .btn {
+  min-width: 100px;
+}
 
 
 @media screen and (max-width: 999px) {
