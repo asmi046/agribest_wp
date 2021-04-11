@@ -20,7 +20,7 @@
 
         function init() {
             var myMap = new ymaps.Map("map", {
-                center: [51.733664, 36.238463],
+                center: [<?php echo carbon_get_theme_option('map_point') ?>], 
                 zoom: 16
             });
 
@@ -28,10 +28,10 @@
                 size: "large"
             });
 
-            myPlacemark1 = new ymaps.Placemark([51.735152, 36.240919], {
+            myPlacemark1 = new ymaps.Placemark([<?php echo carbon_get_theme_option('map_point') ?>], {
                 // Свойства. 
                 hintContent: '<div class="map-hint">Склад</div>',
-                balloonContent: '<div class="map-hint">Главный склад <span class="db">Agribest</span></div>',
+                balloonContent: '<div class="map-hint"><?php echo carbon_get_theme_option('text_map') ?></div>',
             }, {
                 iconImageHref: '/img/marker.svg',
                 // Размеры метки.

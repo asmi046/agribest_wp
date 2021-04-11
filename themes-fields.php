@@ -11,43 +11,47 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
-Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) )
+Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) ) 
 
 ->add_tab('Контакты', array(
-	Field::make( 'text', 'them_company', __( 'Название' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_phones_1', __( 'Телефон' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_email', __( 'Email' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_email_send', __( 'Email для отправки' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_inn', __( 'ИНН' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_orgn', __( 'ОРГН' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_kpp', __( 'КПП' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_address', __( 'Адрес' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_bik', __( 'БИК' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_rs', __( 'Р/С' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_ks', __( 'К/С' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_insta', __( 'instagram' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_face', __( 'facebook' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_vk', __( 'Вконтакте' ) )
-	  ->set_width(50),
-	Field::make( 'text', 'them_youtube', __( 'youtube' ) )
-	  ->set_width(50),
-	Field::make('text', 'map_point', 'Координаты карты')
-	  ->set_width(50),
-	Field::make('text', 'text_map', 'Текст метки карты')
-	  ->set_width(50),
+        Field::make( 'text', 'as_company', __( 'Название' ) )
+          ->set_width(50),
+        // Field::make( 'text', 'as_schedule', __( 'Режим работы' ) )
+        //   ->set_width(50),
+        Field::make( 'text', 'as_phones_1', __( 'Телефон' ) )
+          ->set_width(50),
+        // Field::make( 'text', 'as_phone_2', __( 'Телефон дополнительный' ) )
+        //   ->set_width(50),
+        Field::make( 'text', 'as_email', __( 'Email' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_email_send', __( 'Email для отправки' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_inn', __( 'ИНН' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_orgn', __( 'ОРГН' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_kpp', __( 'КПП' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_address', __( 'Адрес' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_bik', __( 'БИК' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_rs', __( 'Р/С' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_ks', __( 'К/С' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_insta', __( 'instagram' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_face', __( 'facebook' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_vk', __( 'Вконтакте' ) )
+          ->set_width(50),
+        Field::make( 'text', 'as_telegr', __( 'telegram' ) )
+          ->set_width(50),
+        Field::make('text', 'map_point', 'Координаты карты')
+          ->set_width(50),
+        Field::make('text', 'text_map', 'Текст метки карты')
+          ->set_width(50),
 ) );
 
 
