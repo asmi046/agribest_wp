@@ -297,6 +297,34 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		}
 	}
 
+
+	add_action( 'wp_ajax_sendagri', 'sendagri' );
+add_action( 'wp_ajax_nopriv_sendagri', 'sendagri' );
+
+  function sendagri() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+      
+      $headers = array(
+        'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>', 
+        'content-type: text/html',
+      );
+    
+      add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+ 
+
+      if (wp_mail(carbon_get_theme_option( 'as_email_send' ), 'Заявка с окна: «Заказать звонок»', '<strong>Имя:</strong> '.$_REQUEST["namew"]. ' <br/> <strong>Телефон:</strong> '.$_REQUEST["telw"]. ' <br/> <strong>Email:</strong> '.$_REQUEST["emailw"], $headers))
+        wp_die("<span style = 'color:green;'>Мы свяжемся с Вами в ближайшее время.</span>");
+      else wp_die("<span style = 'color:red;'>Сервис недоступен попробуйте позднее.</span>"); 
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
 	/* Отправка почты
 		
 			$headers = array(
