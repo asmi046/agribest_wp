@@ -1,4 +1,4 @@
-﻿/*
+/*
 Theme Name: AgriBest
 Theme URI: 
 Author: Asmi-Studio
@@ -2569,6 +2569,17 @@ textarea
 .authoriz__form .btn {
   min-width: 100px;
 }
+
+.personal__row .product {
+  height: 40px;
+  box-shadow: 0 0px 1px 1px #1dc17b;
+  padding-right: 0;
+}
+.personal__row .product .product__bottom .btn {
+    margin: 0 0 0 10px !important;
+}
+
+
 
 
 @media screen and (max-width: 999px) {
