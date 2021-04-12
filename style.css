@@ -2674,7 +2674,11 @@ textarea
     line-height: 1.5;
     padding-left: 15px;
     padding-right: 65px;
-    padding-top: 9px; } }
+    padding-top: 9px; }
+  .personal__row .product {
+     height: 100%; }
+.personal__row .product .product__bottom .btn {
+    margin: 0 !important; } }
 @media screen and (max-width: 720px) {
   #header .header__bottom .catalog-menu .catalog-menu__inner-menu {
     width: 50%;
@@ -2774,7 +2778,16 @@ textarea
     width: 100%; }
 
   .product__box {
-    width: 96%; } }
+    width: 96%; }
+  .personal__row {
+    width: 100% !important;
+  }
+  .personal__row .product {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .personal__row .product__wr {
+    padding: 0 !important; } }
 @media screen and (max-width: 400px) {
   .card-product {
     padding: 0 10px; } }
