@@ -12,7 +12,26 @@ use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
 Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) ) 
-
+    ->add_tab('Банеры на главной', array(
+      Field::make( 'image', 'banner_img_1', 'Картинка банера 1') 
+        ->set_width(30),
+      Field::make('text', 'banner_text_1', 'Текст банера 1')
+        ->set_width(30),
+      Field::make('text', 'banner_link_1', 'Ссылка банера 1')
+        ->set_width(30),
+      Field::make( 'image', 'banner_img_2', 'Картинка банера 2') 
+        ->set_width(30),
+      Field::make('text', 'banner_text_2', 'Текст банера 2')
+        ->set_width(30),
+      Field::make('text', 'banner_link_2', 'Ссылка банера 2')
+        ->set_width(30),
+      Field::make( 'image', 'banner_img_3', 'Картинка банера 3') 
+        ->set_width(30),
+      Field::make('text', 'banner_text_3', 'Текст банера 3')
+        ->set_width(30),
+      Field::make('text', 'banner_link_3', 'Ссылка банера 3')
+        ->set_width(30),
+    ))
 ->add_tab('Контакты', array(
         Field::make( 'text', 'as_company', __( 'Название' ) )
           ->set_width(50),
@@ -22,7 +41,7 @@ Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) )
           ->set_width(50),
         // Field::make( 'text', 'as_phone_2', __( 'Телефон дополнительный' ) )
         //   ->set_width(50),
-        Field::make( 'text', 'as_email', __( 'Email' ) )
+        Field::make( 'text', 'as_email', __( 'Email' ) ) 
           ->set_width(50),
         Field::make( 'text', 'as_email_send', __( 'Email для отправки' ) )
           ->set_width(50),
