@@ -32,6 +32,15 @@ Container::make( 'theme_options', __( 'Настройки темы', 'crb' ) )
       Field::make('text', 'banner_link_3', 'Ссылка банера 3')
         ->set_width(30),
     ))
+    ->add_tab('Бренды на главной', array(
+      Field::make('complex', 'brand_banner', 'Бренд на главной')
+        ->add_fields(array(
+      Field::make('image', 'brand_img', 'Фото бренда')
+        ->set_width(50),
+      Field::make( 'text', 'brand_img_title', 'title')
+         ->set_width(50),
+        ))
+    ))
 ->add_tab('Контакты', array(
         Field::make( 'text', 'as_company', __( 'Название' ) )
           ->set_width(50),
