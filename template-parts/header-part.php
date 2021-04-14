@@ -65,22 +65,7 @@
             <div class="catalog-menu">
                 <button class="close-menu__btn"><span></span></button>
                 <?php wp_nav_menu( array('theme_location' => 'menu_cat','menu_class' => 'ul-clean',
-                     'container_class' => 'ul-clean','container' => false )); ?>
-<!--                 <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Бытовая техника</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div> -->
+                'container_class' => 'ul-clean','container' => false )); ?>
             </div>
         </div>
     </div>
