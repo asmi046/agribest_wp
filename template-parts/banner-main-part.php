@@ -6,24 +6,24 @@
 
 <div class="banner">
     <div class="inner">
-        <div class="banner__item cover" style="background-image: url(<?php echo $homebg1?>);">
+        <a href="<? echo carbon_get_theme_option("banner_link_1"); ?>" class="banner__item cover" style="background-image: url(<?php echo $homebg1?>);">
             <div class="banner__item__caption rL ">
                 <? echo carbon_get_theme_option("banner_text_1"); ?>
-                <a href="<? echo carbon_get_theme_option("banner_link_1"); ?>" class="db"></a>
+                <span class="db"></span>
             </div>
-        </div>
-        <div class="banner__item cover" style="background-image: url(<?php echo $homebg2?>);">
+        </a>
+        <a href="<? echo carbon_get_theme_option("banner_link_2"); ?>" class="banner__item cover" style="background-image: url(<?php echo $homebg2?>);">
             <div class="banner__item__caption rL ">
                 <? echo carbon_get_theme_option("banner_text_2"); ?>
-                <a href="<? echo carbon_get_theme_option("banner_link_2"); ?>" class="db"></a>
+                <span class="db"></span>
             </div>
-        </div>
-        <div class="banner__item cover" style="background-image: url(<?php echo $homebg3?>);">
+        </a>
+        <a href="<? echo carbon_get_theme_option("banner_link_3"); ?>" class="banner__item cover" style="background-image: url(<?php echo $homebg3?>);">
             <div class="banner__item__caption rL ">
                 <? echo carbon_get_theme_option("banner_text_3"); ?>
-                <a href="<? echo carbon_get_theme_option("banner_link_3"); ?>" class="db"></a>
+                <span class="db"></span>
             </div> 
-        </div>
+        </a>
 
     </div>
 </div>

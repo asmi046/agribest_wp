@@ -2048,7 +2048,7 @@ textarea
       -khtml-user-select: none;
       -webkit-user-select: none;
       user-select: none; }
-      .banner .banner__item .banner__item__caption a {
+      .banner .banner__item .banner__item__caption span {
         position: absolute;
         top: 0;
         right: 0;
@@ -2058,7 +2058,7 @@ textarea
         display: flex;
         justify-content: center;
         align-items: center; }
-        .banner .banner__item .banner__item__caption a::before {
+        .banner .banner__item .banner__item__caption span::before {
           content: '';
           position: relative;
           right: 2px;
