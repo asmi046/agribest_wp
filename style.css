@@ -1821,7 +1821,7 @@ textarea
     top: 100%;
     left: 0;
     box-sizing: border-box;
-    padding: 30px;
+    padding: 30px 15px;
     background-color: #e1e6ec;
     transform: scaleY(0);
     transform-origin: center top;
@@ -2579,8 +2579,20 @@ textarea
     margin: 0 0 0 10px !important;
 }
 
-
-
+.ul-clean {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 0.3em;
+}
+.ul-clean li a {
+  font-size: 16px;
+  font-weight: 600;
+}
+.sub-menu li a {
+  font-size: 14px;
+  font-weight: 300;
+}
 
 @media screen and (max-width: 999px) {
   .banner .inner {
