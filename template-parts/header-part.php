@@ -35,7 +35,7 @@
                     <span class="marker">
                         <img src = "<?php echo get_template_directory_uri();?>/img/adrmarc.svg" />
                     </span>
-                    Адрес: г. Курск, Пн-Пт: с 9:00-20:00
+                    Адрес: г.Курск, ул.50 лет Октября,175А, оф.21
                 </span>
                 <span class="tel db desktop"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></span>
                 <a href="tel:<? echo preg_replace('/[^0-9]/', '', $tel); ?>" class="tel db mobile"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></a>
