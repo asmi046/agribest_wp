@@ -1,4 +1,4 @@
-﻿/*
+/*
 Theme Name: AgriBest
 Theme URI: 
 Author: Asmi-Studio
@@ -10,7 +10,7 @@ Tags: AgriBest,OPT
 
 @font-face {
   font-family: 'Circe Bold';
-  src: url("fonts/circe_bold.eot");
+  src: url("fonts/circe_bold.eot"); 
   /* IE 9 Compatibility Mode */
   src: url("fonts/circe_bold.eot?#iefix") format("embedded-opentype"), url("fonts/circe_bold.woff2") format("woff2"), url("fonts/circe_bold.woff") format("woff"), url("fonts/circe_bold.ttf") format("truetype"), url("fonts/circe_bold.svg#circe_bold") format("svg");
   /* Chrome < 4, Legacy iOS */ }
@@ -784,7 +784,7 @@ body.compensate-for-scrollbar {
 }
 
 .content {
-  margin-bottom: 20px;
+  margin-bottom: 45px;
 }
 
 /* Оформление корзины */
@@ -2507,6 +2507,81 @@ textarea
   line-height: 1.5;
   margin-bottom: 76px; }
 
+
+.box-modal {
+    max-width: 450px;
+    width: 100%;
+    background-color: #f2f2f2;
+    padding: 45px 35px 30px 35px;
+    border-radius: 5px;
+    position: relative;
+    box-sizing: border-box;
+}
+.box-modal_close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+.box-modal h3 {
+    font-size: 23px;
+    margin-bottom: 35px;
+}
+.SendetMsg {
+    padding: 10px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+.authoriz__form .reviews__form-input,
+#agriwind .reviews__form-input {
+    border: 1px solid #1dc17b;
+}
+.reviews__form-input {
+    height: 45px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    min-width: 0 !important;
+    box-sizing: border-box;
+}
+.box-modal button {
+    margin-top: 20px;
+    font-size: 10px;
+    width: 180px;
+    height: 40px;
+}
+.SendetMsg:before{
+  content: "";
+    width: 100%;
+    height: 70px;
+    background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 507.2 507.2' style='enable-background:new 0 0 507.2 507.2;' xml:space='preserve'%3E%3Ccircle style='fill:%2332BA7C;' cx='253.6' cy='253.6' r='253.6'/%3E%3Cpath style='fill:%230AA06E;' d='M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z'/%3E%3Cg%3E%3Cpath style='fill:%23FFFFFF;' d='M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8 c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z'/%3E%3Cpath style='fill:%23FFFFFF;' d='M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2 c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z'/%3E%3C/g%3E%3C/svg%3E%0A");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    float: left;
+    margin: 10px 0;
+}
+
+.authoriz__form {
+  max-width: 350px;
+  width: 100%;
+}
+.authoriz__form .btn {
+  min-width: 100px;
+}
+
+.personal__row .product {
+  height: 40px;
+  box-shadow: 0 0px 1px 1px #1dc17b;
+  padding-right: 0;
+}
+.personal__row .product .product__bottom .btn {
+    margin: 0 0 0 10px !important;
+}
+
+
+
+
 @media screen and (max-width: 999px) {
   .banner .inner {
     grid-template-columns: 35% auto;
@@ -2599,7 +2674,11 @@ textarea
     line-height: 1.5;
     padding-left: 15px;
     padding-right: 65px;
-    padding-top: 9px; } }
+    padding-top: 9px; }
+  .personal__row .product {
+     height: 100%; }
+.personal__row .product .product__bottom .btn {
+    margin: 0 !important; } }
 @media screen and (max-width: 720px) {
   #header .header__bottom .catalog-menu .catalog-menu__inner-menu {
     width: 50%;
@@ -2699,7 +2778,16 @@ textarea
     width: 100%; }
 
   .product__box {
-    width: 96%; } }
+    width: 96%; }
+  .personal__row {
+    width: 100% !important;
+  }
+  .personal__row .product {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .personal__row .product__wr {
+    padding: 0 !important; } }
 @media screen and (max-width: 400px) {
   .card-product {
     padding: 0 10px; } }

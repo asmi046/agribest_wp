@@ -32,8 +32,8 @@
                 </span>
                 Адрес: г. Курск, Пн-Пт: с 9:00-20:00
             </span>
-            <span class="tel db desktop">8 (800) 700-56-67</span>
-            <a href="tel:88007005667" class="tel db mobile">8 (800) 700-56-67</a>
+            <span class="tel db desktop"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></span>
+            <a href="tel:tel:<? echo preg_replace('/[^0-9]/', '', $tel); ?>" class="tel db mobile"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></a>
             <a href="#" class="call-request">
                 <span class="phone-icon-box">
                     <img src = "<?php echo get_template_directory_uri();?>/img/recal_dst.svg"/>
