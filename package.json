@@ -22,6 +22,7 @@
     "send_head": "scp -C header.php stanis9y_all@stanis9y.beget.tech:stanis9y.beget.tech/public_html/wp-content/themes/agribest/",
     "send_func": "scp -C functions.php stanis9y_all@stanis9y.beget.tech:stanis9y.beget.tech/public_html/wp-content/themes/agribest/",
     "send_all": "npm run send_r & npm run send_css & npm run send_part & npm run send_img & npm run send_js & npm run send_fonts & npm run send_carbon"
+    
   },
   "repository": {
     "type": "git",
