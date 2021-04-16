@@ -3405,6 +3405,9 @@ textarea {
   #footer .footer__menu {
     margin: 0 auto 18px auto;
   }
+  .banner .inner .banner__item:last-child {
+    min-height: 160px;
+  }
 }
 
 @media screen and (max-width: 400px) {
