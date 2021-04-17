@@ -8,10 +8,12 @@
     ini_set('max_execution_time', 900);
 
     ini_set('include_path', "/home/s/stanis9y/agribest.ru/public_html/");
-    echo "www";
     
 
      require_once  "wp-config.php";
+     require_once  "subcatdetect.php";
+
+
 
      require_once ABSPATH . 'wp-admin/includes/media.php';
      require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -54,15 +56,15 @@
         $offerIndex = 0;
         foreach ($xml->{'Каталог'}->{'Товары'}->children() as $elem)
         { 
-            echo $sku = $elem->{'Артикул'};
-            echo "\n\r";
-            echo $name = $elem->{'Наименование'};
-            echo "\n\r";
-            echo $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
-            echo "\n\r";
-            echo $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
-            echo "\n\r";
-            echo "\n\r";
+            $sku = $elem->{'Артикул'};
+            $name = $elem->{'Наименование'};
+            $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
+            $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
+            echo "Артикул: ". $sku ."\n\r";
+            echo "Имя: ". $name."\n\r";
+            echo "Группа: ". $group."\n\r";
+            echo "Картинка: ". $picture."\n\r";
+           
 
             $to_post_meta  = [ 
                 '_offer_smile_descr' => (string)$name, 
@@ -96,31 +98,40 @@
             // foreach ($ancestors as $as)
             //     $catArray[] = $as; 
             
-            $catArray[] = $term->term_id; 
+            
+            $parenCat = get_parent_by_subkat($group);
+            if (!empty($parenCat))  $catArray[] = $parenCat;
+
+            $catArray[] = $term->term_id;
+            
 
             wp_set_object_terms( $post_id, $catArray, "agricat" );   
            
-            echo $elem->{'Картинка'};
-
+    
+            echo "Галерея: \n\r";
             $indexImg = 0;
             foreach ($elem->{'Картинка'} as $galery)
             {
             
                 echo $img1 = get_bloginfo("template_url")."/1s/webdata/".$galery;
-                $ttl = (string)$elem->vendor." ".(string)$elem->name." ".(string)$elem->vendorCode;
-                // $img_id = media_sideload_image( $img1, $post_id, $ttl, "id" );
+                echo "\n\r";
+                $ttl = (string)$sku." ".(string)$name;
+
+                $img_id = media_sideload_image( $img1, $post_id, $ttl, "id" );
             
-                // add_post_meta( $post_id, '_offer_picture|gal_img|'.$indexImg.'|0|value', $img_id, true );
-                // add_post_meta( $post_id, '_offer_picture|gal_img_sku|'.$indexImg.'|0|value',  "", true );
-                // add_post_meta( $post_id, '_offer_picture|gal_img_alt|'.$indexImg.'|0|value', $ttl, true );
+                add_post_meta( $post_id, '_offer_picture|gal_img|'.$indexImg.'|0|value', $img_id, true );
+                add_post_meta( $post_id, '_offer_picture|gal_img_sku|'.$indexImg.'|0|value',  "", true );
+                add_post_meta( $post_id, '_offer_picture|gal_img_alt|'.$indexImg.'|0|value', $ttl, true );
 
                 if ($indexImg == 0) set_post_thumbnail($post_id, $img_id);
             
                 $indexImg++;
             }
 
+            echo "\n\r";
+            echo "\n\r";
 
-             if ($offerIndex > 10) break;
+            // if ($offerIndex > 3) break;
 
             $offerIndex ++;
         }    
