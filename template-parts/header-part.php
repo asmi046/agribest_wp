@@ -14,7 +14,7 @@
                 <div class="purchase-couter bascet_counter">0</div>
                 <a href="#" class="user-account">
                     <span class="icon"></span>
-                    Кабинет
+                    Кабинет 
                 </a>
             </div>
         </div>
@@ -24,9 +24,9 @@
             <a href="/" class="logo">
                 <img src="<?php echo get_template_directory_uri();?>/img/logo.png" class="spacer" alt="логотип Agribest">
             </a>
-            <form class="search">
-                <input type="search" class="search__field inputbox" placeholder="Поиск">
-                <button type="submit">
+            <form role="search" method="get" id="searchform" class="search" action="<?php echo home_url( '/' ) ?>">
+                <input type="search" class="search__field inputbox" placeholder="Поиск" value="<?php echo get_search_query() ?>" name="s" id="s">
+                <button type="submit" tabindex="2" id="searchsubmit" value="найти">
                     <img src = "<?php echo get_template_directory_uri();?>/img/search.svg"/>
                 </button>
             </form>
@@ -35,7 +35,7 @@
                     <span class="marker">
                         <img src = "<?php echo get_template_directory_uri();?>/img/adrmarc.svg" />
                     </span>
-                    Адрес: г. Курск, Пн-Пт: с 9:00-20:00
+                    Адрес: г.Курск, ул.50 лет Октября,175А, оф.21
                 </span>
                 <span class="tel db desktop"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></span>
                 <a href="tel:<? echo preg_replace('/[^0-9]/', '', $tel); ?>" class="tel db mobile"><? echo $tel = carbon_get_theme_option("as_phones_1"); ?></a>
@@ -60,100 +60,12 @@
                 </span>
             </button>
             <nav class="product-menu">
-            <?php wp_nav_menu( array('theme_location' => 'menu_hot', 'container' => false, 'menu_class' => "hot-menu" )); ?>
+                <?php wp_nav_menu( array('theme_location' => 'menu_hot', 'container' => false, 'menu_class' => "hot-menu" )); ?>
             </nav>
             <div class="catalog-menu">
                 <button class="close-menu__btn"><span></span></button>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Бытовая техника</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Дом и уют</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Детские товары</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Сад и огород</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Посуда и товары для кухни</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
-                <div class="catalog-menu__inner-menu">
-                    <h3 class="menu-caption">Хозтовары</h3>
-                    <ul>
-                        <li><a href="#">Пункт меню 1</a></li>
-                        <li><a href="#">Пункт меню 2</a></li>
-                        <li><a href="#">Пункт меню 3</a></li>
-                        <li><a href="#">Пункт меню 4</a></li>
-                        <li><a href="#">Пункт меню 5</a></li>
-                        <li><a href="#">Пункт меню 6</a></li>
-                        <li><a href="#">Пункт меню 7</a></li>
-                        <li><a href="#">Пункт меню 8</a></li>
-                        <li><a href="#">Пункт меню 9</a></li>
-                        <li><a href="#">Пункт меню 10</a></li>
-                    </ul>
-                </div>
+                <?php wp_nav_menu( array('theme_location' => 'menu_cat','menu_class' => 'ul-clean',
+                'container_class' => 'ul-clean','container' => false )); ?>
             </div>
         </div>
     </div>

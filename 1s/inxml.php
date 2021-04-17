@@ -1,6 +1,6 @@
 <?
 
-    //php marketsveta.su/wp-content/themes/light_market/pars/inxml.php
+    //php agribest.ru/public_html/wp-content/themes/agribest/1s/inxml.php
     ini_set('error_reporting', E_ALL);
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -8,16 +8,16 @@
     ini_set('max_execution_time', 900);
 
     ini_set('include_path', "/home/s/stanis9y/agribest.ru/public_html/");
-
+    echo "www";
     
 
-    require_once  "wp-config.php";
+     require_once  "wp-config.php";
 
-    require_once ABSPATH . 'wp-admin/includes/media.php';
-    require_once ABSPATH . 'wp-admin/includes/file.php';
-    require_once ABSPATH . 'wp-admin/includes/image.php';
+     require_once ABSPATH . 'wp-admin/includes/media.php';
+     require_once ABSPATH . 'wp-admin/includes/file.php';
+     require_once ABSPATH . 'wp-admin/includes/image.php';
 
-    if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
+     if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
         $xml = simplexml_load_file(__DIR__.'/webdata/import0_1.xml');
         
         $curentTerm = array();
@@ -47,20 +47,7 @@
                 echo "\n\r";
         }
 
-        
-        // echo  "Построение иерархии категорий \n\r";
-        // foreach ($xml->shop->categories->children() as $elem)
-        // {    
-        //     $siteCatNameParent = $curentTerm[(string)$elem->attributes()["parentId"]];
-        //     $siteCatName = $curentTerm[(string)$elem->attributes()["id"]];
-
-        //     $termSiteParent = get_term_by('name', $siteCatNameParent, 'lightcat');
-        //     $termSite = get_term_by('name', $siteCatName, 'lightcat');
-            
-        //     wp_update_term( $termSite->term_id, 'lightcat', array("parent" => $termSiteParent->term_id));
-        // }
-
-        // echo  "Иерархия категорий выстроена\n\r";
+    
 
         echo  "\n\rНачато добавление товаров:\n\r\n\r";
         
@@ -113,7 +100,7 @@
 
             wp_set_object_terms( $post_id, $catArray, "agricat" );   
            
-            
+            echo $elem->{'Картинка'};
 
             $indexImg = 0;
             foreach ($elem->{'Картинка'} as $galery)
@@ -133,7 +120,7 @@
             }
 
 
-             if ($offerIndex > 50) break;
+             if ($offerIndex > 10) break;
 
             $offerIndex ++;
         }    
