@@ -77,17 +77,46 @@
                 '_offer_fulltext' => (string)$name,
             ];
 
-
-            $post_id = wp_insert_post(  wp_slash( array(
-                'post_type'     => 'agriproduct',
-                'post_author'    => 1,
-                'post_status'    => 'publish',
-                'post_title' => (string)$name,
-                'post_excerpt'  => (string)$name,
-                'post_content'  => (string)$name,
-                'meta_input'     => $to_post_meta,
+            $args = array(
+                'posts_per_page' => -1,
+                'post_type' => 'agriproduct',
                 
-            ) ) );
+                'meta_query' => [
+                        'relation' => 'OR',
+                        [
+                            'key' => '_offer_sku',
+                            'value' => (string)$sku
+                        ]
+                ]
+              );
+            $posts = new WP_Query($args);
+
+            if (empty($posts->posts[0])) {
+                echo "Добавление нового поста.\n\r";
+                $post_id = wp_insert_post(  wp_slash( array(
+                    'post_type'     => 'agriproduct',
+                    'post_author'    => 1,
+                    'post_status'    => 'publish',
+                    'post_title' => (string)$name,
+                    'post_excerpt'  => (string)$name,
+                    'post_content'  => (string)$name,
+                    'meta_input'     => $to_post_meta,
+                    
+                ) ) );
+            } else  {
+                echo "Обновление поста: ". $posts->posts[0]->post_title." id: ".$posts->posts[0]->ID.".\n\r";
+                $post_id = wp_update_post(  wp_slash( array(
+                    'ID' => $posts->posts[0]->ID,
+                    'post_type'     => 'agriproduct',
+                    'post_author'    => 1,
+                    'post_status'    => 'publish',
+                    'post_title' => (string)$name,
+                    'post_excerpt'  => (string)$name,
+                    'post_content'  => (string)$name,
+                    'meta_input'     => $to_post_meta,
+                    
+                ) ) );
+            }
 
             
             $term = get_term_by('name', $group, 'agricat');
@@ -131,7 +160,7 @@
             echo "\n\r";
             echo "\n\r";
 
-            // if ($offerIndex > 3) break;
+             if ($offerIndex > 10) break;
 
             $offerIndex ++;
         }    

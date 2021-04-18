@@ -10,8 +10,12 @@
                         <img src = "<?php echo get_template_directory_uri();?>/img/call_mob.svg" />
                     </span>
                 </a>
-                <a href="<?echo get_the_permalink(53);?>" class="db cart"></a>
-                <div class="purchase-couter bascet_counter">0</div>
+                <!-- <a href="<?echo get_the_permalink(53);?>" class="db cart"></a> -->
+                <a href="<?echo get_the_permalink(53);?>" class = "bascet_wrapper_head">
+                    <div class = "db cart"></div>
+                    <div class="purchase-couter bascet_counter">0</div>
+                </a>
+                
                 <a href="#" class="user-account">
                     <span class="icon"></span>
                     Кабинет 
