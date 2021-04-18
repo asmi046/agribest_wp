@@ -1945,6 +1945,26 @@ textarea {
   background: #1dc17b;
 }
 
+.btn-tr { 
+  border: 1px solid #1dc17b;
+  background-color: transparent;
+  color: #1dc17b;
+}
+
+.btn_wrapper {
+  width:100%;
+  display: flex;
+}
+
+
+#registerbtn {
+  margin-left: 10px;
+}
+
+#passRecoveryWrapper {
+  margin-top: 20px;
+}
+
 .content h1,
 .section-title {
   font-family: "Circe Bold", sans-serif;
@@ -3154,6 +3174,13 @@ textarea {
 
 ul.sub-menu {
   margin-top: 10px;
+}
+
+input {outline: none;}
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px #fff !important; /* Цвет фона */
+    -webkit-text-fill-color: #999 !important; /* цвет текста */
+    color: #999 !important; /* цвет текста */
 }
 
 @media screen and (max-width: 999px) {

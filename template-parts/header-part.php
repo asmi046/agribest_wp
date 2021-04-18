@@ -16,7 +16,7 @@
                     <div class="purchase-couter bascet_counter">0</div>
                 </a>
                 
-                <a href="#" class="user-account">
+                <a href="<?echo get_the_permalink(93);?>" class="user-account">
                     <span class="icon"></span>
                     Кабинет 
                 </a>

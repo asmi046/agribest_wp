@@ -66,6 +66,13 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
 			wp_enqueue_script( 'bascet', get_template_directory_uri().'/js/bascet.js', array(), ALL_VERSION , true);
 		}
+		
+		if ( is_page(93))
+		{
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'cabinet', get_template_directory_uri().'/js/cabinet.js', array(), ALL_VERSION , true);
+		}
 
 		wp_enqueue_style("style-modal", get_template_directory_uri()."/css/jquery.arcticmodal-0.3.css", array(), ALL_VERSION, 'all'); //Модальные окна (стили)
 		//wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), ALL_VERSION, 'all'); //Лайтбокс (стили)
