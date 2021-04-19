@@ -51,7 +51,7 @@
 					<input v-model="inn" autocomplete="off" type="text" name="inn" placeholder="ИНН организации" id="form-innw" class="reviews__form-input input">
 					<input v-model="email" :class = "{dontz:emailNotEnter}" autocomplete="off" type="email" name="email" placeholder="Email*" id="form-emailw" class="reviews__form-input input">
 					<input v-model="tel" autocomplete="off" type="tel" name="tel" placeholder="Телефон" id="form-telw" class="reviews__form-input input">
-					<input v-model="password" type="password" name="password" autocomplete="new-password"  placeholder="Пароль" id="form-telw" class="reviews__form-input input">
+					<input v-model="password" :class = "{dontz:passwordNotEnter}" type="password" name="password" autocomplete="new-password"  placeholder="Пароль*" id="form-telw" class="reviews__form-input input">
 					<div class = "btn_wrapper">
 						<button @click.prevent  = "registerUser" type="button" class="reviews__form-btn agriwind btn">Зарегистрироваться</button>
 						<button  @click.prevent  = "toAutorization" type="button" class="reviews__form-btn agriwind btn btn-tr" id = "registerbtn">Авторизация</button>
@@ -72,10 +72,14 @@
 				<h1>Восстановление пароля</h1>
 
 				<form action="#" class="authoriz__form reviews__form">
-					<input type="email" name="email" placeholder="Email" id="form-emailw" class="reviews__form-input input">
+					<input v-model="email"  :class = "{dontz:emailNotEnter}" type="email" name="email" placeholder="Email" id="form-emailw" class="reviews__form-input input">
 					<div class = "btn_wrapper">
-						<button type="submit" class="reviews__form-btn agriwind btn">Восстановить</button>
+						<button @click.prevent = "getPassRec" type="submit" class="reviews__form-btn agriwind btn">Восстановить</button>
 						<button  @click.prevent  = "toAutorization" type="button" class="reviews__form-btn agriwind btn btn-tr" id = "registerbtn">Авторизация</button>
+					</div>
+
+					<div v-show = "showMsgBlk" :class = "{messageFormBlkOk : msgOk}" class = "messageFormBlk">
+						{{messageText}}
 					</div>
 				</form> 
 

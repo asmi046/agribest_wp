@@ -32,6 +32,7 @@ Vue.component('registration', {
             emailNotEnter:false,         
             tel: "",         
             password: "",
+            passwordNotEnter:false,
             
             messageText:"",
             showMsgBlk:false,
@@ -44,9 +45,10 @@ Vue.component('registration', {
        },
        
        registerUser () {
-            if (this.name == "") this.nameNotEnter = true;
-            if (this.nameorg == "") this.nameorgNotEnter = true;
-            if (this.emailNotEnter == "") this.emailNotEnter = true;
+            if (this.name == "") {this.nameNotEnter = true; return;};
+            if (this.nameorg == "") {this.nameorgNotEnter = true; return;};
+            if (this.email == "") {this.emailNotEnter = true; return;};
+            if (this.password == "") {this.passwordNotEnter = true; return;};
 
             var params = new URLSearchParams();
             params.append('action', 'user_register');
@@ -80,13 +82,40 @@ Vue.component('passrec', {
     template: '#passrec',
     data: function(){
         return{
-            name: "",         
-            password: ""         
+            email:"",
+            emailNotEnter:false,
+
+            messageText:"",
+            showMsgBlk:false,
+            msgOk:true        
         }
     }, 
     methods:{ 
        toAutorization() {
         eventBus.$emit("chenge-state","autorization");
+       },
+
+       getPassRec() {
+            if (this.email == "") {this.emailNotEnter = true;  return;};
+
+            var params = new URLSearchParams();
+            params.append('action', 'pass_rec');
+            params.append('nonce', allAjax.nonce);
+            params.append('email', this.email);
+            
+            
+            axios.post(allAjax.ajaxurl, params)
+              .then((response) => {
+                this.messageText = "На вашу электронную почту высланны инструкции для восстановления пароля.";
+                this.showMsgBlk = true;
+                this.msgOk = true;
+              })
+              .catch((error)  => {
+                this.messageText = "Пользователя с таким адресом не найдено!";
+                this.showMsgBlk = true;
+                this.msgOk = false;
+              });
+        
        } 
     }
 });

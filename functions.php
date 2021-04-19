@@ -398,5 +398,63 @@ add_action( 'wp_ajax_nopriv_user_register', 'user_register' );
     }
   }
 
+add_action( 'wp_ajax_pass_rec', 'pass_rec' );
+add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
+
+  function pass_rec() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		global $wpdb;
+	  	
+		$email_key = rand(1000, 9999);
+
+		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `id` = '".$_REQUEST["mail"]."'");
+
+		if (!empty($user_feeld)) {
+			
+			$updateRez = $wpdb->update("shop_users",
+                                   array(
+                                       "autorize" => 0,
+									   "autorizeKey" => $email_key,
+                                   ), 
+                                   array(
+                                       "id" => $user_feeld[0]->id, 
+                                   )
+                                );   
+
+			$headers = array(
+				'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>', 
+				'content-type: text/html',
+			);
+		  
+			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+	   
+			$mail_message = 
+			"<h1>Восстановление пароля</h1>".
+			"<p>Для восстановления пароля к Вашей учетной записи перейдите по ссылке:<p>".
+			"<a href = '".get_the_permalink(87)."?id=".$user_feeld[0]->id."&k=".$email_key."'>Активировать учетную запись.</a>";
+	  
+			if (wp_mail($user_feeld[0]->id, "Восстановление пароля", $mail_message, $headers))
+			{
+				wp_die(json_encode(array("send" => true )));
+			}
+			else 
+			 	wp_die( 'Mail no send!', '', 403 );	
+
+		} else {
+			wp_die( 'No user in base!', '', 403 );		
+		}
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
 		
 ?>
