@@ -58,6 +58,16 @@
         { 
             $sku = $elem->{'Артикул'};
             $name = $elem->{'Наименование'};
+
+            foreach($elem->{'ЗначенияРеквизитов'}->children() as $toname)
+            {
+                if ($toname->{'Наименование'} == "Полное наименование")
+                {
+                        $name = $toname->{'Значение'};
+                        echo "Изменено имя для выгрузке на сайт: ". $name."\n\r";
+                }
+            }
+
             $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
             $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
             echo "Артикул: ". $sku ."\n\r";
@@ -137,6 +147,15 @@
             wp_set_object_terms( $post_id, $catArray, "agricat" );   
            
     
+            echo "Удаление старых вложений: \n\r";
+
+            $media = get_attached_media( 'image', $post_id );
+            foreach ($media as $mf)
+            {
+                $atdelrez = wp_delete_attachment( $mf->ID );
+                echo empty($atdelrez)?"Ничего не удалено. \n\r":"Удалено вложение. \n\r";
+            }
+
             echo "Галерея: \n\r";
             $indexImg = 0;
             foreach ($elem->{'Картинка'} as $galery)
