@@ -42,8 +42,7 @@
 
 
             myMap.geoObjects
-                .add(myPlacemark1)
-                .add(myPlacemark2)
+                .add(myPlacemark1);
         }
 
     </script>

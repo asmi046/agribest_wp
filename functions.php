@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.1");
+define("ALL_VERSION", "1.0.4");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -305,7 +305,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 	}
 
 
-	add_action( 'wp_ajax_sendagri', 'sendagri' );
+add_action( 'wp_ajax_sendagri', 'sendagri' );
 add_action( 'wp_ajax_nopriv_sendagri', 'sendagri' );
 
   function sendagri() {
@@ -332,37 +332,71 @@ add_action( 'wp_ajax_nopriv_sendagri', 'sendagri' );
     }
   }
 
-	/* Отправка почты
+add_action( 'wp_ajax_user_register', 'user_register' );
+add_action( 'wp_ajax_nopriv_user_register', 'user_register' );
+
+  function user_register() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
 		
+		global $wpdb;
+	  	
+		$email_key = rand(10000, 99999);
+
+		$insert_rez = $wpdb->insert( "shop_users", array(
+			"name" => $_REQUEST["name"],
+			"company_name" => $_REQUEST["nameorg"],
+			"mail" => $_REQUEST["email"],
+			"phone" => $_REQUEST["tel"],
+			"inn" => $_REQUEST["inn"],
+			"password" => md5($_REQUEST["password"]."agrib"),
+			"autorize" => 0,
+			"autorizeKey" => $email_key
+		) );
+
+		if (!empty($insert_rez)) {
 			$headers = array(
-				'From: Сайт '.COMPANY_NAME.' <MAIL_RESEND>',
+				'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>', 
 				'content-type: text/html',
 			);
-		
+		  
 			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
-			
-			$adr_to_send = <Присваиваем поле карбона c адресами для отправки>;
-			$mail_content = "<Тело письма>";
-			$mail_them = "<Тема письма>";
+	   
+			$mail_message = 
+			"<h1>Подтверждение регистрации в личном кабинете Agribest.ru</h1>".
+			"<p>Уважаемый клиент, для подтверждения учетной записи перейдите по ссылке:<p>".
+			"<a href = '".get_the_permalink(2539)."?id=".$insert_rez."&k=".$email_key."'>Активировать учетную запись.</a>";
+	  
+			if (wp_mail($_REQUEST["email"], "Подтверждение регистрации", $mail_message, $headers))
+			{
+				$mail_message = 
+				"<h1>В личном кабинете зарегистрированна компания:</h1>".
+				"Представитель: <strong>".$_REQUEST["name"]."</strong> <br/>".
+				"Организация: <strong>".$_REQUEST["nameorg"]."</strong> <br/>".
+				"ИНН: <strong>".$_REQUEST["inn"]."</strong> <br/>".
+				"E-mail: <strong>".$_REQUEST["email"]."</strong> <br/>".
+				"Телефон: <strong>".$_REQUEST["tel"]."</strong> <br/>";
 
-			if (wp_mail($adr_to_send, $mail_them, $mail_content, $headers)) {
+				wp_mail(carbon_get_theme_option( 'as_email_send' ), "Регистрация в личном кабинете", $mail_message, $headers);
+
 				wp_die(json_encode(array("send" => true )));
 			}
-			else {
-				wp_die( 'Ошибка отправки!', '', 403 );
-			}
-	*/
-	
-	
-	/*	Заготовка шорткода
-		function true_url_external( $atts ) {
-			$params = shortcode_atts( array( // в массиве укажите значения параметров по умолчанию
-				'anchor' => 'Миша Рудрастых', // параметр 1
-				'url' => 'https://misha.blog', // параметр 2
-			), $atts );
-			return "<a href='{$params['url']}' target='_blank'>{$params['anchor']}</a>";
+			else 
+			 	wp_die( 'Mail no send!', '', 403 );	
+
+		} else {
+			wp_die( 'Bad insert to base!', '', 403 );		
 		}
-		add_shortcode( 'trueurl', 'true_url_external' );
-	*/
-	
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+		
 ?>

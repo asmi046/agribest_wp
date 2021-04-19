@@ -3114,6 +3114,11 @@ textarea {
 #agriwind .reviews__form-input {
   border: 1px solid #1dc17b;
 }
+
+.dontz {
+  background-color: #fdd1d1;
+}
+
 .reviews__form-input {
   height: 45px;
   margin-bottom: 15px;
@@ -3145,6 +3150,18 @@ textarea {
 }
 .authoriz__form .btn {
   min-width: 100px;
+}
+
+.messageFormBlk {
+  width: 100%;
+  border-radius: 3px;
+  padding: 10px 15px;
+  color: white;
+  margin-top: 20px;
+  background-color: #DC143C;
+}
+.messageFormBlkOk {
+  background-color: #1dc17b;
 }
 
 .personal__row .product {
@@ -3179,8 +3196,8 @@ ul.sub-menu {
 input {outline: none;}
 input:-webkit-autofill {
     -webkit-box-shadow: inset 0 0 0 50px #fff !important; /* Цвет фона */
-    -webkit-text-fill-color: #999 !important; /* цвет текста */
-    color: #999 !important; /* цвет текста */
+    -webkit-text-fill-color: #000 !important; /* цвет текста */
+    color: #000 !important; /* цвет текста */
 }
 
 @media screen and (max-width: 999px) {

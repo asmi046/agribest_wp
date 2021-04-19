@@ -160,7 +160,7 @@
             echo "\n\r";
             echo "\n\r";
 
-             if ($offerIndex > 10) break;
+            // if ($offerIndex > 10) break;
 
             $offerIndex ++;
         }    
