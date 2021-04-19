@@ -96,6 +96,7 @@ Vue.component('passrec', {
        },
 
        getPassRec() {
+            this.showMsgBlk = false;
             if (this.email == "") {this.emailNotEnter = true;  return;};
 
             var params = new URLSearchParams();
@@ -109,11 +110,14 @@ Vue.component('passrec', {
                 this.messageText = "На вашу электронную почту высланны инструкции для восстановления пароля.";
                 this.showMsgBlk = true;
                 this.msgOk = true;
+
+                console.log(response);
               })
               .catch((error)  => {
                 this.messageText = "Пользователя с таким адресом не найдено!";
                 this.showMsgBlk = true;
                 this.msgOk = false;
+                console.log(error);
               });
         
        } 

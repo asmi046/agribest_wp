@@ -3153,9 +3153,9 @@ textarea {
 }
 
 .messageFormBlk {
-  width: 100%;
+  width: 94%;
   border-radius: 3px;
-  padding: 10px 15px;
+  padding: 10px 3%;
   color: white;
   margin-top: 20px;
   background-color: #DC143C;

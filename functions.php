@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.4");
+define("ALL_VERSION", "1.0.5");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -75,9 +75,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		}
 
 		wp_enqueue_style("style-modal", get_template_directory_uri()."/css/jquery.arcticmodal-0.3.css", array(), ALL_VERSION, 'all'); //Модальные окна (стили)
-		//wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), ALL_VERSION, 'all'); //Лайтбокс (стили)
-		//wp_enqueue_style("style-slik", get_template_directory_uri()."/css/slick.css", array(), ALL_VERSION, 'all'); //Слайдер (стили)
-
+	
 		wp_enqueue_style("main-style", get_stylesheet_uri(), array(), ALL_VERSION, 'all' ); // Подключение основных стилей в самом конце
 
 		// Подключение скриптов
@@ -412,13 +410,11 @@ add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
 	  	
 		$email_key = rand(1000, 9999);
 
-		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `id` = '".$_REQUEST["mail"]."'");
-
+		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$_REQUEST["email"]."'");
 		if (!empty($user_feeld)) {
 			
 			$updateRez = $wpdb->update("shop_users",
                                    array(
-                                       "autorize" => 0,
 									   "autorizeKey" => $email_key,
                                    ), 
                                    array(
@@ -436,9 +432,9 @@ add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
 			$mail_message = 
 			"<h1>Восстановление пароля</h1>".
 			"<p>Для восстановления пароля к Вашей учетной записи перейдите по ссылке:<p>".
-			"<a href = '".get_the_permalink(87)."?id=".$user_feeld[0]->id."&k=".$email_key."'>Активировать учетную запись.</a>";
+			"<a href = '".get_the_permalink(87)."?id=".$user_feeld[0]->id."&k=".$email_key."'>Восстановить пароль.</a>";
 	  
-			if (wp_mail($user_feeld[0]->id, "Восстановление пароля", $mail_message, $headers))
+			if (wp_mail($user_feeld[0]->mail, "Восстановление пароля", $mail_message, $headers))
 			{
 				wp_die(json_encode(array("send" => true )));
 			}
