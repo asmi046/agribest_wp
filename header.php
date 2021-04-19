@@ -28,11 +28,5 @@
 
 <? include "modal-win.php";?>
 
-<!-- <div id="wrapper"> -->
-    
-    <?php get_template_part('template-parts/header-part');?>
+<?php get_template_part('template-parts/header-part');?>
 
-
-
-        
-<!-- </div> -->
