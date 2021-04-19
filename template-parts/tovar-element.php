@@ -6,6 +6,7 @@
             </a>
         </div>
         <h3 class="product__name"><? the_title();?></h3>
+        <span class="spacer__vendor">Артикул: <? echo carbon_get_post_meta(get_the_ID(),"offer_sku"); ?></span>
         <span class="db product__price"><? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
         <div class="product__bottom">
             <a href="<?echo get_the_permalink(get_the_ID());?>" class="db btn btn__details">Подробнее</a>

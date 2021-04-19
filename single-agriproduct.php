@@ -34,7 +34,7 @@
 
 										echo 'Не установлено';
 
-									} else if ( $jachejka === 0 || $jachejka === '0' ) {
+									} else if ( $jachejka === 0 || $jachejka === '0' ) { 
 
 										echo '<span class="db card-product__status">Под заказ</span>';
 

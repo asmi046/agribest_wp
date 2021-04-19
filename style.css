@@ -2620,6 +2620,10 @@ textarea {
   text-decoration: none;
 }
 
+.spacer__vendor {
+  padding: 0 5%;
+}
+
 .new-arrivals,
 .sale-porduct {
   padding-top: 73px;
