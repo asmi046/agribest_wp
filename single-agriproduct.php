@@ -20,19 +20,29 @@
                     <h1 class="section-title">
 						<? the_title();?>
                     </h1>
-                    <div class="card-product">
+                    <div class="card-product"> 
 					    <?php  $imgTm = get_the_post_thumbnail_url( get_the_ID(), "tominiatyre" ); ?> 
 						<a href="<?echo empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm;?>" class="card-product__img-box db fancybox card-product__column">
                             <img src="<?echo empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm;?>" alt="<? the_title();?>" title="<? the_title();?>" class="spacer">
                         </a>
                         <div class="card-product__descr card-product__column">
                             <span class="db card-product__price">Цена: <? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
-                            <? $countProd = carbon_get_post_meta(get_the_ID(),"offer_nal_count"); if (empty($countProd)){ ?>
-								<span class="db card-product__status">Под заказ</span>
-							<?} else {?>
-								<span class="db card-product__status">В наличии <?php echo $countProd; ?> шт. </span>
-							<?}?>
+                                <?php
+									$jachejka = carbon_get_the_post_meta('offer_nal_count');
 
+									if( strlen($jachejka) == 0 ) {
+
+										echo 'Не установлено';
+
+									} else if ( $jachejka === 0 || $jachejka === '0' ) {
+
+										echo '<span class="db card-product__status">Под заказ</span>';
+
+									} else {
+
+										echo '<span class="db card-product__status">В НАЛИЧИИ</span>';
+									}
+							    ?>
                             <div class="db card-product__manufacturer">Артикул: <span class="inb rL cerecterVal"> <? echo carbon_get_post_meta(get_the_ID(),"offer_sku"); ?></span></div>
                             <? $manufactur = carbon_get_post_meta(get_the_ID(),"offer_manufact"); if (!empty($manufactur)){ ?>
 								<div class="db card-product__manufacturer">Производитель: <span class="inb rL cerecterVal"><?php echo $manufactur; ?></span></div>
@@ -53,7 +63,7 @@
 			                        data-name = "<? echo  get_the_title();?>"
 			                        data-count = "1"
 			                        data-picture = "<?echo $imgTm;?>"
-                                >В корзину</button>
+                                >В корзину</button> 
                             </form>
                             <p>
                                <? echo carbon_get_post_meta(get_the_ID(),"offer_smile_descr");?>
