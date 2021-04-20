@@ -20,6 +20,58 @@ get_header(); ?>
 		</div>
 	</div>
 
+			<?
+				// $arg = $wp_query->query;
+
+				//$arg['relation']  = 'OR';
+				//$arg['title']  = "%Торфотаблетка%";
+				
+				
+
+
+ 				$metaquery = array(
+
+					'relation' => 'OR',
+					'tqAll' => array(
+						'key'     => '_offer_allsearch',
+						'value' => $_REQUEST["s"],
+						'compare' => 'LIKE',
+						'type'    => 'CHAR',
+					),
+
+					'tqSku' => array(
+						'key'     => '_offer_sku',
+						'value' => $_REQUEST["s"],
+						'compare' => 'LIKE',
+						'type'    => 'CHAR',
+					),
+
+					'tqDescr' => array(
+						'key'     => '_offer_smile_descr',
+						'value' => $_REQUEST["s"],
+						'compare' => 'LIKE',
+						'type'    => 'CHAR',
+					),
+
+					'tqDescr' => array(
+						'key'     => '_offer_name',
+						'value' => $_REQUEST["s"],
+						'compare' => 'LIKE',
+						'type'    => 'CHAR',
+					)
+				); 
+
+				$arg['post_type']  = 'agriproduct';
+				$arg['posts_per_page'] = -1;
+				$arg['meta_query'] = $metaquery;
+				
+			
+				$queryM = new WP_Query($arg);
+				// echo "<pre>";
+				// print_r($queryM);
+				// echo "</pre>";
+			?>
+
 			<section id="content" class="content">
 				<div class="inner">
 
@@ -27,10 +79,11 @@ get_header(); ?>
 
 					<div class="product__grid product__box">
 						<?php
-							while(have_posts()):  
-								the_post();
+							while($queryM->have_posts()):  
+								$queryM->the_post();
 								get_template_part('template-parts/tovar-element');
 							endwhile;
+							wp_reset_postdata();
 						?>
 					</div>
 
