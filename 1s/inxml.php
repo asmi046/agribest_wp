@@ -56,8 +56,12 @@
         $offerIndex = 0;
         foreach ($xml->{'Каталог'}->{'Товары'}->children() as $elem)
         { 
-            $sku = $elem->{'Артикул'};
-            $name = $elem->{'Наименование'};
+            $sku = (string)$elem->{'Артикул'};
+            
+            // if (($sku !== "10122") && ($sku !== "10121") && ($sku !== "10125")) 
+            //      continue;
+            
+                 $name = $elem->{'Наименование'};
 
             foreach($elem->{'ЗначенияРеквизитов'}->children() as $toname)
             {
@@ -167,9 +171,13 @@
 
                 $img_id = media_sideload_image( $img1, $post_id, $ttl, "id" );
             
-                update_post_meta( $post_id, '_offer_picture|gal_img|'.$indexImg.'|0|value', $img_id, true );
-                update_post_meta( $post_id, '_offer_picture|gal_img_sku|'.$indexImg.'|0|value',  "", true );
-                update_post_meta( $post_id, '_offer_picture|gal_img_alt|'.$indexImg.'|0|value', $ttl, true );
+                delete_post_meta( $post_id, '_offer_picture|gal_img|'.$indexImg.'|0|value');
+                delete_post_meta( $post_id, '_offer_picture|gal_img_sku|'.$indexImg.'|0|value');
+                delete_post_meta( $post_id, '_offer_picture|gal_img_alt|'.$indexImg.'|0|value');
+            
+                add_post_meta( $post_id, '_offer_picture|gal_img|'.$indexImg.'|0|value', $img_id, true );
+                add_post_meta( $post_id, '_offer_picture|gal_img_sku|'.$indexImg.'|0|value',  "", true );
+                add_post_meta( $post_id, '_offer_picture|gal_img_alt|'.$indexImg.'|0|value', $ttl, true );
 
                 if ($indexImg == 0) set_post_thumbnail($post_id, $img_id);
             
