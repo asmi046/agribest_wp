@@ -255,14 +255,14 @@ function isEmail(email) {
     function watchView() {
         if (jQuery(window).outerWidth() < 740) {
             makeAGrid();
-            $viewBox.hide();
+            // $viewBox.hide();
         } else {
 
             if (jQuery('.product__row').length) { } else {
                 if (jQuery('.js__view').attr('style') == 'display: none;') {
                     jQuery('.js__view').attr('style', 'display: flex;')
                 }
-                $viewBox.show();
+                // $viewBox.show();
                 makeAGrid()
             }
 
