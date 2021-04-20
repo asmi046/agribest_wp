@@ -1,101 +1,100 @@
 
 $ = jQuery;
 
-function number_format () {
-	let elements = document.querySelectorAll('.price_formator');
-	for (let elem of elements) {
-	  elem.dataset.realPrice = elem.innerHTML; 
-	  elem.innerHTML = Number(elem.innerHTML).toLocaleString('ru-RU');
-	}
-  }
+function number_format() {
+    let elements = document.querySelectorAll('.price_formator');
+    for (let elem of elements) {
+        elem.dataset.realPrice = elem.innerHTML;
+        elem.innerHTML = Number(elem.innerHTML).toLocaleString('ru-RU');
+    }
+}
 
 //Маска для телефона
-  let mascedPhoneElem = document.querySelectorAll('input[type=tel]');
- console.log(mascedPhoneElem); 
-  if (mascedPhoneElem != undefined) 
-  for (let elem of mascedPhoneElem) { 
-	IMask(elem, {
-		mask: '+{7}(000)000-00-00',
-		lazy: true,  // make placeholder always visible
-		placeholderChar: '_'     // defaults to '_'
-	});
-  }
+let mascedPhoneElem = document.querySelectorAll('input[type=tel]');
+console.log(mascedPhoneElem);
+if (mascedPhoneElem != undefined)
+    for (let elem of mascedPhoneElem) {
+        IMask(elem, {
+            mask: '+{7}(000)000-00-00',
+            lazy: true,  // make placeholder always visible
+            placeholderChar: '_'     // defaults to '_'
+        });
+    }
 
 
-  document.addEventListener("DOMContentLoaded", ()=>{ 
-	number_format ();
-	cart_recalc ();
-  });
+document.addEventListener("DOMContentLoaded", () => {
+    number_format();
+    cart_recalc();
+});
 //-------------------------------------Корзина
 
 let cart = [];
 let cartCount = 0;
 
-function cart_recalc () {
-	cart = JSON.parse(localStorage.getItem("cart"));
-	if (cart == null) cart = [];
-	cartCount = 0;
-	cartSumm = 0;
-	for (let i = 0; i<cart.length; i++){
-	  cartCount += Number(cart[i].count);
-  
-	  cartSumm += Number(cart[i].count) * parseFloat(cart[i].price);
-	}
-  
-	localStorage.setItem("cartcount", cartCount);
-	localStorage.setItem("cartsumm", cartSumm);
-  
-	let elements = document.querySelectorAll('.bascet_counter');
-	for (let elem of elements) {
-	  elem.innerHTML = cartCount;
-	}
-  
-  }
-  
-  function add_tocart(elem, countElem) {
-	
-	  
-	  let cartElem = {
-		sku: elem.dataset.sku,
-		lnk:elem.dataset.lnk,
-		price: elem.dataset.price,
-		priceold: elem.dataset.oldprice,
-		subtotal:elem.dataset.price,
-		name: elem.dataset.name,
-		count: (countElem == 0)?elem.dataset.count:countElem,
-		picture: elem.dataset.picture 
-	  };
-  
-	  if (cart.length == 0)
-	  {
-		cart.push(cartElem);
-	  } else {
-		let addet = true;
-		for (let i = 0; i<cart.length; i++){
-		  if (cart[i].sku == cartElem.sku) {
-			cart[i].count++;
-			cart[i].subtotal = Number(cart[i].count) * parseFloat(cart[i].price);
-			addet = false;
-			break;
-		  }
-		}
-  
-		if (addet)
-		  cart.push(cartElem);
-	  }
-	  
-	  localStorage.setItem("cart", JSON.stringify (cart) );
-	  cart_recalc ();
-  
-	  console.log(cartElem);
-  }
+function cart_recalc() {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart == null) cart = [];
+    cartCount = 0;
+    cartSumm = 0;
+    for (let i = 0; i < cart.length; i++) {
+        cartCount += Number(cart[i].count);
+
+        cartSumm += Number(cart[i].count) * parseFloat(cart[i].price);
+    }
+
+    localStorage.setItem("cartcount", cartCount);
+    localStorage.setItem("cartsumm", cartSumm);
+
+    let elements = document.querySelectorAll('.bascet_counter');
+    for (let elem of elements) {
+        elem.innerHTML = cartCount;
+    }
+
+}
+
+function add_tocart(elem, countElem) {
+
+
+    let cartElem = {
+        sku: elem.dataset.sku,
+        lnk: elem.dataset.lnk,
+        price: elem.dataset.price,
+        priceold: elem.dataset.oldprice,
+        subtotal: elem.dataset.price,
+        name: elem.dataset.name,
+        count: (countElem == 0) ? elem.dataset.count : countElem,
+        picture: elem.dataset.picture
+    };
+
+    if (cart.length == 0) {
+        cart.push(cartElem);
+    } else {
+        let addet = true;
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].sku == cartElem.sku) {
+                cart[i].count++;
+                cart[i].subtotal = Number(cart[i].count) * parseFloat(cart[i].price);
+                addet = false;
+                break;
+            }
+        }
+
+        if (addet)
+            cart.push(cartElem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    cart_recalc();
+
+    console.log(cartElem);
+}
 
 //-------------------------------------
 
 // Функция верификации e-mail
 function isEmail(email) {
-	var regex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-	return regex.test(email);
+    var regex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return regex.test(email);
 }
 
 
@@ -103,7 +102,7 @@ function isEmail(email) {
 
     // begin - catalog menu
     let $catalogBtn = jQuery('.catalog-btn');
-    let $catalogMenu =jQuery('.catalog-menu');
+    let $catalogMenu = jQuery('.catalog-menu');
     let $closeMenuBtn = jQuery('.close-menu__btn');
     let $body = jQuery('body');
     let $catalogMenuCaption = jQuery('.menu-caption');
@@ -115,12 +114,12 @@ function isEmail(email) {
 
         if (jQuery(window).outerWidth() < 850) {
             $body.addClass('fixed');
-        } 
+        }
     });
-    
-//    клик по заголовку каталога в версии для смартфонов
-    $catalogMenuCaption.on('click', function(){
-        if(jQuery(window).outerWidth() < 500){
+
+    //    клик по заголовку каталога в версии для смартфонов
+    $catalogMenuCaption.on('click', function () {
+        if (jQuery(window).outerWidth() < 500) {
             jQuery(this).next('ul').slideToggle(300);
         }
     })
@@ -132,8 +131,8 @@ function isEmail(email) {
     });
 
     //  end - catalog menu
-//    подключаю слайдер
-	jQuery('.brand-sl').slick({
+    //    подключаю слайдер
+    jQuery('.brand-sl').slick({
         slidesToShow: 6,
         slidesToScroll: 1,
         arrows: true,
@@ -173,8 +172,37 @@ function isEmail(email) {
             },
         ]
     });
-//подключаю фансибокс
-	jQuery('.fancybox').fancybox();
+
+
+    // Slider Товара
+    $('.select-prod-slider').slick({
+        arrows: false,
+        dots: false,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 10,
+        slidesToScroll: 1,
+        centerMode: true,
+        focusOnSelect: true,
+        autoplaySpeed: 1800,
+        asNavFor: ".select-slider-big",
+        adaptiveHeight: true,
+        vertical: true
+    });
+    $('.select-slider-big').slick({
+        arrows: false,
+        dots: false,
+        fade: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        draggable: false,
+        asNavFor: ".select-prod-slider"
+    });
+
+
+
+    //подключаю фансибокс
+    jQuery('.fancybox').fancybox();
 
     //    input type number
     (function quantityProducts() {
@@ -211,26 +239,26 @@ function isEmail(email) {
     let $btnRow = jQuery('.js__row');
     let $productBox = jQuery('.product__box');
     let $viewBox = jQuery('.js__view');
-    
-//    ф-ция делает каталог строками
+
+    //    ф-ция делает каталог строками
     function makeARow() {
         $productBox.removeClass('product__grid');
         $productBox.addClass('product__row');
     }
-//    ф-ция делает каталог сеткой
+    //    ф-ция делает каталог сеткой
     function makeAGrid() {
         $productBox.removeClass('product__row');
         $productBox.addClass('product__grid');
     }
-    
-//    фукнция слежения за отображением переключателя вида каталога товаров в зависимости от расширения
-    function watchView(){
+
+    //    фукнция слежения за отображением переключателя вида каталога товаров в зависимости от расширения
+    function watchView() {
         if (jQuery(window).outerWidth() < 740) {
             makeAGrid();
             $viewBox.hide();
         } else {
 
-            if (jQuery('.product__row').length) {} else {
+            if (jQuery('.product__row').length) { } else {
                 if (jQuery('.js__view').attr('style') == 'display: none;') {
                     jQuery('.js__view').attr('style', 'display: flex;')
                 }
@@ -240,27 +268,27 @@ function isEmail(email) {
 
         }
     }
-    
+
     watchView();
-  
+
     $btnRow.on('click', function () {
-		
+
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
-		makeARow();
+        makeARow();
         document.cookie = "vtype=grid";
         console.log("vtype=grid");
     });
     $btnGrid.on('click', function () {
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
-		makeAGrid();
+        makeAGrid();
         document.cookie = "vtype=plan";
         console.log("vtype=plan");
     });
     // конец   управление видом каталога 
 
-//    функция адаптации шапки сайта
+    //    функция адаптации шапки сайта
     function headerTransformMobile() {
         if (jQuery(window).outerWidth() < 850) {
             let mailLogo = $('.logo').delay();
@@ -270,23 +298,23 @@ function isEmail(email) {
             let storeMenu = $('.store-menu__wr');
             let catalogMenu = $('.catalog-menu');
             catalogMenu.append(storeMenu);
-            
+
         } else {
             if (jQuery('.header__top .logo').length) {
                 let mailLogo = jQuery('.logo').delay();
                 jQuery('.header__middle .inner').prepend(mailLogo);
-                
+
                 let storeMenu = $('.store-menu__wr');
                 jQuery('.header__top .inner').prepend(storeMenu);
             }
         }
     }
-    
+
     headerTransformMobile()
     jQuery(window).resize(function () {
         watchView();
-        headerTransformMobile(); 
-        if($(window).outerWidth() >= 500){
+        headerTransformMobile();
+        if ($(window).outerWidth() >= 500) {
             console.log('Вали инлафные стили!')
             $('.catalog-menu ul').removeAttr('style'); //чищу инлайновые стили которые могли остаться у внутренних меню каталога
         }
@@ -295,53 +323,53 @@ function isEmail(email) {
 })();
 
 
-jQuery(document).ready(function() {
-	
-	// Сразу маскируем все поля телефонов
-	var inputmask_phone = {"mask": "+7(999)999-99-99"};
-	jQuery("input[type=tel]").inputmask(inputmask_phone);
+jQuery(document).ready(function () {
 
-	// Типовой скрипт для отправки сообщений на почту
+    // Сразу маскируем все поля телефонов
+    var inputmask_phone = { "mask": "+7(999)999-99-99" };
+    jQuery("input[type=tel]").inputmask(inputmask_phone);
 
-	jQuery("#clsubmit").click(function(){ 
+    // Типовой скрипт для отправки сообщений на почту
 
-		e.preventDefault();
+    jQuery("#clsubmit").click(function () {
 
-		var  jqXHR = jQuery.post(
-					allAjax.ajaxurl,
-					{
-						action: 'send_mail',		
-						nonce: allAjax.nonce,
-						formsubject: jQuery("#formsubject").val(),
-					}
-					
-		);
-				
-				
-		jqXHR.done(function (responce) {  //Всегда при удачной отправке переход для страницу благодарности
-					document.location.href = 'https://osagoprofi.su/stranica-blagodarnosti';	
-		});
-				
-		jqXHR.fail(function (responce) {
-					jQuery('#messgeModal #lineMsg').html("Произошла ошибка. Попробуйте позднее.");
-					jQuery('#messgeModal').arcticmodal();
-		});
-	});
+        e.preventDefault();
+
+        var jqXHR = jQuery.post(
+            allAjax.ajaxurl,
+            {
+                action: 'send_mail',
+                nonce: allAjax.nonce,
+                formsubject: jQuery("#formsubject").val(),
+            }
+
+        );
+
+
+        jqXHR.done(function (responce) {  //Всегда при удачной отправке переход для страницу благодарности
+            document.location.href = 'https://osagoprofi.su/stranica-blagodarnosti';
+        });
+
+        jqXHR.fail(function (responce) {
+            jQuery('#messgeModal #lineMsg').html("Произошла ошибка. Попробуйте позднее.");
+            jQuery('#messgeModal').arcticmodal();
+        });
+    });
 });
 
 
-$(".call-request").on('click', function(e) {
+$(".call-request").on('click', function (e) {
     e.preventDefault();
-    jQuery("#agriwind").arcticmodal(); 
-}); 
+    jQuery("#agriwind").arcticmodal();
+});
 
 
-$('.agriwind').click(function(e){  
+$('.agriwind').click(function (e) {
 
     e.preventDefault();
-    var namew = $("#form-namew").val(); 
-    var emailw = $("#form-emailw").val(); 
-    var telw = $("#form-telw").val(); 
+    var namew = $("#form-namew").val();
+    var emailw = $("#form-emailw").val();
+    var telw = $("#form-telw").val();
 
     // if (jQuery("#form-namew").val() == "") {
     //     jQuery("#form-namew").css("border","1px solid red");
@@ -353,31 +381,31 @@ $('.agriwind').click(function(e){
     //     return;
     // }
 
-    if (jQuery("#form-telw").val() == ""){
-        jQuery("#form-telw").css("border","1px solid red");
+    if (jQuery("#form-telw").val() == "") {
+        jQuery("#form-telw").css("border", "1px solid red");
         return;
     }
 
     else {
-        var  jqXHR = jQuery.post(
+        var jqXHR = jQuery.post(
             allAjax.ajaxurl,
             {
-                action: 'sendagri',        
+                action: 'sendagri',
                 nonce: allAjax.nonce,
                 namew: namew,
                 emailw: emailw,
                 telw: telw,
-            }   
-            );
+            }
+        );
 
-                jqXHR.done(function (responce) {
-                    jQuery(".headen_form_blk").hide();
-                    jQuery('.SendetMsg').show();
-                });
+        jqXHR.done(function (responce) {
+            jQuery(".headen_form_blk").hide();
+            jQuery('.SendetMsg').show();
+        });
 
-            jqXHR.fail(function (responce) {
-                alert("Произошла ошибка. Попробуйте позднее."); 
-        }); 
+        jqXHR.fail(function (responce) {
+            alert("Произошла ошибка. Попробуйте позднее.");
+        });
 
-     }
+    }
 });

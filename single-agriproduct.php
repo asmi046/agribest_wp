@@ -21,10 +21,61 @@
 						<? the_title();?>
                     </h1>
                     <div class="card-product"> 
-					    <?php  $imgTm = get_the_post_thumbnail_url( get_the_ID(), "tominiatyre" ); ?> 
-						<a href="<?echo empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm;?>" class="card-product__img-box db fancybox card-product__column">
-                            <img src="<?echo empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm;?>" alt="<? the_title();?>" title="<? the_title();?>" class="spacer">
-                        </a>
+
+
+				<div class="select-prod-sl">
+					<!-- Большой слайдер -->
+					<div class="select-slider-big">
+						<?
+						$pict = carbon_get_the_post_meta('offer_picture');
+						if($pict) {
+							$pictIndex = 0;
+							foreach($pict as $item) {
+								?>
+								<div class="select-slider-big__item">
+									<a class="fancybox" data-fancybox="gallery" href="<?php echo wp_get_attachment_image_src($item['gal_img'], 'full')[0];?>">
+										<img
+										id = "pict-<? echo empty($item['gal_img_sku'])?$pictIndex:$item['gal_img_sku']; ?>" 
+										alt = "<? echo $item['gal_img_alt']; ?>"
+										title = "<? echo $item['gal_img_alt']; ?>"
+										src = "<?php echo wp_get_attachment_image_src($item['gal_img'], 'full')[0];?>" />
+
+									</a>
+								</div>
+
+								<?
+								$pictIndex++;
+							}
+						}
+						?>
+					</div>
+
+					<!-- Малый слайдер -->
+					<div class="select-prod-slider">
+						<?
+						$pict = carbon_get_the_post_meta('offer_picture');
+						if($pict) {
+							$pictIndex = 0;
+							foreach($pict as $item) {
+								?>
+								<div class="select-prod-slider__item">
+									<img 
+									data-indexelem = "<?echo $i;?>"
+									id = "<? echo $item['gal_img_sku']; ?>" 
+									alt = "<? echo $item['gal_img_alt']; ?>"
+									title = "<? echo $item['gal_img_alt']; ?>"
+									src = "<?php echo wp_get_attachment_image_src($item['gal_img'], 'large')[0];?>" />
+								</div>
+								<?
+								$pictIndex++;
+							}
+						}
+						?>
+					</div>
+					
+				</div>
+
+
                         <div class="card-product__descr card-product__column">
                             <span class="db card-product__price">Цена: <? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
                                 <?php
