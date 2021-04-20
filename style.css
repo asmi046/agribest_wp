@@ -1731,10 +1731,16 @@ button,
 }
 
 .product__grid .tov_elem_img_wrapper {
-  width: 100%;
-  max-height: 288px;
-  min-height: 288px;
-  overflow: hidden;
+    /* width: 100%; */
+    /* max-height: 288px; */
+    /* min-height: 288px; */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 1 250px;
+    max-height: 250px;
+    padding: 10px 0;
 }
 
 .product__row .tov_elem_img_wrapper {
@@ -1742,6 +1748,13 @@ button,
   max-height: 90px;
   min-height: 90px;
   overflow: hidden;
+}
+.product__grid .tov_elem_img_wrapper img {
+  display: block;
+  max-width: 100%;
+  /* height: auto; */
+  height: 100%;
+  /* object-fit: cover; */
 }
 
 .clearfix::after,
