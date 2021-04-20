@@ -1739,8 +1739,12 @@ button,
     justify-content: center;
     align-items: center;
     flex: 0 1 250px;
+    max-width: 250px;
+    width: 100%;
     max-height: 250px;
     padding: 10px 0;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .product__row .tov_elem_img_wrapper {
@@ -2668,6 +2672,9 @@ textarea {
 .brand-sl .slick-slide {
   float: none;
   height: auto;
+}
+.brand-sl .slick-slide img {
+  width: 80%;
 }
 .brand-sl .slick-prev,
 .brand-sl .slick-next {
