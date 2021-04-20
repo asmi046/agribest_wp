@@ -1754,7 +1754,7 @@ button,
   max-width: 100%;
   /* height: auto; */
   height: 100%;
-  /* object-fit: cover; */
+  object-fit: contain;
 }
 
 .clearfix::after,
@@ -3272,7 +3272,9 @@ input:-webkit-autofill {
   border-radius: 5px;
   overflow: hidden;
   margin-right: 30px;
-  box-shadow: 0 0px 19px 1px #f2f2f2
+  box-shadow: 0 0px 19px 1px #f2f2f2;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .select-slider-big {
