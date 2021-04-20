@@ -17,7 +17,7 @@
             <h1 class="section-title"><?php single_cat_title( '', true );?></h1>
                     <div class="view js__view">
                         <span class="db view__caption">Вид: </span>
-                        <button class="view__btn view__btn-grid js__grid view__btn_select">
+                        <button class="view__btn view__btn-grid js__grid <? if (empty($_COOKIE["vtype"])||($_COOKIE["vtype"] == "plan")) echo "view__btn_select"; ?>">
                             <span></span>
                             <span></span>
                             <span></span>
@@ -31,7 +31,7 @@
                             <span></span>
                             <span></span>
                         </button>
-                        <button class="view__btn view__btn-row js__row">
+                        <button class="view__btn view__btn-row js__row <? if ($_COOKIE["vtype"] == "grid") echo "view__btn_select"; ?>">
                             <span></span>
                             <span></span>
                             <span></span>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class=" product__box product__grid">
+        <div class=" product__box <? echo ($_COOKIE["vtype"] == "grid")?"product__row":"product__grid";?>">
             <?php
                 $arg = $wp_query->query;
                 $queryM = new WP_Query($arg);

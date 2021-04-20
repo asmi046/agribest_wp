@@ -248,11 +248,15 @@ function isEmail(email) {
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
 		makeARow();
+        document.cookie = "vtype=grid";
+        console.log("vtype=grid");
     });
     $btnGrid.on('click', function () {
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
 		makeAGrid();
+        document.cookie = "vtype=plan";
+        console.log("vtype=plan");
     });
     // конец   управление видом каталога 
 
