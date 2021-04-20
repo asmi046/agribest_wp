@@ -6,11 +6,11 @@
                 <h2 class="address_caption">
                     Адрес склада:
                 </h2>
-                <p>г. Курск, ул. 2-я Рабочая, д. 19,стр. 21</p>
+                <p><? echo carbon_get_theme_option("as_address"); ?></p>
             </div>
         </div>
     </div>
-</div>
+</div> 
 
 
 <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
