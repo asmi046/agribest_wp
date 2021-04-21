@@ -3414,7 +3414,13 @@ input:-webkit-autofill {
   opacity: 1;
 }
 
+.not {
+  color: #ee5f3b;
+}
 
+.yes {
+  color: #1dc17b;
+}
 
 
 @media screen and (max-width: 999px) {

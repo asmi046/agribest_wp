@@ -7,7 +7,15 @@
         </a>
         <div class="product__title-bl">
         <h3 class="product__name"><? the_title();?></h3>
-        <span class="spacer__vendor">Артикул: <? echo carbon_get_post_meta(get_the_ID(),"offer_sku"); ?></span>
+        <span class="spacer__vendor">Артикул: <? echo carbon_get_post_meta(get_the_ID(),"offer_sku"); ?> 
+        <?
+            $jachejka = carbon_get_post_meta(get_the_ID(),'offer_nal_count');
+            if (empty($jachejka)) 
+                echo "&nbsp;&nbsp;&nbsp;<span class = 'not'>Под заказ</span>";
+            else
+            echo "&nbsp;&nbsp;&nbsp;<span class = 'yes'>В наличии</span>";
+        ?> 
+        </span>
         </div>
         <span class="db product__price"><? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
         <div class="product__bottom">
