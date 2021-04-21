@@ -285,6 +285,21 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			
 			$bscet_dec = json_decode(stripcslashes ($_REQUEST["bascet"]));
 			
+			// Отправка в базу основного заказа
+
+			global $wpdb;
+			$wpdb->insert( "shop_zakhistory", array(
+				"zak_number" => $zak_number,
+				"zak_summ" => $_REQUEST["bascetsumm"],
+				"zak_count" => count($bscet_dec),
+				"client_name" => $_REQUEST["name"],
+				"client_phone" => $_REQUEST["phone"],
+				"client_mail" => $_REQUEST["mail"],
+				"client_adr" => $_REQUEST["adres"],
+				"client_comment" => $_REQUEST["comment"],
+			) );
+
+
 			$mail_content .= "<table style = 'text-align: left;' width = '100%'>";
 				$mail_content .= "<tr>";
 					$mail_content .= "<th></th>";
@@ -303,6 +318,21 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 						$mail_content .= "<td>".$bscet_dec[$i]->count."</td>";
 						$mail_content .= "<td>".$bscet_dec[$i]->subtotal." р.</td>";
 					$mail_content .= "</tr>";
+
+					// Отправка в базу содержимого корзины
+
+					global $wpdb;
+					$wpdb->insert( "shop_zaktovar", array(
+						"zak_number" => $zak_number,
+						"price" => $bscet_dec[$i]->price,
+						"price_old" => $bscet_dec[$i]->oldprice,
+						"subtotal" => $bscet_dec[$i]->subtotal,
+						"sku" => $bscet_dec[$i]->sku,
+						"lnk" => $bscet_dec[$i]->lnk,
+						"name" => $bscet_dec[$i]->name,
+						"count" => $bscet_dec[$i]->count,
+						"picture" => $bscet_dec[$i]->picture,
+					) );
 				}
 
 			$mail_content .= "</table>";
@@ -310,18 +340,28 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 
 			 $zaktpl = file_get_contents(__DIR__.'/zaktempl.xml', true);
-			
+			// ---- Формирование файла для 1С
+
+			$clname = 	explode(" ", $_REQUEST["name"])[0];
+			$clnames = 	explode(" ", $_REQUEST["name"])[1];
+
 			 $zaktpl = str_replace("{zaknum}", $zak_number, $zaktpl);
 			 $zaktpl = str_replace("{zakdata}", date("Y-m-d"), $zaktpl);
 			 $zaktpl = str_replace("{zaksumm}", $_REQUEST["bascetsumm"], $zaktpl);
 			 $zaktpl = str_replace("{zaktime}", date("H:i:s"), $zaktpl);
-			 $zaktpl = str_replace("{sname}", explode(" ", $_REQUEST["name"])[0], $zaktpl);
-			 $zaktpl = str_replace("{name}", explode(" ", $_REQUEST["name"])[1], $zaktpl);
+			 $zaktpl = str_replace("{name}", $clname, $zaktpl);
+			 $zaktpl = str_replace("{sname}", $clnames, $zaktpl);
+			 $zaktpl = str_replace("{clientname}", $clname." ".$clnames, $zaktpl);
+			 $zaktpl = str_replace("{clientnamefull}", $clname." ".$clnames, $zaktpl);
+			 $zaktpl = str_replace("{clienphone}", $_REQUEST["phone"], $zaktpl);
+			 $zaktpl = str_replace("{clientmail}", $_REQUEST["mail"], $zaktpl);
 			 $zaktpl = str_replace("{zakcomment}", $_REQUEST["comment"], $zaktpl);
 			 $zaktpl = str_replace("{tovars}", $toXMLstr, $zaktpl);
 			
 			 file_put_contents(__DIR__."/1s/orders/".$zak_number.".xml", $zaktpl);
 			
+
+
 			$mail_content .= "<strong>Имя:</strong> ".$_REQUEST["name"]."<br/>";
 			$mail_content .= "<strong>Телефон:</strong> ".$_REQUEST["phone"]."<br/>";
 			$mail_content .= "<strong>e-mail:</strong> ".$_REQUEST["mail"]."<br/>";
