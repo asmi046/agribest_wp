@@ -31,7 +31,6 @@
         { 
                 $catName = $elem->{'Наименование'};
                 echo  "Категория: ".$catName;
-                //print_r($elem->attributes()[id]);
 
                 $term = get_term_by('name', $catName, 'agricat');
                 
@@ -45,6 +44,27 @@
                 
                 $curentTerm[(string)$elem->{'Ид'}] = (string)$catName;
                 
+                if (!empty($elem->{'Группы'}->children()))
+                foreach ($elem->{'Группы'}->children() as $subelem) {
+
+                    $catName = $subelem->{'Наименование'};
+                    echo  "ПодКатегория: ".$catName;
+    
+                    $term = get_term_by('name', $catName, 'agricat');
+                    
+                    if (empty($term)) 
+                    {
+                        wp_insert_term( (string)$catName, 'agricat');      
+                        echo " - Создана";
+                    } else
+                        echo " - Существует";
+    
+                    
+                    $curentTerm[(string)$subelem->{'Ид'}] = (string)$catName;
+                    
+                    echo "\n\r";
+                }
+            
                  
                 echo "\n\r";
         }
@@ -57,11 +77,12 @@
         foreach ($xml->{'Каталог'}->{'Товары'}->children() as $elem)
         { 
             $sku = (string)$elem->{'Артикул'};
+            $sku1c = (string)$elem->{'Ид'};
             
             // if (($sku !== "10122") && ($sku !== "10121") && ($sku !== "10125")) 
             //      continue;
             
-                 $name = $elem->{'Наименование'};
+            $name = $elem->{'Наименование'};
 
             foreach($elem->{'ЗначенияРеквизитов'}->children() as $toname)
             {
@@ -74,7 +95,9 @@
 
             $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
             $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
+            echo "#: ". $offerIndex ."\n\r";
             echo "Артикул: ". $sku ."\n\r";
+            echo "Артикул 1C: ". $sku1c ."\n\r";
             echo "Имя: ". $name."\n\r";
             echo "Группа: ". $group."\n\r";
             echo "Картинка: ". $picture."\n\r";
@@ -82,6 +105,7 @@
 
             $to_post_meta  = [ 
                 '_offer_smile_descr' => (string)$name, 
+                '_offer_sku_1c' => (string)$sku1c, 
                 '_offer_sku' => (string)$sku, 
                 '_offer_nal' => 1,
                 '_offer_name' => (string)$name,

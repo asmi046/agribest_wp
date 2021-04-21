@@ -108,7 +108,8 @@
                                 </div>
                                 <button class="btn" type="submit" onclick = "add_tocart(this, document.getElementById('pageNumeric').value); return false;"
                                     data-price = "<? echo $pagePrice?>"
-			                        data-sku = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku")?>"
+									data-sku1c = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku_1c")?>"
+									data-sku = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku")?>"
 			                        data-oldprice = "<? echo $pagePriceOld?>"
 			                        data-lnk = "<? echo  get_the_permalink(get_the_ID());?>"
 			                        data-name = "<? echo  get_the_title();?>"

@@ -5,7 +5,7 @@
   "main": "index.php",
   "scripts": {
     "test": "editorconfig-checker",
-    "send_r": "scp -C *.php *.png *.css stanis9y_all@stanis9y.beget.tech:agribest.ru/public_html/wp-content/themes/agribest",
+    "send_r": "scp -C *.php *.png *.css *.xml stanis9y_all@stanis9y.beget.tech:agribest.ru/public_html/wp-content/themes/agribest",
     "mk_part_carbon": "ssh stanis9y_all@stanis9y.beget.tech \"mkdir -p agribest.ru/public_html/wp-content/themes/agribest/template-parts\"",
     "send_carbon": "scp -C -r carbon-fields stanis9y_all@stanis9y.beget.tech:agribest.ru/public_html/wp-content/themes/agribest/carbon-fields",
     "send_one": "scp -C page-personal-area.php stanis9y_all@stanis9y.beget.tech:agribest.ru/public_html/wp-content/themes/agribest/",

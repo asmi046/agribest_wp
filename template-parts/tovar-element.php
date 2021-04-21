@@ -2,7 +2,7 @@
     <div class="product">
         <a href = "<?echo get_the_permalink(get_the_ID());?>" class = "tov_elem_img_wrapper">
             <!-- <a href = "<?echo get_the_permalink(get_the_ID());?>"> -->
-                <img class="db product__img" src="<?php  $imgTm = get_the_post_thumbnail_url( get_the_ID(), "tominiatyre" ); echo empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm; ?>" alt="<? the_title();?>">
+                <img class="db product__img" src="<?php  $imgTm = get_the_post_thumbnail_url( get_the_ID(), "tominiatyre" ); echo $imgTm = empty($imgTm)?get_bloginfo("template_url")."/img/no-photo.jpg":$imgTm; ?>" alt="<? the_title();?>">
             <!-- </a> -->
         </a>
         <div class="product__title-bl">
@@ -14,6 +14,7 @@
             <a href="<?echo get_the_permalink(get_the_ID());?>" class="db btn btn__details">Подробнее</a>
             <button class="btn btn__to-card" onclick = "add_tocart(this, 0); return false;"
                 data-price = "<? echo $mprice?>"
+                data-sku1c = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku_1c")?>"
                 data-sku = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku")?>"
                 data-oldprice = "<? echo carbon_get_post_meta(get_the_ID(),"offer_old_price")?>"
                 data-lnk = "<? echo  get_the_permalink(get_the_ID());?>"

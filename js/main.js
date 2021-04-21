@@ -56,6 +56,7 @@ function add_tocart(elem, countElem) {
 
 
     let cartElem = {
+        sku1c: elem.dataset.sku1c,
         sku: elem.dataset.sku,
         lnk: elem.dataset.lnk,
         price: elem.dataset.price,

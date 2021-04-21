@@ -92,6 +92,7 @@ Container::make('post_meta', 'agri_product_cr', 'Характеристики т
       Field::make('text', 'offer_allsearch', 'Все артикулы для поиска')->set_width(50),
 
       Field::make('text', 'offer_sku', 'Артикул (Базовый)')->set_width(50),
+      Field::make('text', 'offer_sku_1c', 'Артикул (1C)')->set_width(50),
       Field::make('text', 'offer_nal_count', 'Колличество на складе')->set_default_value( '1')->set_width(50), 
 
       Field::make('text', 'offer_sticker', 'Стикер')->set_width(50),

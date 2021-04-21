@@ -51,8 +51,8 @@
                 if (!empty($posts->posts[0])) {
                     echo  "Пост ID: ".$posts->posts[0]->ID."\n\r"; 
                     echo  "Товар: ".$posts->posts[0]->post_title."\n\r";
-                    carbon_set_post_meta( (int)$posts->posts[0]->ID, 'offer_nal_count', (string)$count ); 
-                    carbon_set_post_meta( (int)$posts->posts[0]->ID, 'offer_price', (string)$price ); 
+                    carbon_set_post_meta( (int)$posts->posts[0]->ID, 'offer_nal_count', (int)$count ); 
+                    carbon_set_post_meta( (int)$posts->posts[0]->ID, 'offer_price', (float)$price ); 
                 } else {
                     echo  "Пост не найден. \n\r"; 
                 }

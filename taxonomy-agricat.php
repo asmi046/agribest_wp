@@ -16,14 +16,14 @@
         <div class="inner">
             <h1 class="section-title"><?php single_cat_title( '', true );?></h1>
                     <div class="view js__view">
-										<div class="view__select-block">
+										<form class="view__select-block">
 											<p>Сортировка по:</p>
-											<select name="form[]" class="view__select">
-												<option value="1" selected="selected">алфавиту</option>
-												<option value="2">возрастанию</option>
-												<option value="3">убыванию</option>
+											<select onchange="this.form.submit()" name="orderby" class="view__select">
+												<option value="alf" <? if ($_REQUEST["orderby"] === "alf") echo "selected"; ?>>алфавиту</option>
+												<option value="priceupp" <? if ($_REQUEST["orderby"] === "priceupp") echo "selected"; ?> >возрастанию</option>
+												<option value="pricedown" <? if ($_REQUEST["orderby"] === "pricedown") echo "selected"; ?> >убыванию</option>
 											</select>
-										</div>
+										</form>
 
                         <span class="db view__caption">Вид: </span>
                         <button class="view__btn view__btn-grid js__grid <? if (empty($_COOKIE["vtype"])||($_COOKIE["vtype"] == "plan")) echo "view__btn_select"; ?>">
@@ -52,9 +52,43 @@
         </div>
 
         <div class=" product__box <? echo ($_COOKIE["vtype"] == "grid")?"product__row":"product__grid";?>">
+            <? 
+				$arg = $wp_query->query;
+
+                $metaquery = array(
+                    'relation' => 'AND',
+                    
+                    'pricenz' => array (
+                        'key'     => '_offer_price',
+                        'value' => 0,
+                        'compare' => '!=',
+                        'type'    => 'DECIMAL(9,2)',
+                    )
+
+                );
+					
+                $arg['meta_query'] = $metaquery;
+
+				if ($_REQUEST["orderby"] === "priceupp") {
+					$arg['orderby'] = 'pricenz';
+					$arg['order'] = "ASC";
+				}
+
+				if ($_REQUEST["orderby"] === "pricedown") {
+					$arg['orderby'] = 'pricenz';
+					$arg['order'] = "DESC";
+				}
+
+				if ($_REQUEST["orderby"] === "alf") {
+					$arg['orderby'] = 'title';
+					$arg['order'] = "ASC";
+				}
+
+                
+				$queryM = new WP_Query($arg);
+			?>
+            
             <?php
-                $arg = $wp_query->query;
-                $queryM = new WP_Query($arg);
                 while($queryM->have_posts()):
                     $queryM->the_post();
                     get_template_part('template-parts/tovar-element');

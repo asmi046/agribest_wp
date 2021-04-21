@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.5");
+define("ALL_VERSION", "1.0.10");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -60,19 +60,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 		wp_enqueue_script( 'imasc', get_template_directory_uri().'/js/imask.js', array(), ALL_VERSION , true);
 		
-		if ( is_page(53))
-		{
-			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
-			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
-			wp_enqueue_script( 'bascet', get_template_directory_uri().'/js/bascet.js', array(), ALL_VERSION , true);
-		}
 		
-		if ( is_page(93))
-		{
-			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
-			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
-			wp_enqueue_script( 'cabinet', get_template_directory_uri().'/js/cabinet.js', array(), ALL_VERSION , true);
-		}
 
 		wp_enqueue_style("style-modal", get_template_directory_uri()."/css/jquery.arcticmodal-0.3.css", array(), ALL_VERSION, 'all'); //Модальные окна (стили)
 	
@@ -94,6 +82,20 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		wp_enqueue_script( 'main', get_template_directory_uri().'/js/main.js', array(), ALL_VERSION , true); // Подключение основного скрипта в самом конце
 		
 		
+		if ( is_page(53))
+		{
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'bascet', get_template_directory_uri().'/js/bascet.js', array(), ALL_VERSION , true);
+		}
+		
+		if ( is_page(93))
+		{
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'cabinet', get_template_directory_uri().'/js/cabinet.js', array(), ALL_VERSION , true);
+		}
+
 		wp_localize_script( 'main', 'allAjax', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'NEHERTUTLAZIT' )
@@ -234,6 +236,29 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 	// Отправка корзины
 	
+	function tovarTo1c($bascetElem) {
+		return 
+		"<Товар>\n\r".
+			"<Ид>".$bascetElem->sku1c."</Ид>\n\r".
+			'<Наименование>'.$bascetElem->name.'</Наименование>\n\r'.
+			'<БазоваяЕдиница Код="796" НаименованиеПолное="Штука" МеждународноеСокращение="PCE">шт</БазоваяЕдиница>\n\r'.
+			"<ЦенаЗаЕдиницу>".$bascetElem->price."</ЦенаЗаЕдиницу>\n\r".
+			"<Количество>".$bascetElem->count."</Количество>\n\r".
+			"<Сумма>".$bascetElem->subtotal."</Сумма>\n\r".
+			"<ЗначенияРеквизитов>\n\r".
+				"<ЗначениеРеквизита>\n\r".
+					"<Наименование>ВидНоменклатуры</Наименование>\n\r".
+					"<Значение>Товар</Значение>\n\r".
+				"</ЗначениеРеквизита>\n\r".
+				
+				"<ЗначениеРеквизита>\n\r".
+					"<Наименование>ТипНоменклатуры</Наименование>\n\r".
+					"<Значение>Товар</Значение>\n\r".
+				"</ЗначениеРеквизита>\n\r".
+			"</ЗначенияРеквизитов>\n\r".
+		"</Товар>\n\r";
+	}	
+
 	add_action( 'wp_ajax_send_cart', 'send_cart' );
 	add_action( 'wp_ajax_nopriv_send_cart', 'send_cart' );
 
@@ -268,7 +293,10 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 					$mail_content .= "<th>СУММА</th>";
 				$mail_content .= "</tr>";
 
+				$toXMLstr = "";
+
 				for ($i = 0; $i<count($bscet_dec); $i++) {
+					$toXMLstr .= tovarTo1c($bscet_dec[$i]);
 					$mail_content .= "<tr>";
 						$mail_content .= "<td><img src = '".$bscet_dec[$i]->picture."' width = '70' height = '70'></td>";
 						$mail_content .= "<td><a href = '".$bscet_dec[$i]->lnk."'>".$bscet_dec[$i]->name." / ".$bscet_dec[$i]->sku."</a></td>";
@@ -280,6 +308,19 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			$mail_content .= "</table>";
 			$mail_content .= "<h2>Сумма: ".$_REQUEST["bascetsumm"]." р.</h2>";
 
+
+			 $zaktpl = file_get_contents(__DIR__.'/zaktempl.xml', true);
+			
+			 $zaktpl = str_replace("{zaknum}", $zak_number, $zaktpl);
+			 $zaktpl = str_replace("{zakdata}", date("Y-m-d"), $zaktpl);
+			 $zaktpl = str_replace("{zaksumm}", $_REQUEST["bascetsumm"], $zaktpl);
+			 $zaktpl = str_replace("{zaktime}", date("H:i:s"), $zaktpl);
+			 $zaktpl = str_replace("{sname}", explode(" ", $_REQUEST["name"])[0], $zaktpl);
+			 $zaktpl = str_replace("{name}", explode(" ", $_REQUEST["name"])[1], $zaktpl);
+			 $zaktpl = str_replace("{zakcomment}", $_REQUEST["comment"], $zaktpl);
+			 $zaktpl = str_replace("{tovars}", $toXMLstr, $zaktpl);
+			
+			 file_put_contents(__DIR__."/1s/orders/".$zak_number.".xml", $zaktpl);
 			
 			$mail_content .= "<strong>Имя:</strong> ".$_REQUEST["name"]."<br/>";
 			$mail_content .= "<strong>Телефон:</strong> ".$_REQUEST["phone"]."<br/>";
@@ -289,8 +330,11 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 			$mail_them = "Заказ на сайте AgriBest";
 
+
 			
-			if (wp_mail($adr_to_send, $mail_them, $mail_content, $headers)) {
+			if (wp_mail($adr_to_send, $mail_them, $mail_content, $headers)) 
+			{
+
 				wp_die(json_encode(array("send" => true )));
 			}
 			else {

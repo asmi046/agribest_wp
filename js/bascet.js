@@ -59,6 +59,7 @@ Vue.component('bascet', {
             localStorage.setItem("cartcount", this.bascetCount);
             localStorage.setItem("cartsumm", this.bascetSumm);
             
+
             cart_recalc ();
             
             if (this.bascetCount > 0)
