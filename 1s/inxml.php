@@ -13,14 +13,24 @@
      require_once  "wp-config.php";
      require_once  "subcatdetect.php";
 
-
+    $fileAdr = "http://asmi046.myjino.ru";
 
      require_once ABSPATH . 'wp-admin/includes/media.php';
      require_once ABSPATH . 'wp-admin/includes/file.php';
      require_once ABSPATH . 'wp-admin/includes/image.php';
 
-     if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
-        $xml = simplexml_load_file(__DIR__.'/webdata/import0_1.xml');
+    //  if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
+        // $xml = simplexml_load_file(__DIR__.'/webdata/import0_1.xml');
+      
+        $crl = curl_init($fileAdr."/webdata/import0_1.xml");
+        curl_setopt($crl, CURLOPT_NOBODY, true);
+        curl_exec($crl);
+        
+        $ret = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        curl_close($crl);
+        
+    if ($ret == 200) {    
+        $xml = simplexml_load_file($fileAdr.'/webdata/import0_1.xml');
         
         $curentTerm = array();
 
@@ -94,7 +104,8 @@
             }
 
             $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
-            $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
+            // $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
+            $picture = $fileAdr."/webdata/".$elem->{'Картинка'};
             echo "#: ". $offerIndex ."\n\r";
             echo "Артикул: ". $sku ."\n\r";
             echo "Артикул 1C: ". $sku1c ."\n\r";
@@ -189,7 +200,9 @@
             foreach ($elem->{'Картинка'} as $galery)
             {
             
-                echo $img1 = get_bloginfo("template_url")."/1s/webdata/".$galery;
+                // echo $img1 = get_bloginfo("template_url")."/1s/webdata/".$galery;
+                echo $img1 = $fileAdr."/webdata/".$galery;
+                
                 echo "\n\r";
                 $ttl = (string)$sku." ".(string)$name;
 

@@ -33,18 +33,25 @@ Vue.component('autorisation', {
        },
 
        rellogin() {
-            var d = new Date();
-            d.setHours(d.getHours() - 5);
-
-            document.cookie = "agriautorise=0; max-age=0";
+     
+            document.cookie = "agriautorise=0; path=/; max-age=0";
+            document.cookie = "agritoken=0; path=/; max-age=0";
 
             localStorage.removeItem('name'); 
             localStorage.removeItem('company_name'); 
             localStorage.removeItem('mail'); 
             localStorage.removeItem('phone'); 
             localStorage.removeItem('inn'); 
+            localStorage.removeItem('token'); 
 
-            document.location.href = main_page;
+            var params = new URLSearchParams();
+            params.append('action', 'relogin');
+            params.append('nonce', allAjax.nonce);
+            params.append('email', this.email);
+
+            axios.post(allAjax.ajaxurl, params);
+
+            document.location.href = kabinet_page;
         },
 
        getAutorisation() {
@@ -67,13 +74,15 @@ Vue.component('autorisation', {
                 var d = new Date();
                 d.setHours(d.getHours() + 5);
 
-                document.cookie = "agriautorise="+response.data.mail+"; expires=" + d.toUTCString();
+                document.cookie = "agriautorise="+response.data.mail+"; path=/; expires=" + d.toUTCString();
+                document.cookie = "agritoken="+response.data.token+"; path=/; expires=" + d.toUTCString();
 
                 localStorage.setItem('name', response.data.name); 
                 localStorage.setItem('company_name', response.data.company_name); 
                 localStorage.setItem('mail', response.data.mail); 
                 localStorage.setItem('phone', response.data.phone); 
                 localStorage.setItem('inn', response.data.inn); 
+                localStorage.setItem('token', response.data.token); 
 
                 eventBus.$emit("cabinet_innit");
                 eventBus.$emit("chenge-state","kabinet");

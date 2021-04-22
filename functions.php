@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.10");
+define("ALL_VERSION", "1.0.11");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -259,6 +259,23 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		"</Товар>\n\r";
 	}	
 
+	function sendToFtp($fileAdr, $zak_number) {
+		$ftp_server = "81.177.141.133";
+		$ftp_user_name = "asmi046_1s";
+		$ftp_user_pass = "!#(yTY)uz9d8";
+
+		$conn_id = ftp_connect($ftp_server);
+		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+		ftp_pasv($conn_id, true);
+		if ((!$conn_id) || (!$login_result)) {
+			return false;
+		} else {
+			$upload = ftp_put ($conn_id, "orders/".$zak_number.".xml", $fileAdr, FTP_ASCII);
+			return true;
+		}
+		ftp_close($conn_id);
+	}
+
 	add_action( 'wp_ajax_send_cart', 'send_cart' );
 	add_action( 'wp_ajax_nopriv_send_cart', 'send_cart' );
 
@@ -279,7 +296,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			$adr_to_send = carbon_get_theme_option("mail_to_send");
 			$adr_to_send = (empty($adr_to_send))?"asmi046@gmail.com,s9606741999@yandex.ru":$adr_to_send;
 			
-			$zak_number = "AGRI-".date("H").date("s").date("s")."-".rand(100,999);
+			$zak_number = "A".date("H").date("i").date("s").rand(100,999);
 
 			$mail_content = "<h1>Заказ на сайте №".$zak_number."</h1>";
 			
@@ -289,6 +306,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 			global $wpdb;
 			$wpdb->insert( "shop_zakhistory", array(
+				"agent" => empty($_COOKIE["agriautorise"])?"":$_COOKIE["agriautorise"],
 				"zak_number" => $zak_number,
 				"zak_summ" => $_REQUEST["bascetsumm"],
 				"zak_count" => count($bscet_dec),
@@ -351,22 +369,25 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			 $zaktpl = str_replace("{zaktime}", date("H:i:s"), $zaktpl);
 			 $zaktpl = str_replace("{name}", $clname, $zaktpl);
 			 $zaktpl = str_replace("{sname}", $clnames, $zaktpl);
+			 $zaktpl = str_replace("{adr}", $_REQUEST["adres"], $zaktpl);
 			 $zaktpl = str_replace("{clientname}", $clname." ".$clnames, $zaktpl);
 			 $zaktpl = str_replace("{clientnamefull}", $clname." ".$clnames, $zaktpl);
-			 $zaktpl = str_replace("{clienphone}", $_REQUEST["phone"], $zaktpl);
+			 $zaktpl = str_replace("{clienphone}",  $_REQUEST["phone"], $zaktpl);
 			 $zaktpl = str_replace("{clientmail}", $_REQUEST["mail"], $zaktpl);
 			 $zaktpl = str_replace("{zakcomment}", $_REQUEST["comment"], $zaktpl);
 			 $zaktpl = str_replace("{tovars}", $toXMLstr, $zaktpl);
 			
-			 file_put_contents(__DIR__."/1s/orders/".$zak_number.".xml", $zaktpl);
+			 $fileAdr = __DIR__."/1s/orders/".$zak_number.".xml";
+			 file_put_contents($fileAdr, $zaktpl);
 			
-
+			 $ftprez = sendToFtp($fileAdr, $zak_number);
 
 			$mail_content .= "<strong>Имя:</strong> ".$_REQUEST["name"]."<br/>";
 			$mail_content .= "<strong>Телефон:</strong> ".$_REQUEST["phone"]."<br/>";
 			$mail_content .= "<strong>e-mail:</strong> ".$_REQUEST["mail"]."<br/>";
 			$mail_content .= "<strong>Адрес:</strong> ".$_REQUEST["adres"]."<br/>";
 			$mail_content .= "<strong>Комментарий:</strong> ".$_REQUEST["comment"]."<br/>";
+			$mail_content .= "<strong>FTP:</strong> ".($ftprez)?"Загружен":"Не загружен"."<br/>";
 
 			$mail_them = "Заказ на сайте AgriBest";
 
@@ -536,6 +557,7 @@ add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
     }
   }
 
+
 add_action( 'wp_ajax_user_autorization', 'user_autorization' );
 add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
 
@@ -549,6 +571,8 @@ add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
 		$password = $_REQUEST["password"];
 		$passwordSalt = md5($_REQUEST["password"]."agrib");
 
+		$token = rand(200000, 300000);
+
 		global $wpdb;
 		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$mail."' AND `password` =  '".$passwordSalt."'");
 
@@ -556,12 +580,22 @@ add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
 			if (empty($user_feeld[0]->autorize))
 				wp_die(json_encode(array("error" => "Учетная запись не активирована. Проверьте e-amil в том числе и папку 'Спам'" )), '', 403);
 			
+			$updateRez = $wpdb->update("shop_users",
+				array(
+					"autorizeKey" => $token,
+				), 
+				array(
+					"id" => $user_feeld[0]->id, 
+				)
+			 );   
+
 			wp_die(json_encode(array(
 				"name" => $user_feeld[0]->name,
 				"company_name" => $user_feeld[0]->company_name,
 				"mail" => $user_feeld[0]->mail,
 				"phone" => $user_feeld[0]->phone,
-				"inn" => $user_feeld[0]->inn
+				"inn" => $user_feeld[0]->inn,
+				"token" => $token
 			)));
 			
 
@@ -570,6 +604,35 @@ add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
 		}
 
     	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_relogin', 'relogin' );
+add_action( 'wp_ajax_nopriv_relogin', 'relogin' );
+
+  function relogin() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$mail = $_REQUEST["email"];
+		
+		global $wpdb;
+
+		$updateRez = $wpdb->update("shop_users",
+				array(
+					"autorizeKey" => 0,
+				), 
+				array(
+					"mail" => $mail, 
+				)
+			 );  
+			 wp_die(json_encode(array("dell"=> true))); 
       
     } else {
       wp_die( 'НО-НО-НО!', '', 403 );

@@ -94,6 +94,12 @@ Vue.component('bascetform', {
         this.bascetCount = localStorage.getItem("cartcount");
         this.bascetSumm = localStorage.getItem("cartsumm");  
         
+        this.name = (localStorage.getItem("name") != undefined)?localStorage.getItem("name"):"";  
+        
+        this.comment =  ((localStorage.getItem("company_name") != undefined)?"Компания "+localStorage.getItem("company_name"):"");  
+        this.mail = (localStorage.getItem("mail") != undefined)?localStorage.getItem("mail"):"";  
+        this.phone = (localStorage.getItem("phone") != undefined)?localStorage.getItem("phone"):"";  
+        
         if (this.bascet.length <= 0) {
             this.shoved = false;
         }

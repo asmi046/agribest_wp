@@ -69,17 +69,20 @@
 					
                 $arg['meta_query'] = $metaquery;
 
-				if ($_REQUEST["orderby"] === "priceupp") {
+                $arg['orderby'] = 'title';
+					$arg['order'] = "ASC";
+
+				if (isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "priceupp")) {
 					$arg['orderby'] = 'pricenz';
 					$arg['order'] = "ASC";
 				}
 
-				if ($_REQUEST["orderby"] === "pricedown") {
+				if (isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "pricedown")) {
 					$arg['orderby'] = 'pricenz';
 					$arg['order'] = "DESC";
 				}
 
-				if ($_REQUEST["orderby"] === "alf") {
+				if (isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "alf")) {
 					$arg['orderby'] = 'title';
 					$arg['order'] = "ASC";
 				}
