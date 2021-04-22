@@ -23,16 +23,21 @@
 				<h1>Авторизация</h1>
 
 				<form action="#" class="authoriz__form reviews__form">
-					<input autocomplete="off" type="email" name="email" placeholder="Email" id="form-emailw" class="reviews__form-input input">
-					<input autocomplete="new-password" type="password" name="password" placeholder="Пароль" id="form-telw" class="reviews__form-input input">
+					<input v-model="email" :class = "{dontz:emailNotEnter}" autocomplete="off" type="email" name="email" placeholder="Email" id="form-emailw" class="reviews__form-input input">
+					<input v-model="password" :class = "{dontz:passwordNotEnter}" autocomplete="new-password" type="password" name="password" placeholder="Пароль" id="form-telw" class="reviews__form-input input">
 					<div class = "btn_wrapper">
-						<button  type="button" class="reviews__form-btn agriwind btn">Войти</button>
+						<button @click.prevent  = "getAutorisation"  type="button" class="reviews__form-btn agriwind btn">Войти</button>
 						<button @click.prevent  = "toRegister" type="button" class="reviews__form-btn agriwind btn btn-tr" id = "registerbtn">Регистрация</button>
 					</div>
 
 					<div class = "btn_wrapper" id = "passRecoveryWrapper">
 						<a @click.prevent = "toPasRec" href = "#">Не можете войти в личный кабинет?</a>
 					</div>
+
+					<div v-show = "showMsgBlk" :class = "{messageFormBlkOk : msgOk}" class = "messageFormBlk">
+						{{messageText}}
+					</div>
+
 				</form> 
 
 			</div>
@@ -92,6 +97,10 @@
 			<div class="inner">
 				<h1>Личный кабинет</h1>
 
+				<div class = "kabinet_control_panel">
+					<a @click.prevent = "relogin" href = "">Выйти из кабинета</a> 
+				</div>
+
 				<div class="personal__row product__box product__row">
 					<div class="product__wr">
 						<div class="product">
@@ -102,88 +111,8 @@
 								<button class="btn btn__to-card">Повторить</button>
 							</div>
 						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Бочка пластиковая пищевая квадратная c ручками, 30 л (3)</h3>
-							<span class="db product__price">1000 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Лампа керосиновая 225, 28 см (3)</h3>
-							<span class="db product__price">568 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Перчатки нейлоновые без ПВХ, ХL Fiberon PSV033P (2)</h3>
-							<span class="db product__price">50 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Лампа керосиновая 225, 28 см (2)</h3>
-							<span class="db product__price">568 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Бочка пластиковая пищевая квадратная c ручками, 30 л (2)</h3>
-							<span class="db product__price">1000 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Лампа керосиновая 225, 28 см (1)</h3>
-							<span class="db product__price">568 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Перчатки нейлоновые без ПВХ, ХL Fiberon PSV033P (1)</h3>
-							<span class="db product__price">50 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Лампа керосиновая 225, 28 см(1)</h3>
-							<span class="db product__price">568 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div><div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Перчатки нейлоновые без ПВХ, ХL Fiberon PSV033P (1)</h3>
-							<span class="db product__price">50 руб.</span>
-							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
-							</div>
-						</div>
-					</div>        
+					</div>
+					        
 				</div>
 
 			</div>

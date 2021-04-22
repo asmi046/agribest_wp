@@ -3422,6 +3422,13 @@ input:-webkit-autofill {
   color: #1dc17b;
 }
 
+.kabinet_control_panel {
+  width: 100%;
+  display: flex;
+  padding:  10px 0;
+  border-bottom: 1px solid #c6d2dd;
+  margin-bottom: 30px;
+}
 
 @media screen and (max-width: 999px) {
   .banner .inner {

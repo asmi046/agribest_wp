@@ -4,10 +4,25 @@ Vue.component('autorisation', {
     template: '#autorisation',
     data: function(){
         return{
-            name: "",         
-            password: ""         
+            email:"",
+            emailNotEnter:false,              
+            password: "",
+            passwordNotEnter:false,    
+            
+            messageText:"",
+            showMsgBlk:false,
+            msgOk:true
         }
     }, 
+
+    created: function() {
+        eventBus.$on("kabinet-relogin", ()=>{
+            this.rellogin(); 
+        });
+    },
+
+
+
     methods:{ 
        toRegister() {
         eventBus.$emit("chenge-state","register");
@@ -15,6 +30,60 @@ Vue.component('autorisation', {
        
        toPasRec() {
         eventBus.$emit("chenge-state","passrec");
+       },
+
+       rellogin() {
+            var d = new Date();
+            d.setHours(d.getHours() - 5);
+
+            document.cookie = "agriautorise=0; max-age=0";
+
+            localStorage.removeItem('name'); 
+            localStorage.removeItem('company_name'); 
+            localStorage.removeItem('mail'); 
+            localStorage.removeItem('phone'); 
+            localStorage.removeItem('inn'); 
+
+            document.location.href = main_page;
+        },
+
+       getAutorisation() {
+            if (this.email == "") {this.emailNotEnter = true; return;};
+            if (this.password == "") {this.passwordNotEnter = true; return;};
+
+            var params = new URLSearchParams();
+            params.append('action', 'user_autorization');
+            params.append('nonce', allAjax.nonce);
+            params.append('email', this.email);
+            params.append('password', this.password);
+
+            
+
+            axios.post(allAjax.ajaxurl, params)
+              .then((response) => {
+
+                console.log(response);
+
+                var d = new Date();
+                d.setHours(d.getHours() + 5);
+
+                document.cookie = "agriautorise="+response.data.mail+"; expires=" + d.toUTCString();
+
+                localStorage.setItem('name', response.data.name); 
+                localStorage.setItem('company_name', response.data.company_name); 
+                localStorage.setItem('mail', response.data.mail); 
+                localStorage.setItem('phone', response.data.phone); 
+                localStorage.setItem('inn', response.data.inn); 
+
+                eventBus.$emit("cabinet_innit");
+                eventBus.$emit("chenge-state","kabinet");
+              })
+              .catch((error)  => {
+                console.log(error.response.data);
+                this.messageText = error.response.data.error;
+                this.showMsgBlk = true;
+                this.msgOk = false;
+              });
        }
     }
 });
@@ -128,8 +197,38 @@ Vue.component('kabinet', {
     template: '#kabinet',
     data: function(){
         return{
-            name: "",         
-            password: ""         
+            zak:[]       
+        }
+    },
+    created: function() {
+        eventBus.$on("cabinet_innit", ()=>{
+            this.getZakInfo(); 
+        }); 
+    },
+    
+    methods: { 
+        relogin() {
+            eventBus.$emit("kabinet-relogin");
+        },
+
+        getZakInfo() {
+            let idCabinet = localStorage.getItem('mail');
+            let params = new URLSearchParams();
+            params.append('action', 'get_zakinfo');
+            params.append('nonce', allAjax.nonce);
+            params.append('email', this.email);
+
+            
+
+            axios.post(allAjax.ajaxurl, params)
+              .then((response) => {
+                this.messageText = "Вы успешно зарегистрировались. На емейл указанный при регистрации отправленно письмо с подтверждением регистрации, для использования личного кабинета перейдите по ссылке из письма.";
+                this.showMsgBlk = true;
+                this.msgOk = true;
+              })
+              .catch((error)  => {
+                alert("Во время получения данных произошла ошибка!");
+              });
         }
     }
 });
@@ -148,10 +247,23 @@ let cabinet = new Vue({
     created: function() {
         eventBus.$on("chenge-state", (state)=>{
             this.chengeState(state); 
-        }); 
+        });
+        
+        window.addEventListener('focus', this.updateState);
+        this.updateState();
     },
 
+
     methods:{
+
+        updateState() {
+            if (getCookie("agriautorise") != undefined) {
+                this.chengeState("kabinet");
+            } else {
+                this.chengeState("autorization");
+            }
+        },
+
         chengeState(state) {
             console.log(state);
             this.showAutorize = false;
@@ -162,6 +274,7 @@ let cabinet = new Vue({
             if (state == "register") this.showRegistration = true;
             if (state == "autorization") this.showAutorize = true;
             if (state == "passrec") this.showPassRec = true;
+            if (state == "kabinet") this.showKabinet = true;
         }
     }
 });

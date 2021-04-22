@@ -321,18 +321,18 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 					// Отправка в базу содержимого корзины
 
-					global $wpdb;
 					$wpdb->insert( "shop_zaktovar", array(
 						"zak_number" => $zak_number,
-						"price" => $bscet_dec[$i]->price,
-						"price_old" => $bscet_dec[$i]->oldprice,
-						"subtotal" => $bscet_dec[$i]->subtotal,
+						 "price" => $bscet_dec[$i]->price,
+						 "price_old" => empty($bscet_dec[$i]->oldprice)?"":$bscet_dec[$i]->oldprice,
+						 "subtotal" => $bscet_dec[$i]->subtotal,
 						"sku" => $bscet_dec[$i]->sku,
 						"lnk" => $bscet_dec[$i]->lnk,
 						"name" => $bscet_dec[$i]->name,
 						"count" => $bscet_dec[$i]->count,
 						"picture" => $bscet_dec[$i]->picture,
 					) );
+
 				}
 
 			$mail_content .= "</table>";
@@ -527,6 +527,46 @@ add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
 
 		} else {
 			wp_die( 'No user in base!', '', 403 );		
+		}
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_user_autorization', 'user_autorization' );
+add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
+
+  function user_autorization() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		$mail = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
+		$passwordSalt = md5($_REQUEST["password"]."agrib");
+
+		global $wpdb;
+		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$mail."' AND `password` =  '".$passwordSalt."'");
+
+		if (!empty($user_feeld)) {
+			if (empty($user_feeld[0]->autorize))
+				wp_die(json_encode(array("error" => "Учетная запись не активирована. Проверьте e-amil в том числе и папку 'Спам'" )), '', 403);
+			
+			wp_die(json_encode(array(
+				"name" => $user_feeld[0]->name,
+				"company_name" => $user_feeld[0]->company_name,
+				"mail" => $user_feeld[0]->mail,
+				"phone" => $user_feeld[0]->phone,
+				"inn" => $user_feeld[0]->inn
+			)));
+			
+
+		} else {
+			wp_die(json_encode(array("error" => "Пользователь с таким E-mail не найден.", "q" => "" )), '', 403);
 		}
 
     	
