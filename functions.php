@@ -293,7 +293,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		
 			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
 			
-			$adr_to_send = carbon_get_theme_option("mail_to_send");
+			$adr_to_send = carbon_get_theme_option("as_email_send");
 			$adr_to_send = (empty($adr_to_send))?"asmi046@gmail.com,s9606741999@yandex.ru":$adr_to_send;
 			
 			$zak_number = "A".date("H").date("i").date("s").rand(100,999);
@@ -666,7 +666,7 @@ add_action( 'wp_ajax_nopriv_get_zakinfo', 'get_zakinfo' );
 		$compileResult = array();
 
 		foreach($klientZak as $elem)
-			$compileResult[] = array(
+			$compileResult[$elem->zak_number] = array(
 				"zak_info" => $elem,
 				"open_detale" => false,
 				"zak_detale" => array()
@@ -679,7 +679,7 @@ add_action( 'wp_ajax_nopriv_get_zakinfo', 'get_zakinfo' );
     }
   }
 
-add_action( 'wp_ajax_get_get_zak_detail', 'get_zak_detail' );
+add_action( 'wp_ajax_get_zak_detail', 'get_zak_detail' );
 add_action( 'wp_ajax_nopriv_get_zak_detail', 'get_zak_detail' );
 
   function get_zak_detail() {

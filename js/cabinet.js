@@ -213,8 +213,11 @@ Vue.component('kabinet', {
         eventBus.$on("cabinet_innit", ()=>{
             this.getZakInfo(); 
         }); 
+        
 
-        this.getZakInfo(); 
+        if (getCookie("agriautorise") != undefined) {
+            this.getZakInfo();
+        }
     },
     
     methods: { 
@@ -223,6 +226,7 @@ Vue.component('kabinet', {
         },
 
         getZakDetales(zknumber) {
+            // console.log(zknumber); return;
             let params = new URLSearchParams();
             params.append('action', 'get_zak_detail');
             params.append('nonce', allAjax.nonce);
@@ -230,10 +234,10 @@ Vue.component('kabinet', {
 
             axios.post(allAjax.ajaxurl, params)
             .then((response) => {
-                  console.log(response); 
+                  console.log(response.data); 
             })
             .catch((error)  => {
-                alert("Во время получения данных произошла ошибка!");
+                alert("Во время получения данных произошла ошибка! "+error.response.data);
             });
         },
 
@@ -285,6 +289,7 @@ let cabinet = new Vue({
                 this.chengeState("kabinet");
             } else {
                 this.chengeState("autorization");
+                
             }
         },
 
