@@ -102,12 +102,12 @@
 				</div>
 
 				<div class="personal__row product__box product__row">
-					<div class="product__wr">
-						<div class="product">
-							<h3 class="product__name">Перчатки нейлоновые без ПВХ, ХL Fiberon PSV033P (4)</h3>
-							<span class="db product__price">50 руб.</span>
+					<div v-for = "(item, index, key) in UsserZakaz" class="product__wr">
+						<div class="product cabinet_wrapper">
+							<h3 class="product__name"><strong>{{item.zak_info.zak_number}}</strong> от {{item.zak_info.zak_data}}</h3>
+							<span class="db product__price">{{item.zak_info.zak_summ}} руб.</span>
 							<div class="product__bottom">
-								<a href="#" class="db btn btn__details">Подробнее</a>
+								<a @click.prevent = "getZakDetales(item.zak_info.zak_number)" href="#" class="db btn btn__details">Подробнее</a>
 								<button class="btn btn__to-card">Повторить</button>
 							</div>
 						</div>

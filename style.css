@@ -2599,6 +2599,10 @@ textarea {
   margin: 0 auto;
 }
 
+.cabinet_wrapper {
+  padding: 10px 2%!important;
+}
+
 .product {
   display: flex;
   flex-direction: column;

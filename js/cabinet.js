@@ -206,13 +206,15 @@ Vue.component('kabinet', {
     template: '#kabinet',
     data: function(){
         return{
-            zak:[]       
+            UsserZakaz:[]       
         }
     },
-    created: function() {
+    mounted: function() {
         eventBus.$on("cabinet_innit", ()=>{
             this.getZakInfo(); 
         }); 
+
+        this.getZakInfo(); 
     },
     
     methods: { 
@@ -220,8 +222,22 @@ Vue.component('kabinet', {
             eventBus.$emit("kabinet-relogin");
         },
 
+        getZakDetales(zknumber) {
+            let params = new URLSearchParams();
+            params.append('action', 'get_zak_detail');
+            params.append('nonce', allAjax.nonce);
+            params.append('zaknumber', zknumber);
+
+            axios.post(allAjax.ajaxurl, params)
+            .then((response) => {
+                  console.log(response); 
+            })
+            .catch((error)  => {
+                alert("Во время получения данных произошла ошибка!");
+            });
+        },
+
         getZakInfo() {
-            let idCabinet = localStorage.getItem('mail');
             let params = new URLSearchParams();
             params.append('action', 'get_zakinfo');
             params.append('nonce', allAjax.nonce);
@@ -231,9 +247,8 @@ Vue.component('kabinet', {
 
             axios.post(allAjax.ajaxurl, params)
               .then((response) => {
-                this.messageText = "Вы успешно зарегистрировались. На емейл указанный при регистрации отправленно письмо с подтверждением регистрации, для использования личного кабинета перейдите по ссылке из письма.";
-                this.showMsgBlk = true;
-                this.msgOk = true;
+                  console.log(response);
+                  this.UsserZakaz  = response.data; 
               })
               .catch((error)  => {
                 alert("Во время получения данных произошла ошибка!");

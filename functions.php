@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.11");
+define("ALL_VERSION", "1.0.12");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -624,6 +624,7 @@ add_action( 'wp_ajax_nopriv_relogin', 'relogin' );
 		
 		global $wpdb;
 
+		
 		$updateRez = $wpdb->update("shop_users",
 				array(
 					"autorizeKey" => 0,
@@ -633,6 +634,76 @@ add_action( 'wp_ajax_nopriv_relogin', 'relogin' );
 				)
 			 );  
 			 wp_die(json_encode(array("dell"=> true))); 
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_get_zakinfo', 'get_zakinfo' );
+add_action( 'wp_ajax_nopriv_get_zakinfo', 'get_zakinfo' );
+
+  function get_zakinfo() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$token = $_COOKIE["agritoken"];
+		$email = $_COOKIE["agriautorise"];
+		
+
+		global $wpdb;
+		$userVerefy = $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$email."' AND `autorizeKey` = '".$token."'");
+
+		if (empty($userVerefy)) {
+			wp_die(json_encode(array("error"=> "Верификация не пройденав")), '', 403); 
+		}
+
+		$klientZak = $wpdb->get_results("SELECT * FROM `shop_zakhistory` WHERE `agent` = '".$email."'");
+
+		$compileResult = array();
+
+		foreach($klientZak as $elem)
+			$compileResult[] = array(
+				"zak_info" => $elem,
+				"open_detale" => false,
+				"zak_detale" => array()
+			);	 
+
+		wp_die(json_encode($compileResult)); 	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_get_get_zak_detail', 'get_zak_detail' );
+add_action( 'wp_ajax_nopriv_get_zak_detail', 'get_zak_detail' );
+
+  function get_zak_detail() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$token = $_COOKIE["agritoken"];
+		$email = $_COOKIE["agriautorise"];
+		
+
+		global $wpdb;
+		$userVerefy = $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$email."' AND `autorizeKey` = '".$token."'");
+
+		if (empty($userVerefy)) {
+			wp_die(json_encode(array("error"=> "Верификация не пройденав")), '', 403); 
+		}
+
+		$klientZakDetale = $wpdb->get_results("SELECT * FROM `shop_zaktovar` WHERE `zak_number` = '".$_REQUEST["zaknumber"]."'");
+	 
+
+		wp_die(json_encode($klientZakDetale)); 	
       
     } else {
       wp_die( 'НО-НО-НО!', '', 403 );
