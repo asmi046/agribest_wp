@@ -110,6 +110,11 @@
 								<a @click.prevent = "getZakDetales(item.zak_info.zak_number)" href="#" class="db btn btn__details">Подробнее</a>
 								<button class="btn btn__to-card">Повторить</button>
 							</div>
+							<div v-show = "item.open_detale" class = "zakazDetale">
+								<p v-for = "(itemSub, indexSub, keySub) in item.zak_detale">
+									{{itemSub.name}}
+								</p>
+							</div>
 						</div>
 					</div>
 					        

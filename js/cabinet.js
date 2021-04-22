@@ -235,9 +235,12 @@ Vue.component('kabinet', {
             axios.post(allAjax.ajaxurl, params)
             .then((response) => {
                   console.log(response.data); 
+                  console.log(UsserZakaz[zknumber]); 
+                //   UsserZakaz[zknumber].open_detale = !UsserZakaz[zknumber].open_detale;
+                //  UsserZakaz[zknumber].zak_detale = response.data;
             })
             .catch((error)  => {
-                alert("Во время получения данных произошла ошибка! "+error.response.data);
+                alert("Во время получения данных произошла ошибка! ");
             });
         },
 
