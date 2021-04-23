@@ -206,21 +206,34 @@ Vue.component('kabinet', {
     template: '#kabinet',
     data: function(){
         return{
-            UsserZakaz:[]       
+            UsserZakaz:[],
+            company:"",      
+            inn:"",      
+            email:""      
         }
     },
     mounted: function() {
         eventBus.$on("cabinet_innit", ()=>{
             this.getZakInfo(); 
+            this.loadClientInfo(); 
         }); 
         
 
         if (getCookie("agriautorise") != undefined) {
             this.getZakInfo();
         }
+
+        this.loadClientInfo(); 
     },
     
     methods: { 
+
+        loadClientInfo() {
+            this.company = localStorage.getItem("company_name");
+            this.inn = localStorage.getItem("inn");
+            this.email = localStorage.getItem("mail");
+        },
+
         relogin() {
             eventBus.$emit("kabinet-relogin");
         },

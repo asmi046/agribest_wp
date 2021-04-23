@@ -98,7 +98,20 @@
 				<h1>Личный кабинет</h1>
 
 				<div class = "kabinet_control_panel">
-					<a @click.prevent = "relogin" class = "controlGrItem" href = "">Выйти из кабинета</a> 
+					<div class = "kabinet_register_info">
+						<span class="company_name">
+							<strong>Компания: </strong> {{company}}
+						</span>
+						<span class="company_inn">
+							<strong>ИНН: </strong> {{inn}}
+						</span>
+						<span class="company_mail">
+							<strong>e-mail: </strong> {{email}}
+						</span>
+					</div>
+					<div class ="controllWrapper">
+						<a @click.prevent = "relogin" class = "controlGrItem" href = "">Выйти из кабинета</a> 
+					</div>
 				</div>
 
 				<div class="personal__row product__box product__row">

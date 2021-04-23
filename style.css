@@ -3501,17 +3501,32 @@ input:-webkit-autofill {
 }
 
 .kabinet_control_panel {
-  width: 100%;
   display: grid;
   grid-template-columns: 5fr 1fr;
-  
+  padding:  10px 15px;
   border: 1px solid #c6d2dd;
   margin-bottom: 30px;
   border-radius: 5px;
 }
 
 .controlGrItem {
-  padding:  10px 5px;
+}
+
+
+.kabinet_register_info {
+  display: flex;
+  padding: 0 2% 0 0;
+  color: #a1a1a1;
+}
+
+.kabinet_register_info span{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 30px;
+}
+
+.controllWrapper {
+  text-align: right;
 }
 
 @media screen and (max-width: 999px) {
@@ -3716,6 +3731,9 @@ input:-webkit-autofill {
   }
   .card-product {
     padding-bottom: 20px;
+  }
+  .kabinet_control_panel {
+    grid-auto-flow:column;
   }
 }
 @media screen and (max-width: 700px) {
