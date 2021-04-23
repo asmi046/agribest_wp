@@ -232,16 +232,22 @@ Vue.component('kabinet', {
             params.append('nonce', allAjax.nonce);
             params.append('zaknumber', zknumber);
 
-            axios.post(allAjax.ajaxurl, params)
-            .then((response) => {
-                  console.log(response.data); 
-                  console.log(UsserZakaz[zknumber]); 
-                //   UsserZakaz[zknumber].open_detale = !UsserZakaz[zknumber].open_detale;
-                //  UsserZakaz[zknumber].zak_detale = response.data;
-            })
-            .catch((error)  => {
-                alert("Во время получения данных произошла ошибка! ");
-            });
+            if (this.UsserZakaz[zknumber].zak_detale.length == 0) {
+                axios.post(allAjax.ajaxurl, params)
+                .then((response) => {
+                    console.log(response.data); 
+                    console.log(this.UsserZakaz[zknumber]); 
+                    
+                    this.UsserZakaz[zknumber].open_detale = !this.UsserZakaz[zknumber].open_detale;
+                    this.UsserZakaz[zknumber].zak_detale = response.data;
+                    
+                })
+                .catch((error)  => {
+                    alert("Во время получения данных произошла ошибка! ");
+                });
+            } else {
+                this.UsserZakaz[zknumber].open_detale = !this.UsserZakaz[zknumber].open_detale;
+            }
         },
 
         getZakInfo() {

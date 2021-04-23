@@ -8,21 +8,23 @@
         </div>
         <div class="footer__item footer__menu">
             <ul>
-                <li><a href="#">Каталог</a></li>
+                <!-- <li><a href="#">Каталог</a></li>
                 <li><a href="#">О компании</a></li>
                 <li><a href="#">Оплата и доставка</a></li>
                 <li><a href="#">Сотрудничество</a></li>
-                <li><a href="#">Контакты</a></li>
-            </ul>
+                <li><a href="#">Контакты</a></li> -->
+                
+                <?php wp_nav_menu( array('theme_location' => 'menu_corp', 'container' => false )); ?>
         </div>
         <div class="footer__item footer__menu">
             <ul>
-                <li><a href="#">Бытовая техника</a></li>
+                <!-- <li><a href="#">Бытовая техника</a></li>
                 <li><a href="#">Дом и уют</a></li>
                 <li><a href="#">Детские товары</a></li>
                 <li><a href="#">Сад и огород</a></li>
                 <li><a href="#">Хозтовары</a></li>
-                <li><a href="#">Посуда</a></li>
+                <li><a href="#">Посуда</a></li> -->
+                <?php wp_nav_menu( array('theme_location' => 'menu_hot', 'container' => false )); ?>
             </ul>
         </div>
         <div class="contacts-box">

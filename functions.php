@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.12");
+define("ALL_VERSION", "1.0.15");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -166,8 +166,8 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function light_custom_init(){
 		register_post_type('agriproduct', array(
 			'labels'             => array(
-				'name'               => 'Продукты', // Основное название типа записи
-				'singular_name'      => 'Продукты', // отдельное название записи типа Book
+				'name'               => 'Все товары', // Основное название типа записи
+				'singular_name'      => 'Все товары', // отдельное название записи типа Book
 				'add_new'            => 'Добавить новый',
 				'add_new_item'       => 'Добавить новый товар',
 				'edit_item'          => 'Редактировать товар',

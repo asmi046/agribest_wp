@@ -84,6 +84,8 @@
         echo  "\n\rНачато добавление товаров:\n\r\n\r";
         
         $offerIndex = 0;
+        $addet = 0;
+        $updatet = 0;
         foreach ($xml->{'Каталог'}->{'Товары'}->children() as $elem)
         { 
             $sku = (string)$elem->{'Артикул'};
@@ -121,7 +123,6 @@
                 '_offer_nal' => 1,
                 '_offer_name' => (string)$name,
                 '_offer_manufact' => "",
-                '_offer_price' => "100",
                 '_offer_allsearch' => (string)$name,
                 '_offer_fulltext' => (string)$name,
             ];
@@ -142,6 +143,7 @@
 
             if (empty($posts->posts[0])) {
                 echo "Добавление нового поста.\n\r";
+                $to_post_meta['_offer_price'] = "100";
                 $post_id = wp_insert_post(  wp_slash( array(
                     'post_type'     => 'agriproduct',
                     'post_author'    => 1,
@@ -152,6 +154,7 @@
                     'meta_input'     => $to_post_meta,
                     
                 ) ) );
+                $addet++;
             } else  {
                 echo "Обновление поста: ". $posts->posts[0]->post_title." id: ".$posts->posts[0]->ID.".\n\r";
                 $post_id = wp_update_post(  wp_slash( array(
@@ -165,6 +168,7 @@
                     'meta_input'     => $to_post_meta,
                     
                 ) ) );
+                $updatet++;
             }
 
             
@@ -227,7 +231,9 @@
             // if ($offerIndex > 10) break;
 
             $offerIndex ++;
-        }    
+        }
+        echo "Добавлено: ".$addet."\n\r";   
+        echo "Обновлено: ".$updatet."\n\r";   
     } 
 
 

@@ -2603,6 +2603,79 @@ textarea {
   padding: 10px 2%!important;
 }
 
+.zakazDetale {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail_tovar_elem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 1fr 1fr;
+}
+
+.detail_tovar_elem .gridItem{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.detail_tovar_elem_head {
+  border-bottom: 1px solid #c6d2dd;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: 600;
+  background-color: #c6d2dd95;
+}
+
+
+
+.detail_tovar_elem .pwrapper {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  margin-right: 20px;
+} 
+
+.detail_tovar_elem_head .pwrapper{
+  width: 70px;
+  height: auto;
+}
+
+.detail_tovar_elem .pwrapper img{ 
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  margin: auto;
+  
+  object-position: right;
+}
+
+.detail_tovar_elem span{ 
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: right;
+}
+
+.detail_tovar_elem .tName{ 
+ margin-left: 0;
+ margin-right: auto;
+}
+
+.detail_tovar_elem .tSKU{ 
+  min-width: 80px;
+}
+
+.detail_tovar_elem .tCount{ 
+  min-width: 80px;
+}
+
+.detail_tovar_elem .tPrice{ 
+ min-width: 80px;
+}
+
 .product {
   display: flex;
   flex-direction: column;
@@ -3420,6 +3493,7 @@ input:-webkit-autofill {
 
 .not {
   color: #ee5f3b;
+  font-weight: 600;
 }
 
 .yes {
@@ -3428,10 +3502,16 @@ input:-webkit-autofill {
 
 .kabinet_control_panel {
   width: 100%;
-  display: flex;
-  padding:  10px 0;
-  border-bottom: 1px solid #c6d2dd;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  
+  border: 1px solid #c6d2dd;
   margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.controlGrItem {
+  padding:  10px 5px;
 }
 
 @media screen and (max-width: 999px) {

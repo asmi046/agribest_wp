@@ -12,11 +12,21 @@
     
 
      require_once  "wp-config.php";
-    
 
-     if (file_exists(__DIR__.'/webdata/offers0_1.xml')) {
-        $xml = simplexml_load_file(__DIR__.'/webdata/offers0_1.xml');
+     $fileAdr = "http://asmi046.myjino.ru";
+
+    //  if (file_exists(__DIR__.'/webdata/offers0_1.xml')) {
+    //     $xml = simplexml_load_file(__DIR__.'/webdata/offers0_1.xml');
+    $crl = curl_init($fileAdr."/webdata/offers0_1.xml");
+        curl_setopt($crl, CURLOPT_NOBODY, true);
+        curl_exec($crl);
         
+        $ret = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        curl_close($crl);
+        
+    if ($ret == 200) {    
+        $xml = simplexml_load_file($fileAdr.'/webdata/offers0_1.xml');
+
         $curentTerm = array();
 
         echo  "Начато обновление цен: \n\r";
@@ -25,6 +35,7 @@
         foreach ($xml->{'ПакетПредложений'}->{'Предложения'}->children() as $elem)
         { 
                 $sku = $elem->{'Артикул'};
+                // if ((string)$sku !== "11599") continue;
                 $count = $elem->{'Количество'};
                 $price = $elem->{'Цены'}->{'Цена'}[0]->{'ЦенаЗаЕдиницу'};
                 

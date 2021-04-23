@@ -31,34 +31,48 @@ get_header(); ?>
 
  				$metaquery = array(
 
-					'relation' => 'OR',
-					'tqAll' => array(
-						'key'     => '_offer_allsearch',
-						'value' => $_REQUEST["s"],
-						'compare' => 'LIKE',
-						'type'    => 'CHAR',
-					),
+					'relation' => 'AND',
+					'searchFild' => array (
+						'relation' => 'OR',
+						'tqAll' => array(
+							'key'     => '_offer_allsearch',
+							'value' => $_REQUEST["s"],
+							'compare' => 'LIKE',
+							'type'    => 'CHAR',
+						),
 
-					'tqSku' => array(
-						'key'     => '_offer_sku',
-						'value' => $_REQUEST["s"],
-						'compare' => 'LIKE',
-						'type'    => 'CHAR',
-					),
+						'tqSku' => array(
+							'key'     => '_offer_sku',
+							'value' => $_REQUEST["s"],
+							'compare' => 'LIKE',
+							'type'    => 'CHAR',
+						),
 
-					'tqDescr' => array(
-						'key'     => '_offer_smile_descr',
-						'value' => $_REQUEST["s"],
-						'compare' => 'LIKE',
-						'type'    => 'CHAR',
-					),
+						'tqDescr' => array(
+							'key'     => '_offer_smile_descr',
+							'value' => $_REQUEST["s"],
+							'compare' => 'LIKE',
+							'type'    => 'CHAR',
+						),
 
-					'tqDescr' => array(
-						'key'     => '_offer_name',
-						'value' => $_REQUEST["s"],
-						'compare' => 'LIKE',
-						'type'    => 'CHAR',
-					)
+						'tqDescr' => array(
+							'key'     => '_offer_name',
+							'value' => $_REQUEST["s"],
+							'compare' => 'LIKE',
+							'type'    => 'CHAR',
+						)
+						
+					),
+						
+					'pricenz' => array (
+							'key'     => '_offer_price',
+							'value' => 0,
+							'compare' => '!=',
+							'type'    => 'DECIMAL(9,2)',
+						)
+
+					
+					
 				); 
 
 				$arg['post_type']  = 'agriproduct';

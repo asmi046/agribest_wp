@@ -98,7 +98,7 @@
 				<h1>Личный кабинет</h1>
 
 				<div class = "kabinet_control_panel">
-					<a @click.prevent = "relogin" href = "">Выйти из кабинета</a> 
+					<a @click.prevent = "relogin" class = "controlGrItem" href = "">Выйти из кабинета</a> 
 				</div>
 
 				<div class="personal__row product__box product__row">
@@ -110,12 +110,30 @@
 								<a @click.prevent = "getZakDetales(item.zak_info.zak_number)" href="#" class="db btn btn__details">Подробнее</a>
 								<button class="btn btn__to-card">Повторить</button>
 							</div>
-							<div v-show = "item.open_detale" class = "zakazDetale">
-								<p v-for = "(itemSub, indexSub, keySub) in item.zak_detale">
-									{{itemSub.name}}
-								</p>
-							</div>
+							
 						</div>
+
+						<div v-show = "item.open_detale" class = "zakazDetale">
+								<div class="detail_tovar_elem detail_tovar_elem_head">
+									<div class = "gridItem pwrapper">Товар</div>
+									<span class ="gridItem  tName">
+										Наименование
+									</span>
+									<span class ="gridItem tSKU">Артикул</span>
+									<span class ="gridItem  tCount">Кол.во</span>
+									<span class ="gridItem tPrice">Цена</span>
+								</div>
+
+								<div v-for = "(itemSub, indexSub, keySub) in item.zak_detale" class = "detail_tovar_elem">
+									<div class = "gridItem pwrapper"><img :src = "itemSub.picture" /></div>
+									<span class ="gridItem tName">
+										<a :href = "itemSub.lnk">{{itemSub.name}}</a>
+									</span>
+									<span class ="gridItem tSKU">{{itemSub.sku}}</span>
+									<span class ="gridItem tCount">{{itemSub.count}}</span>
+									<span class ="gridItem tPrice">{{itemSub.price}}</span>
+								</div>
+							</div>
 					</div>
 					        
 				</div>
