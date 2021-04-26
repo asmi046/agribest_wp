@@ -187,7 +187,7 @@
             $catArray[] = $term->term_id;
             
 
-            wp_set_object_terms( $post_id, $catArray, "agricat" );   
+            wp_set_object_terms( $post_id, $catArray, "agricat", true  );   
            
     
             echo "Удаление старых вложений: \n\r";
