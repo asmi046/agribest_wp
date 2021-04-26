@@ -471,7 +471,7 @@ add_action( 'wp_ajax_nopriv_user_register', 'user_register' );
 			$mail_message = 
 			"<h1>Подтверждение регистрации в личном кабинете Agribest.ru</h1>".
 			"<p>Уважаемый клиент, для подтверждения учетной записи перейдите по ссылке:<p>".
-			"<a href = '".get_the_permalink(2539)."?id=".$insert_rez."&k=".$email_key."'>Активировать учетную запись.</a>";
+			"<a href = '".get_the_permalink(2539)."?id=".$wpdb->insert_id."&k=".$email_key."'>Активировать учетную запись.</a>";
 	  
 			if (wp_mail($_REQUEST["email"], "Подтверждение регистрации", $mail_message, $headers))
 			{
