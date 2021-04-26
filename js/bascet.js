@@ -6,7 +6,11 @@ Vue.component('bascet', {
         return{
             bascet: [],
             bascetCount:0,
-            bascetSumm:0        
+            bascetSumm:0,
+            company:"",      
+            inn:"",      
+            email:"",
+            showRegPanel: false          
         }
     },
 
@@ -18,6 +22,7 @@ Vue.component('bascet', {
         this.bascetSumm = localStorage.getItem("cartsumm");    
 
         console.log(this.bascet);
+        this.loadClientInfo();
     },
 
     watch: {
@@ -28,6 +33,16 @@ Vue.component('bascet', {
 
     methods: {
         
+        loadClientInfo() {
+            this.company = localStorage.getItem("company_name");
+            this.inn = localStorage.getItem("inn");
+            this.email = localStorage.getItem("mail");
+
+            if (this.email != undefined) 
+                this.showRegPanel = true;
+            else this.showRegPanel = false;
+        },
+
         clearBascet() {
             this.bascetSumm = 0;
             this.bascetCount = 0;

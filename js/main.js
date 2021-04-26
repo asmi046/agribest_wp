@@ -279,21 +279,21 @@ function isEmail(email) {
         }
     }
 
-    watchView();
+    //watchView();
 
     $btnRow.on('click', function () {
 
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
         makeARow();
-        document.cookie = "vtype=grid";
+        document.cookie = "vtype=grid; path=/;";
         console.log("vtype=grid");
     });
     $btnGrid.on('click', function () {
         jQuery(".view__btn").removeClass("view__btn_select");
         jQuery(this).addClass("view__btn_select");
         makeAGrid();
-        document.cookie = "vtype=plan";
+        document.cookie = "vtype=plan; path=/;";
         console.log("vtype=plan");
     });
     // конец   управление видом каталога 
@@ -322,7 +322,7 @@ function isEmail(email) {
 
     headerTransformMobile()
     jQuery(window).resize(function () {
-        watchView();
+       // watchView();
         headerTransformMobile();
         if ($(window).outerWidth() >= 500) {
             console.log('Вали инлафные стили!')

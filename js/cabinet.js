@@ -207,6 +207,7 @@ Vue.component('kabinet', {
     data: function(){
         return{
             UsserZakaz:[],
+            name:"",      
             company:"",      
             inn:"",      
             email:""      
@@ -223,12 +224,14 @@ Vue.component('kabinet', {
             this.getZakInfo();
         }
 
-        this.loadClientInfo(); 
+        this.loadClientInfo();
+         
     },
     
     methods: { 
 
         loadClientInfo() {
+            this.name = localStorage.getItem("name");
             this.company = localStorage.getItem("company_name");
             this.inn = localStorage.getItem("inn");
             this.email = localStorage.getItem("mail");
@@ -236,6 +239,27 @@ Vue.component('kabinet', {
 
         relogin() {
             eventBus.$emit("kabinet-relogin");
+        },
+
+        repeatZak (zakdetail, zaksumm) {
+            var params = new URLSearchParams();
+            params.append('action', 'send_cart');
+            params.append('nonce', allAjax.nonce);
+            params.append('bascet', JSON.stringify(zakdetail));
+            params.append('bascetcount', zakdetail.length);
+            params.append('bascetsumm', zaksumm);
+            params.append('name', this.name);
+            params.append('mail', this.email);
+            params.append('comment', "Повторенный заказ. <br/><strong>Компания: </strong>"+this.company+" <br/><strong>ИНН: </strong>"+this.inn);
+
+            axios.post(allAjax.ajaxurl, params)
+              .then(function (response) {
+                window.location.href = thencs_page;
+              })
+              .catch(function (error) {
+                console.log(error);
+                alert(error);
+              }); 
         },
 
         getZakDetales(zknumber) {

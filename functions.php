@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.15");
+define("ALL_VERSION", "1.0.21");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -387,7 +387,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			$mail_content .= "<strong>e-mail:</strong> ".$_REQUEST["mail"]."<br/>";
 			$mail_content .= "<strong>Адрес:</strong> ".$_REQUEST["adres"]."<br/>";
 			$mail_content .= "<strong>Комментарий:</strong> ".$_REQUEST["comment"]."<br/>";
-			$mail_content .= "<strong>FTP:</strong> ".($ftprez)?"Загружен":"Не загружен"."<br/>";
+			// $mail_content .= "<strong>FTP:</strong> ".($ftprez)?"Загружен":"Не загружен"."<br/>";
 
 			$mail_them = "Заказ на сайте AgriBest";
 

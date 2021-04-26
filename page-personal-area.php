@@ -121,7 +121,7 @@
 							<span class="db product__price">{{item.zak_info.zak_summ}} руб.</span>
 							<div class="product__bottom">
 								<a @click.prevent = "getZakDetales(item.zak_info.zak_number)" href="#" class="db btn btn__details">Подробнее</a>
-								<button class="btn btn__to-card">Повторить</button>
+								
 							</div>
 							
 						</div>
@@ -146,6 +146,8 @@
 									<span class ="gridItem tCount">{{itemSub.count}}</span>
 									<span class ="gridItem tPrice">{{itemSub.price}}</span>
 								</div>
+
+								<button @click.prevent = "repeatZak(item.zak_detale, item.zak_info.zak_summ)" class="btn btn__zak_repeat ">Повторить</button>
 							</div>
 					</div>
 					        

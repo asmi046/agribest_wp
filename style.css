@@ -1944,6 +1944,7 @@ textarea {
   padding: 0 10px;
   width: 100%;
   min-width: 300px;
+  min-width: 300px;
 }
 
 .mobile {
@@ -2614,6 +2615,7 @@ textarea {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr 1fr 1fr 1fr;
+  margin-bottom: 10px;
 }
 
 .detail_tovar_elem .gridItem{
@@ -3016,15 +3018,14 @@ textarea {
 .view {
   position: relative;
   top: 10px;
-  /* max-width: 83px; */
-  max-width: 320px;
+  max-width: 610px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 .view .view__caption {
-  margin-right: auto;
+  margin-right: 10px;
 }
 .view .view__btn {
   width: 19px;
@@ -3058,7 +3059,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 220px;
+  max-width: 556px;
   width: 100%;
   margin-right: 15px;
 }
@@ -3491,9 +3492,14 @@ input:-webkit-autofill {
   opacity: 1;
 }
 
+.controllWrapperMsg,
 .not {
   color: #ee5f3b;
   font-weight: 600;
+}
+
+.controllWrapperMsg {
+  justify-content: flex-start;
 }
 
 .yes {
@@ -3509,7 +3515,16 @@ input:-webkit-autofill {
   border-radius: 5px;
 }
 
-.controlGrItem {
+.controlGrItem::before {
+  content: "";
+  width:15px;
+  height:15px;
+  background-position: center;
+  background-size: cover;
+  background-image: url(img/log-out.svg);
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
 }
 
 
@@ -3526,7 +3541,28 @@ input:-webkit-autofill {
 }
 
 .controllWrapper {
-  text-align: right;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#allChec {
+  display: none;
+}
+
+#allChec:hover,
+#allChec:checked+label {
+  color: #1dc17b;
+  font-weight: 600;
+}
+
+.checkLabel {
+  color: #a1a1a1;
+  cursor: pointer;
+}
+
+.btn__zak_repeat {
+  max-width: 200px;
+
 }
 
 @media screen and (max-width: 999px) {
@@ -3541,6 +3577,15 @@ input:-webkit-autofill {
 
   .card-product {
     padding-bottom: 60px;
+  }
+
+  .products-catalog .inner {
+    flex-direction: column;
+  }
+
+  .view {
+    margin-bottom: 20px;
+    width: 100%;
   }
 }
 @media screen and (max-width: 920px) {
@@ -3733,14 +3778,79 @@ input:-webkit-autofill {
     padding-bottom: 20px;
   }
   .kabinet_control_panel {
-    grid-auto-flow:column;
+    grid-template-columns: 1fr;
+  }
+  .kabinet_register_info {
+    padding: 0;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+
+  .detail_tovar_elem {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1dc17b;
+    padding-bottom: 20px;
+  }
+
+  .detail_tovar_elem .gridItem  {
+    text-align: left;
+  }
+
+  .detail_tovar_elem .tName {
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+
+  .detail_tovar_elem_head {
+    display: none;
+  }
+
+  .detail_tovar_elem .pwrapper img {
+    object-position: left;;
+  }
+
+  .detail_tovar_elem .tSKU::before {
+    content: "Артикул:";
+    font-weight: 600;
+  }
+
+  .detail_tovar_elem .tCount::before {
+    content: "Кол-во:";
+    font-weight: 600;
+  }
+
+  .detail_tovar_elem .tPrice::before {
+    content: "Цена:";
+    font-weight: 600;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="email"],
+  textarea { 
+
+    width: 94%;
+    padding: 0 3%;
   }
 }
 @media screen and (max-width: 700px) {
   .product__grid .product__wr {
     width: 50%;
   }
+
+  .view__select-block {
+    flex-direction: column;
+  }
+  .view__select-block *{ 
+    margin-right: auto;
+  }
+  .view__select-block select{ 
+    margin-bottom: 10px;
+  }
 }
+
 @media screen and (max-width: 650px) {
   .banner .inner {
     display: block;
