@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.21");
+define("ALL_VERSION", "1.0.25");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -368,6 +368,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			 $zaktpl = str_replace("{zaksumm}", $_REQUEST["bascetsumm"], $zaktpl);
 			 $zaktpl = str_replace("{zaktime}", date("H:i:s"), $zaktpl);
 			 $zaktpl = str_replace("{name}", $clname, $zaktpl);
+			 $zaktpl = str_replace("{inn}", $_REQUEST["inn"], $zaktpl);
 			 $zaktpl = str_replace("{sname}", $clnames, $zaktpl);
 			 $zaktpl = str_replace("{adr}", $_REQUEST["adres"], $zaktpl);
 			 $zaktpl = str_replace("{clientname}", $clname." ".$clnames, $zaktpl);
