@@ -54,7 +54,7 @@
                   $posts = new WP_Query($args);
                 
                 echo  "KSU: ".$sku."\n\r";
-                echo  "Колличество: ".$count."\n\r";
+                echo  "Количество: ".$count."\n\r";
                 echo  "Цена: ".$price."\n\r";
                 
                 // print_r($posts->posts[0]->ID);

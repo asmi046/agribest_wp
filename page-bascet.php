@@ -52,7 +52,7 @@ get_header(); ?>
                         <tr>   
                             <th class = "prev"></th>
                             <th class = "name">Название</th>
-                            <th class = "count">Колличество</th>
+                            <th class = "count">Количество</th>
                             <th class = "price">Цена</th>
                         </tr>
                     </thead>

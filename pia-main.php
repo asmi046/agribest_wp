@@ -50,7 +50,7 @@ function magaz_managment() {
 			else
 				$errors .= "<span class = 'rezEl rezErr'>Позиция НЕ добавленна!</span>";
 		} else {
-			$errors .= "<span class = 'rezEl rezErr'>Поля 'Артикул', 'Колличество', 'Цена' должны быть заполнены.</span>";
+			$errors .= "<span class = 'rezEl rezErr'>Поля 'Артикул', 'Количество', 'Цена' должны быть заполнены.</span>";
 		}
 	}
 	// добавление файла
@@ -162,7 +162,7 @@ function magaz_managment() {
 						<th>Артикул 1</th>
 						<th>Артикул 2</th>
 						<th>Замена</th>
-						<th>Колличество</th>
+						<th>Количество</th>
 						<th>Цена</th>
 						<th>Действие</th>
 					</tr>
@@ -215,7 +215,7 @@ function magaz_managment() {
 			<input type = "text" name = "code01" value = "" placeholder = "Артикул 1"><br/>
 			<input type = "text" name = "code02" value = "" placeholder = "Артикул 2"><br/>
 			<input type = "text" name = "code2" value = "" placeholder = "Замена"><br/>
-			<input type = "text" name = "count" value = "" placeholder = "Колличество"><br/>
+			<input type = "text" name = "count" value = "" placeholder = "Количество"><br/>
 			<input type = "text" name = "price" value = "" placeholder = "Цена"><br/><br/>
 			<input type = "submit" name = "addElem" value = "Добавить"><br/>
 		</form>

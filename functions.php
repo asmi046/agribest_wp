@@ -322,7 +322,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 				$mail_content .= "<tr>";
 					$mail_content .= "<th></th>";
 					$mail_content .= "<th>ТОВАР</th>";
-					$mail_content .= "<th>КОЛЛИЧЕСТВО</th>";
+					$mail_content .= "<th>КОЛИЧЕСТВО</th>";
 					$mail_content .= "<th>СУММА</th>";
 				$mail_content .= "</tr>";
 
