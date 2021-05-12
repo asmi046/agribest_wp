@@ -63,8 +63,9 @@ get_header(); ?>
                                 <div class = "b_tov_name">{{item.name}}</div>
                                 <div class = "b_tov_sku">{{item.sku}} {{item.modtext}}</div>
                             </td>
-                            <td>
+                            <td class = "counttd">
                                 <input type = "number"  @change = "recalcBascet" v-model="item.count" min = "0" />
+                                <a href="#" @click.prevent = "item.count = 0; recalcBascet()" class="dellproduct"></a>
                             </td>
                             <td class = "price">
                                 <span class = "subtotalprice">{{item.subtotal}}</span>р

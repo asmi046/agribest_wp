@@ -1,9 +1,9 @@
 <?
 
     //php agribest.ru/public_html/wp-content/themes/agribest/1s/inxml.php
-    ini_set('error_reporting', E_ALL);
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
+    // ini_set('error_reporting', E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
 
     ini_set('max_execution_time', 900);
 
@@ -91,7 +91,7 @@
             $sku = (string)$elem->{'Артикул'};
             $sku1c = (string)$elem->{'Ид'};
             
-            // if (($sku !== "10122") && ($sku !== "10121") && ($sku !== "10125")) 
+            // if ($sku !== "10704") 
             //      continue;
             
             $name = $elem->{'Наименование'};
@@ -150,7 +150,7 @@
                     'post_status'    => 'publish',
                     'post_title' => (string)$name,
                     'post_excerpt'  => (string)$name,
-                    'post_content'  => (string)$name,
+                    'post_content'  => (string)$name." ".(string)$sku,
                     'meta_input'     => $to_post_meta,
                     
                 ) ) );
@@ -164,7 +164,7 @@
                     'post_status'    => 'publish',
                     'post_title' => (string)$name,
                     'post_excerpt'  => (string)$name,
-                    'post_content'  => (string)$name,
+                    'post_content'  => (string)$name." ".(string)$sku,
                     'meta_input'     => $to_post_meta,
                     
                 ) ) );

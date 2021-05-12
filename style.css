@@ -1089,6 +1089,22 @@ input[type="checkbox"],
   display: inline-block;
 }
 
+.counttd {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dellproduct {
+  margin: auto 0 auto 10px;
+  width: 13px;
+  height: 13px;
+  background-image: url(img/cancel.svg);
+}
+
+.dellproduct:before {
+  content: "";
+}
+
 /* Оформление корзины */
 
 /* Styling for Small-Screen Devices */
