@@ -17,7 +17,16 @@
         ?> 
         </span>
         </div>
-        <span class="db product__price"><? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
+        <div class="price-wrap">
+            <span class="db product__price"><? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
+            <?
+                $priceold = carbon_get_post_meta(get_the_ID(),'offer_old_price');
+                if (empty($priceold)) 
+                    echo "";
+                else
+                    echo "<span class='db product__old-price'>" . $mprice =  carbon_get_post_meta(get_the_ID(),'offer_old_price') . " руб.</span>";
+            ?> 
+        </div>
         <div class="product__bottom">
             <a href="<?echo get_the_permalink(get_the_ID());?>" class="db btn btn__details">Подробнее</a>
             <button class="btn btn__to-card" onclick = "add_tocart(this, 0); return false;"
@@ -28,7 +37,7 @@
                 data-lnk = "<? echo  get_the_permalink(get_the_ID());?>"
                 data-name = "<? echo  get_the_title();?>"
                 data-count = "1"
-                data-picture = "<?echo $imgTm;?>"
+                data-picture = "<?echo $imgTm;?>" 
             >В корзину</button> 
         </div>
     </div>

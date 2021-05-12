@@ -3318,6 +3318,7 @@ padding: .6em .8em .5em 1.4em;
   margin-top: 20px;
   background-color: #DC143C;
 }
+
 .messageFormBlkOk {
   background-color: #1dc17b;
 }
@@ -3580,6 +3581,37 @@ input:-webkit-autofill {
   max-width: 200px;
 
 }
+
+.price-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+}
+.price-wrap .product__price {
+  margin: 0;
+  padding: 0;
+}
+.product__title-bl {
+  flex: 1 1 auto;
+}
+.product__old-price {
+  font-size: 1.30rem;
+  line-height: 1.5;
+  color: #a1a1a1;
+  text-decoration: line-through #1dc17b;
+}
+
+.card-product__descr .price-wrap {
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
 
 @media screen and (max-width: 999px) {
   .banner .inner {
