@@ -76,9 +76,18 @@
 				</div>
 
 
-                        <div class="card-product__descr card-product__column">
-                            <span class="db card-product__price">Цена: <? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
-                                <?php
+              <div class="card-product__descr card-product__column">
+								<div class="price-wrap">
+                  <span class="db card-product__price">Цена: <? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
+									<?
+                		$priceold = carbon_get_post_meta(get_the_ID(),'offer_old_price');
+                			if (empty($priceold)) 
+                    		echo "";
+                			else
+                    		echo "<span class='db product__old-price'>Старая цена: " . $mprice =  carbon_get_post_meta(get_the_ID(),'offer_old_price') . " руб.</span>";
+            			?> 
+								</div> 
+								<?php
 									$jachejka = carbon_get_the_post_meta('offer_nal_count');
 
 									if( strlen($jachejka) == 0 ) {
