@@ -18,13 +18,25 @@
         </span>
         </div>
         <div class="price-wrap">
-            <span class="db product__price"><? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
             <?
+                $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price");
                 $priceold = carbon_get_post_meta(get_the_ID(),'offer_old_price');
-                if (empty($priceold)) 
-                    echo "";
-                else
-                    echo "<span class='db product__old-price'>" . $mprice =  carbon_get_post_meta(get_the_ID(),'offer_old_price') . " руб.</span>";
+
+                if (!empty($priceold)) 
+                {
+                    $tmp = $mprice;
+                    $mprice = $priceold;
+                    $priceold = $tmp;
+                }
+            ?>
+            <span class="db product__price"><? echo $mprice; ?> руб.</span>
+            <?
+                
+                if (!empty($priceold)) 
+                {
+                    echo "<span class='db product__old-price'>" . $priceold . " руб.</span>";
+                    
+                }
             ?> 
         </div>
         <div class="product__bottom">
@@ -33,7 +45,7 @@
                 data-price = "<? echo $mprice?>"
                 data-sku1c = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku_1c")?>"
                 data-sku = "<? echo carbon_get_post_meta(get_the_ID(),"offer_sku")?>"
-                data-oldprice = "<? echo carbon_get_post_meta(get_the_ID(),"offer_old_price")?>"
+                data-oldprice = "<? echo $priceold?>"
                 data-lnk = "<? echo  get_the_permalink(get_the_ID());?>"
                 data-name = "<? echo  get_the_title();?>"
                 data-count = "1"

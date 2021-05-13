@@ -98,7 +98,7 @@ Container::make('post_meta', 'agri_product_cr', 'Характеристики т
       Field::make('text', 'offer_sticker', 'Стикер')->set_width(50),
       
 	  Field::make('text', 'offer_price', 'Цена (Базовая)')->set_width(50),
-      Field::make('text', 'offer_old_price', 'Старая цена (Базовая)')->set_width(50),
+      Field::make('text', 'offer_old_price', 'Цена со скидкой')->set_width(50),
 
       Field::make( 'complex', 'offer_cherecter', "Характеристики товара" )
       ->add_fields( array(

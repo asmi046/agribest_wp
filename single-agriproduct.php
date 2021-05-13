@@ -13,6 +13,12 @@
         <?
             $pagePrice = (int)carbon_get_the_post_meta('offer_price' );
             $pagePriceOld = (int)carbon_get_the_post_meta('offer_old_price' );
+			if (!empty($pagePriceOld)) 
+            {
+				$tmp = $pagePriceOld;
+				$pagePriceOld = $pagePrice;
+				$pagePrice = $tmp;
+			}
         ?>
 
 		<section class="card-product__section">
@@ -80,11 +86,11 @@
 								<div class="price-wrap">
                   <span class="db card-product__price">Цена: <? echo $mprice =  carbon_get_post_meta(get_the_ID(),"offer_price"); ?> руб.</span>
 									<?
-                		$priceold = carbon_get_post_meta(get_the_ID(),'offer_old_price');
-                			if (empty($priceold)) 
-                    		echo "";
-                			else
-                    		echo "<span class='db product__old-price'>Старая цена: " . $mprice =  carbon_get_post_meta(get_the_ID(),'offer_old_price') . " руб.</span>";
+                		
+                			if (!empty($pagePriceOld)) 
+                    		{
+								echo "<span class='db product__old-price'>Старая цена: " . $pagePriceOld . " руб.</span>";
+							}
             			?> 
 								</div> 
 								<?php
