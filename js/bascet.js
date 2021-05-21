@@ -149,7 +149,8 @@ Vue.component('bascetform', {
 
             this.bascet = JSON.parse(localStorage.getItem("cart"));
 
-         
+            this.bascetCount = localStorage.getItem("cartcount");
+            this.bascetSumm = localStorage.getItem("cartsumm");  
 
             var params = new URLSearchParams();
             params.append('action', 'send_cart');
