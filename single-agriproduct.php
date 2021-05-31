@@ -10,9 +10,9 @@
 			</div>
 		</div>
 
-        <?
-            $pagePrice = (int)carbon_get_the_post_meta('offer_price' );
-            $pagePriceOld = (int)carbon_get_the_post_meta('offer_old_price' );
+        <?	
+            $pagePrice = carbon_get_the_post_meta('offer_price' );
+            $pagePriceOld = carbon_get_the_post_meta('offer_old_price' );
 			if (!empty($pagePriceOld)) 
             {
 				$tmp = $pagePriceOld;
@@ -73,6 +73,7 @@
 									src = "<?php echo wp_get_attachment_image_src($item['gal_img'], 'large')[0];?>" />
 								</div>
 								<?
+								if ($pictIndex == 0) $imgTm = wp_get_attachment_image_src($item['gal_img'], 'large')[0];
 								$pictIndex++;
 							}
 						}
