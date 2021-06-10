@@ -50,7 +50,7 @@
                 data-name = "<? echo  get_the_title();?>"
                 data-count = "1"
                 data-picture = "<?echo $imgTm;?>" 
-            >В корзину</button> 
+            ><span id = "bcounter_<? echo carbon_get_post_meta(get_the_ID(),"offer_sku")?>"></span> В корзину</button> 
         </div>
     </div>
 </div>

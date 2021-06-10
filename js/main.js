@@ -10,6 +10,15 @@ function getCookie(name) {
   
 $ = jQuery;
 
+function inBascetCounting() {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    for (let i = 0; i < cart.length; i++) {
+        let element = document.getElementById('bcounter_'+cart[i].sku);
+        if (element != null)
+        element.innerHTML = "("+cart[i].count+")";
+    }
+}
+
 function number_format() {
     let elements = document.querySelectorAll('.price_formator');
     for (let elem of elements) {
@@ -34,6 +43,7 @@ if (mascedPhoneElem != undefined)
 document.addEventListener("DOMContentLoaded", () => {
     number_format();
     cart_recalc();
+    inBascetCounting();
 });
 //-------------------------------------Корзина
 
@@ -95,6 +105,8 @@ function add_tocart(elem, countElem) {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     cart_recalc();
+
+    inBascetCounting();
 
     console.log(cartElem);
 }
