@@ -368,7 +368,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			 $zaktpl = str_replace("{zaksumm}", $_REQUEST["bascetsumm"], $zaktpl);
 			 $zaktpl = str_replace("{zaktime}", date("H:i:s"), $zaktpl);
 			 $zaktpl = str_replace("{name}", $clname, $zaktpl);
-			 $zaktpl = str_replace("{inn}", $_REQUEST["inn"], $zaktpl);
+			 $zaktpl = str_replace("{inn}", ($_REQUEST["inn"] == "null")?"":$_REQUEST["inn"], $zaktpl);
 			 $zaktpl = str_replace("{sname}", $clnames, $zaktpl);
 			 $zaktpl = str_replace("{adr}", $_REQUEST["adres"], $zaktpl);
 			 $zaktpl = str_replace("{clientname}", $clname." ".$clnames, $zaktpl);

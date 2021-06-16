@@ -12,6 +12,7 @@ $ = jQuery;
 
 function inBascetCounting() {
     cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart == null) cart = [];
     for (let i = 0; i < cart.length; i++) {
         let element = document.getElementById('bcounter_'+cart[i].sku);
         if (element != null)
