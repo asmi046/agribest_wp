@@ -20,7 +20,7 @@
 											<p>Товары:</p>
 											<select onchange="this.form.submit()" name="naltype" class="view__select">
 												<option value="alt" <? if ($_REQUEST["naltype"] === "alt") echo "selected"; ?>>все</option>
-												<option value="zak" <? if ($_REQUEST["naltype"] === "zak") echo "selected"; ?> >под заказ</option>
+												<option value="zak" <? if ($_REQUEST["naltype"] === "zak") echo "selected"; ?> >товар временно отсутствует</option>
 												<option value="nal" <? if ($_REQUEST["naltype"] === "nal") echo "selected"; ?> >в наличии</option>
 											</select>
                                             <p>Сортировка по:</p>
