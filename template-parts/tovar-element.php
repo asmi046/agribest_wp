@@ -11,9 +11,9 @@
         <?
             $jachejka = carbon_get_post_meta(get_the_ID(),'offer_nal_count');
             if (empty($jachejka)) 
-                echo "&nbsp;&nbsp;&nbsp;<span class = 'not'>Под заказ</span>";
+                echo "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class = 'not'>Товар временно отсутствует</span>";
             else
-            echo "&nbsp;&nbsp;&nbsp;<span class = 'yes'>В наличии</span>";
+            echo "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class = 'yes'>В наличии</span>";
         ?> 
         </span>
         </div>
