@@ -17,7 +17,7 @@ Vue.component('autorisation', {
 
     created: function() {
         eventBus.$on("kabinet-relogin", ()=>{
-            this.rellogin(); 
+            this.rellogin();
         });
     },
 
