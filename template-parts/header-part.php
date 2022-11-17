@@ -30,9 +30,14 @@
             </a>
             <form role="search" method="get" id="searchform" class="search" action="<?php echo home_url( '/' ) ?>">
                 <input type="search" class="search__field inputbox" placeholder="Поиск" value="<?php echo get_search_query() ?>" name="s" id="s">
+                <div class = "sub-load"></div>
+					<div class = "sub-sclose"></div>
                 <button type="submit" tabindex="2" id="searchsubmit" value="найти">
                     <img src = "<?php echo get_template_directory_uri();?>/img/search.svg"/>
                 </button>
+
+                <div class="preSearchWrap"></div>
+
             </form>
             <div class="contacts-box ">
                 <span class="db address">

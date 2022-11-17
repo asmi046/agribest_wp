@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.251");
+define("ALL_VERSION", "1.0.253");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -710,6 +710,43 @@ add_action( 'wp_ajax_nopriv_get_zak_detail', 'get_zak_detail' );
       wp_die( 'НО-НО-НО!', '', 403 );
     }
   }
+
+// Инфа для подсказки
+add_action('wp_ajax_get_clue', 'get_clue');
+add_action('wp_ajax_nopriv_get_clue', 'get_clue');
+
+function get_clue()
+{
+	if (empty($_REQUEST['nonce'])) {
+		wp_die('0');
+	}
+
+	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
+		$args = array(
+			'posts_per_page' => 300,
+			'post_type' => 'agriproduct',
+			's' => $_REQUEST['str']
+		);
+		$query = new WP_Query($args);
+
+		$rez = [];
+		foreach ($query->posts as $p)
+		{
+			$rez[] = array(
+				"lnk" => get_the_permalink($p->ID), 
+				"name" => $p->post_title, 
+				"price" => get_post_meta($p->ID, "_offer_price", true),
+				"img" => get_the_post_thumbnail_url($p->ID,"thumbnail")
+
+			);
+		}
+
+		wp_die(json_encode($rez));
+	} else {
+		wp_die('НО-НО-НО!', '', 403);
+	}
+}
+
 
 		
 ?>

@@ -25,9 +25,10 @@
 											</select>
                                             <p>Сортировка по:</p>
                                             <select onchange="this.form.submit()" name="orderby" class="view__select">
-												<option value="alf" <? if ($_REQUEST["orderby"] === "alf") echo "selected"; ?>>алфавиту</option>
-												<option value="priceupp" <? if ($_REQUEST["orderby"] === "priceupp") echo "selected"; ?> >возрастанию</option>
-												<option value="pricedown" <? if ($_REQUEST["orderby"] === "pricedown") echo "selected"; ?> >убыванию</option>
+                                                <option value="nalsort" <? if ($_REQUEST["orderby"] === "nalsort") echo "selected"; ?> >наличию</option>
+                                                <option value="alf" <? if ($_REQUEST["orderby"] === "alf") echo "selected"; ?>>алфавиту</option>
+												<option value="priceupp" <? if ($_REQUEST["orderby"] === "priceupp") echo "selected"; ?> >возрастанию цены</option>
+												<option value="pricedown" <? if ($_REQUEST["orderby"] === "pricedown") echo "selected"; ?> >убыванию цены</option>
 											</select>
 
                                             <input onchange="this.form.submit()" <? if (isset($_REQUEST["showall"])) echo "checked"; ?> name = "showall" type="checkbox" id="allChec"> <label class = "checkLabel" for = "allChec">Показать все </label>
@@ -97,8 +98,8 @@
 
                 $arg['meta_query'] = $metaquery;
 
-                $arg['orderby'] = 'title';
-					$arg['order'] = "ASC";
+                // $arg['orderby'] = 'title';
+				// $arg['order'] = "ASC";
 
 				if (isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "priceupp")) {
 					$arg['orderby'] = 'pricenz';
@@ -113,6 +114,12 @@
 				if (isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "alf")) {
 					$arg['orderby'] = 'title';
 					$arg['order'] = "ASC";
+				}
+
+                if ((isset($_REQUEST["orderby"])&&($_REQUEST["orderby"] === "nalsort"))||empty($arg['orderby'])) {
+					$arg['orderby'] = 'meta_value';
+					$arg['meta_key'] = '_offer_nal_count';
+					$arg['order'] = "DESC";
 				}
 
                 
