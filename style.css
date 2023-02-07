@@ -3714,6 +3714,10 @@ input:-webkit-autofill {
   margin-bottom: 5px;
 }
 
+.sb_banner img{
+  width:100%;
+  height: auto;
+}
 
 @media screen and (max-width: 999px) {
   .banner .inner {
