@@ -5,7 +5,7 @@
     // ini_set('display_errors', 1);
     // ini_set('display_startup_errors', 1);
 
-    ini_set('max_execution_time', 900);
+    ini_set('max_execution_time', 9000);
 
     ini_set('include_path', "/home/s/stanis9y/agribest.ru/public_html/");
     
