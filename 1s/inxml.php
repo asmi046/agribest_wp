@@ -6,6 +6,7 @@
     // ini_set('display_startup_errors', 1);
 
     ini_set('max_execution_time', 9000);
+    ini_set('memory_limit', '1024M');
 
     ini_set('include_path', "/home/s/stanis9y/agribest.ru/public_html/");
     
@@ -19,18 +20,20 @@
      require_once ABSPATH . 'wp-admin/includes/file.php';
      require_once ABSPATH . 'wp-admin/includes/image.php';
 
-    //  if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
-        // $xml = simplexml_load_file(__DIR__.'/webdata/import0_1.xml');
+    
       
-        $crl = curl_init($fileAdr."/webdata/import0_1.xml");
-        curl_setopt($crl, CURLOPT_NOBODY, true);
-        curl_exec($crl);
+        // $crl = curl_init($fileAdr."/webdata/import0_1.xml");
+        // curl_setopt($crl, CURLOPT_NOBODY, true);
+        // curl_exec($crl);
         
-        $ret = curl_getinfo($crl, CURLINFO_HTTP_CODE);
-        curl_close($crl);
+        // $ret = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        // curl_close($crl);
+
+    if (file_exists(__DIR__.'/webdata/import0_1.xml')) {
+        $xml = simplexml_load_file(__DIR__.'/webdata/import0_1.xml');
         
-    if ($ret == 200) {    
-        $xml = simplexml_load_file($fileAdr.'/webdata/import0_1.xml');
+    // if ($ret == 200) {    
+    //     $xml = simplexml_load_file($fileAdr.'/webdata/import0_1.xml');
         
         $curentTerm = array();
 
@@ -106,8 +109,8 @@
             }
 
             $group =  $curentTerm[(string)$elem->{'Группы'}->{'Ид'}];
-            // $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
-            $picture = $fileAdr."/webdata/".$elem->{'Картинка'};
+            $picture = get_bloginfo("template_url")."/1s/webdata/".$elem->{'Картинка'};
+            // $picture = $fileAdr."/webdata/".$elem->{'Картинка'};
             echo "#: ". $offerIndex ."\n\r";
             echo "Артикул: ". $sku ."\n\r";
             echo "Артикул 1C: ". $sku1c ."\n\r";
@@ -204,8 +207,8 @@
             foreach ($elem->{'Картинка'} as $galery)
             {
             
-                // echo $img1 = get_bloginfo("template_url")."/1s/webdata/".$galery;
-                echo $img1 = $fileAdr."/webdata/".$galery;
+                echo $img1 = get_bloginfo("template_url")."/1s/webdata/".$galery;
+                // echo $img1 = $fileAdr."/webdata/".$galery;
                 
                 echo "\n\r";
                 $ttl = (string)$sku." ".(string)$name;
