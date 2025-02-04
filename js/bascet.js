@@ -93,6 +93,7 @@ Vue.component('bascetform', {
             bascetSumm:0,
             shoved:true,
             formNoValid:false,
+            doSend:false,
             name: "",        
             mail: "",        
             phone: "",        
@@ -131,7 +132,10 @@ Vue.component('bascetform', {
 
     methods: {
         sendBascet() {
+            if (this.doSend) return
+            this.doSend = true;
             this.formNoValid = false;
+            
             if (this.name == "") {
                 this.formNoValid = true;
                 return;
@@ -165,16 +169,16 @@ Vue.component('bascetform', {
             params.append('adres', this.adres);
             params.append('comment', this.comment);
 
-
             axios.post(allAjax.ajaxurl, params)
               .then(function (response) {
                 localStorage.removeItem("cart");
                 localStorage.removeItem("cartcount");
                 localStorage.removeItem("cartsumm");
-                window.location.href = thencs_page;
+                document.location.href = thencs_page;
               })
               .catch(function (error) {
                 console.log(error);
+                this.doSend = false;
                 alert(error);
               });
         }

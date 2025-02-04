@@ -136,7 +136,7 @@ get_header(); ?>
                 </div>
 
                 <div class = "form_submit_line btn-wrapper">
-                    <button @click.self  = "sendBascet" type = "button" class = "btn">Оформить заказ</button>
+                    <button @click.prevent  = "sendBascet"  :disabled="doSend" type = "button" class = "btn">Оформить заказ</button>
                     <div v-show = "formNoValid" class = "no_feild">
                         Заполните все обязательные поля помеченные "*"
                     </div>

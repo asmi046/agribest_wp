@@ -52,7 +52,7 @@ function my_assets_admin(){
 }
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
-define("ALL_VERSION", "1.0.253");
+define("ALL_VERSION", "1.0.255");
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
@@ -381,7 +381,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			 $fileAdr = __DIR__."/1s/orders/".$zak_number.".xml";
 			 file_put_contents($fileAdr, $zaktpl);
 			
-			 $ftprez = sendToFtp($fileAdr, $zak_number);
+			//  $ftprez = sendToFtp($fileAdr, $zak_number);
 
 			$mail_content .= "<strong>Имя:</strong> ".$_REQUEST["name"]."<br/>";
 			$mail_content .= "<strong>Телефон:</strong> ".$_REQUEST["phone"]."<br/>";
